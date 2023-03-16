@@ -21,11 +21,14 @@ import {
   WalletDisconnectButton,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { useConnection as useSolanaConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import WalletContext from "contexts/walletContext";
-import useWalletDetails from "common/solana/useWalletDetailsToken";
+import useSolanaWalletDetailsToken from "common/solana/useWalletDetailsToken";
 import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
+import useEthereumWallet from "common/ethereum/useWallet";
+import useEthereumConnection from "common/ethereum/useConnection";
 
 // styled components
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
@@ -46,11 +49,13 @@ const StyledSmall = styled(Small)(({ theme }) => ({
 const WalletCredential: FC = () => {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
-  const { publicKey, sendTransaction } = useWallet();
-  const { connection } = useConnection();
+  const { publicKey } = useSolanaWallet() || useEthereumWallet.getState();
+  const { connection } =
+    useSolanaConnection() || useEthereumConnection.getState();
   const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
-  const [balance, setBalance] = useState<any>();
-  const walletDetailsToken = useWalletDetails((s) => s.walletDetailsToken);
+  const walletDetailsToken = useSolanaWalletDetailsToken(
+    (s) => s.walletDetailsToken
+  );
 
   return (
     <Fragment>
@@ -64,6 +69,7 @@ const WalletCredential: FC = () => {
           {publicKey ? (
             <>
               {walletDetailsToken.map((res) => {
+                console.log(publicKey);
                 return (
                   <>
                     <Small mx={1} color="text.errror">
@@ -80,16 +86,13 @@ const WalletCredential: FC = () => {
               })}
             </>
           ) : (
-            ""
+            <Button
+              onClick={() => setOpenChainSelectModal(true)}
+              sx={{ marginLeft: 1, marginRight: 1, fontSize: "14px" }}
+            >
+              Connect Wallet
+            </Button>
           )}
-
-          <Button
-            onClick={() => setOpenChainSelectModal(true)}
-            sx={{ marginLeft: 1, marginRight: 1, fontSize: "14px" }}
-          >
-            Connect Wallet
-          </Button>
-
           {/* <WalletMultiButton
             style={{ fontSize: "12px", background: "none", height: "2rem" }}
             startIcon={<AccountBalanceWalletOutlinedIcon />}

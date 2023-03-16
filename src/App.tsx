@@ -25,7 +25,7 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 const App: FC = () => {
   const content = useRoutes(routes());
   const { settings } = useSettings();
-  const publicKey = useEthereumWallet((s) => s.publicKey);
+  const publicKey = useEthereumWallet.getState().publicKey;
   const connection = useEthereumConnection((s) => s.connection);
   useEffect(() => {
     console.log(publicKey);

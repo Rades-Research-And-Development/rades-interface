@@ -1,6 +1,6 @@
 // import Web3 from "web3";
 
-export const ConnectWallet = async() => {
+export const ConnectWallet = async () => {
     // if((window as any).ethereum) {
     //     const web3 = new Web3((window as any).ethereum);
     //     try {
@@ -16,6 +16,7 @@ export const ConnectWallet = async() => {
     //     return web3;
     //   }
 }
+
 export const checkConnected = async () => {
     // let connected = false;
     // await (window as any).ethereum

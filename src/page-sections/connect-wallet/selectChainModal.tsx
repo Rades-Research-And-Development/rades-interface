@@ -7,13 +7,14 @@ import AccountBalanceWallet from "@mui/icons-material/AccountBalanceWallet";
 import { Badge, Box, Button, ButtonBase, Grid, styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { WalletMultiButton as SolanaWalletAdapter } from "@solana/wallet-adapter-react-ui";
+import useEthereumConnection from "common/ethereum/useConnection";
 import AppModal from "components/AppModal";
 import AppAvatar from "components/avatars/AppAvatar";
 import FlexBox from "components/flexbox/FlexBox";
 import AppTextField from "components/input-fields/AppTextField";
 import { H2, H6 } from "components/Typography";
 import { useFormik } from "formik";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import * as Yup from "yup";
 import EthereumWalletAdapter from "./ethereum/ethereumWalletAdapter";
 
@@ -55,37 +56,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
+  const connection = useEthereumConnection.getState().connection;
+  // useEffect(() => {
+  //   onClose();
+  // }, [connection]);
   return (
     <StyledAppModal open={open} handleClose={onClose}>
       <H2>{edit ? "Edit Chainlist" : "Select Chain Wallet"}</H2>
 
       <Box textAlign="center" py={3}>
-        {/* <StyledBadge
-          overlap="circular"
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          badgeContent={
-            <label htmlFor="icon-button-file">
-              <input
-                type="file"
-                accept="image/*"
-                id="icon-button-file"
-                style={{ display: "none" }}
-              />
-
-              <IconButton aria-label="upload picture" component="span">
-                <CameraAlt sx={{ fontSize: 16, color: "background.paper" }} />
-              </IconButton>
-            </label>
-          }
-        >
-          <AppAvatar
-            sx={{ width: 100, height: 100 }}
-            alt="Travis Howard"
-            src={
-              data && edit ? data.avatar : "/static/user/profile-picture.png"
-            }
-          />
-        </StyledBadge> */}
         <Grid container spacing={1}>
           <Grid item lg={6} xs={12}>
             <StyledButtonBase disableRipple>
@@ -110,7 +89,8 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
                 src={`/static/crypto/SOL.png`}
                 sx={{ marginLeft: 2, width: 22, height: 22 }}
               />
-              <EthereumWalletAdapter onClick={onClose} />
+
+              <EthereumWalletAdapter onCloseProp={() => onClose()} />
             </StyledButtonBase>
           </Grid>
         </Grid>

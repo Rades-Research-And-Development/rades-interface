@@ -97,6 +97,7 @@ const WalletCredential: FC = () => {
             style={{ fontSize: "12px", background: "none", height: "2rem" }}
             startIcon={<AccountBalanceWalletOutlinedIcon />}
           /> */}
+
           <SelectChainModal
             open={openChainSelectModal}
             onClose={() => setOpenChainSelectModal(false)}

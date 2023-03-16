@@ -11,7 +11,7 @@ export const navigations = [
   //   icon: duotone.AdminEcommerce,
   // },
   {
-    name: "Marketplaces",
+    name: "Marketplaces", 
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
   },

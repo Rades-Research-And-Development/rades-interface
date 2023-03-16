@@ -8,6 +8,7 @@ import { walletGetInfor } from "utils/contract/solana/useWallet";
 export function useWalletDetailsTokenListener() {
   const { publicKey } = useWallet();
   const { connection } = useConnection();
+  
   useEffect(() => {
     if (publicKey) {
       walletGetInfor(connection, publicKey).then((res) => {

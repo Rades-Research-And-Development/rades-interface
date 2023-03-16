@@ -1,4 +1,5 @@
 import create from "zustand";
+
 export type walletDetailsNFTs = {
   walletDetailsNFTs: {}[];
 };

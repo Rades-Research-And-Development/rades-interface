@@ -7,6 +7,7 @@ import {
   Theme,
   styled,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 import { H6, Small, Tiny } from "components/Typography";
 import AppAvatar from "components/avatars/AppAvatar";
@@ -24,6 +25,7 @@ import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import WalletContext from "contexts/walletContext";
 import useWalletDetails from "common/useWalletDetailsToken";
+import SelectChainModal from "page-sections/connect-wallet/import-wallet/selectChainModal";
 
 // styled components
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
@@ -46,40 +48,10 @@ const ProfilePopover: FC = () => {
   const navigate = useNavigate();
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
-  const [open, setOpen] = useState(false);
+  const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
   const [balance, setBalance] = useState<any>();
-
   const walletDetailsToken = useWalletDetails((s) => s.walletDetailsToken);
-  // const { walletInfo, setWalletInfo } = useContext(WalletContext);
 
-  // const [walletInfo, setWalletInfo] = useState<
-  //   {
-  //     address: string;
-  //     value: Number;
-  //     property: {
-  //       type: "token" | "nft";
-  //       avatar: string;
-  //       metadata: {};
-  //     };
-  //   }[]
-  // >([]);
-  // useEffect(() => {
-  //   if (publicKey) {
-  //   }
-  // }, []);
-  // console.log("walletInfowalletInfo", walletInfo);
-
-  // useEffect(() => {
-  //   if (publicKey) {
-  //     console.log(walletInfo);
-  //     // connection.getBalance(publicKey).then((res) => {
-  //     //   setBalance(((res / LAMPORTS_PER_SOL) as number).toFixed(2));
-  //     // });
-  //     // walletGetInfor(connection, publicKey).then((res) => {
-  //     //   setWalletInfo(res);
-  //     // });
-  //   }
-  // }, [publicKey, walletInfo]);
   return (
     <Fragment>
       {/* <Link to="/dashboards/connect-wallet" style={{ color: 'solid' }}> */}
@@ -111,10 +83,16 @@ const ProfilePopover: FC = () => {
           ) : (
             ""
           )}
-          <WalletMultiButton
+          <Button onClick={() => setOpenChainSelectModal(true)}>Connect Wallet</Button>
+
+          {/* <WalletMultiButton
             style={{ fontSize: "12px", background: "none", height: "2rem" }}
             startIcon={<AccountBalanceWalletOutlinedIcon />}
-          />
+          /> */}
+          <SelectChainModal
+          open={openChainSelectModal}
+          onClose={() => setOpenChainSelectModal(false)}
+        />
           {/* <AppAvatar
             src={"/static/portfolio/3.png"}
             sx={{ width: 28, height: 28, marginLeft: "0.5rem" }}

@@ -17,7 +17,6 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
 
 // dashboards
 const Dashboards = Loadable(lazy(() => import("./pages/dashboards")));
-const ConnectWallet = Loadable(lazy(() => import("./pages/connect-wallet")));
 const Marketplaces = Loadable(
   lazy(() => import("./pages/marketplaces/nfts/nfts-marketplace"))
 );
@@ -98,14 +97,9 @@ const authRoutes = [
 const dashboardRoutes = [
   {
     path: "",
-    element: getCookie("jwt") ? (
-      <Navigate to="/dashboards/user-profile/4" />
-    ) : (
-      <Navigate to="/dashboards/connect-wallet" />
-    ),
+    element: <Navigate to="/dashboards/marketplaces" />,
   },
 
-  { path: "connect-wallet", element: <ConnectWallet /> },
   { path: "wallet", element: <UserProfile /> },
   { path: "marketplaces", element: <Marketplaces /> },
   {

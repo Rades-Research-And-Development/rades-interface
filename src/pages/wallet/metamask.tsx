@@ -6,7 +6,7 @@ import {
   ConnectWithoutContact,
   Masks,
 } from "@mui/icons-material";
-import { ConnectWallet } from "utils/contract/etherium/web3";
+import { ConnectWallet } from "utils/contract/etherium/useWallet";
 import WalletContext from "contexts/walletContext";
 
 function Metamask() {

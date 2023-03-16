@@ -8,13 +8,13 @@ import {
   styled,
   useMediaQuery,
   Button,
+  Grid,
 } from "@mui/material";
 import { H6, Small, Tiny } from "components/Typography";
 import AppAvatar from "components/avatars/AppAvatar";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { FC, Fragment, useContext, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PopoverLayout from "./PopoverLayout";
 // import { getCookie } from "cookies/cookies";
 import { walletGetInfor } from "utils/contract/solana/useWallet";
 import {
@@ -25,7 +25,7 @@ import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import WalletContext from "contexts/walletContext";
 import useWalletDetails from "common/useWalletDetailsToken";
-import SelectChainModal from "page-sections/connect-wallet/import-wallet/selectChainModal";
+import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
 
 // styled components
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
@@ -43,7 +43,7 @@ const StyledSmall = styled(Small)(({ theme }) => ({
   "&:hover": { backgroundColor: theme.palette.action.hover },
 }));
 
-const ProfilePopover: FC = () => {
+const WalletCredential: FC = () => {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
   const { publicKey, sendTransaction } = useWallet();
@@ -54,7 +54,6 @@ const ProfilePopover: FC = () => {
 
   return (
     <Fragment>
-      {/* <Link to="/dashboards/connect-wallet" style={{ color: 'solid' }}> */}
       <StyledButtonBase
         disableRipple
         ref={anchorRef}
@@ -83,16 +82,22 @@ const ProfilePopover: FC = () => {
           ) : (
             ""
           )}
-          <Button onClick={() => setOpenChainSelectModal(true)}>Connect Wallet</Button>
+
+          <Button
+            onClick={() => setOpenChainSelectModal(true)}
+            sx={{ marginLeft: 1, marginRight: 1, fontSize: "14px" }}
+          >
+            Connect Wallet
+          </Button>
 
           {/* <WalletMultiButton
             style={{ fontSize: "12px", background: "none", height: "2rem" }}
             startIcon={<AccountBalanceWalletOutlinedIcon />}
           /> */}
           <SelectChainModal
-          open={openChainSelectModal}
-          onClose={() => setOpenChainSelectModal(false)}
-        />
+            open={openChainSelectModal}
+            onClose={() => setOpenChainSelectModal(false)}
+          />
           {/* <AppAvatar
             src={"/static/portfolio/3.png"}
             sx={{ width: 28, height: 28, marginLeft: "0.5rem" }}
@@ -176,4 +181,4 @@ const ProfilePopover: FC = () => {
   );
 };
 
-export default ProfilePopover;
+export default WalletCredential;

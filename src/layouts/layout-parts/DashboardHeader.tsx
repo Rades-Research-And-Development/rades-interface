@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 import { FC, Fragment } from "react";
-import ProfilePopover from "./popovers/ProfilePopover";
+import ProfilePopover from "./navbar/walletCredential";
 // ------------------------------------------------
 
 type DashboardHeaderProps = {

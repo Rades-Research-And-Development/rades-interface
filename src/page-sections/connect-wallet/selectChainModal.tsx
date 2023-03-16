@@ -85,8 +85,8 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
             }
           />
         </StyledBadge> */}
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container spacing={1}>
+          <Grid item lg={6} xs={12}>
             <StyledButtonBase disableRipple>
               <AppAvatar
                 src={`/static/crypto/SOL.png`}
@@ -95,14 +95,14 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
               <WalletMultiButton
                 onClick={onClose}
                 style={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   background: "none",
                   height: "3rem",
                 }}
               />
             </StyledButtonBase>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6} xs={12}>
             {" "}
             <StyledButtonBase disableRipple>
               <AppAvatar
@@ -112,7 +112,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
               <WalletMultiButton
                 onClick={onClose}
                 style={{
-                  fontSize: "1.2rem",
+                  fontSize: "1rem",
                   background: "none",
                   height: "3rem",
                 }}

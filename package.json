@@ -65,6 +65,7 @@
     "stylis-plugin-rtl": "^2.1.0",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4",
+    "web3": "^1.8.2",
     "yup": "^0.32.11",
     "zustand": "^4.3.6"
   },

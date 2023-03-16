@@ -3,7 +3,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { JWTAuthProvider } from "contexts/JWTAuth";
 import "nprogress/nprogress.css";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import "react-image-lightbox/style.css";
 import "react-quill/dist/quill.snow.css";
 import { BrowserRouter } from "react-router-dom";
@@ -19,7 +19,7 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-
+import web3 from "web3";
 import {
   GlowWalletAdapter,
   PhantomWalletAdapter,
@@ -29,10 +29,11 @@ import {
   Coin98WalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import useEthereumConnection from "common/ethereum/useConnection";
+import useEthereumWallet from "common/ethereum/useWallet";
 const root = createRoot(document.getElementById("root") as HTMLElement);
 function RootApp() {
   const network = WalletAdapterNetwork.Devnet;
-
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(
     () => [
@@ -45,6 +46,7 @@ function RootApp() {
     ],
     [network]
   );
+
   return (
     <React.StrictMode>
       <ConnectionProvider endpoint={endpoint}>

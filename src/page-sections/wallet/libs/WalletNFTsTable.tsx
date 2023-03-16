@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
+import useWalletDetailsNFTs from "common/solana/useWalletDetailsNFT";
 import FlexBox from "components/flexbox/FlexBox";
 import FlexRowAlign from "components/flexbox/FlexRowAlign";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";

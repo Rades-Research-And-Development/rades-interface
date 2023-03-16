@@ -24,7 +24,7 @@ import {
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import WalletContext from "contexts/walletContext";
-import useWalletDetails from "common/useWalletDetailsToken";
+import useWalletDetails from "common/solana/useWalletDetailsToken";
 import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
 
 // styled components

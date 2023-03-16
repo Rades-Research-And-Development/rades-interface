@@ -1,14 +1,14 @@
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import useWalletDetailsToken from "common/useWalletDetailsToken";
-import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
+import useWalletDetailsToken from "common/solana/useWalletDetailsToken";
+import useWalletDetailsNFTs from "common/solana/useWalletDetailsNFT";
 import { useEffect } from "react";
 import { walletGetInfor } from "utils/contract/solana/useWallet";
 
 export function useWalletDetailsTokenListener() {
   const { publicKey } = useWallet();
   const { connection } = useConnection();
-  
+
   useEffect(() => {
     if (publicKey) {
       walletGetInfor(connection, publicKey).then((res) => {
@@ -25,8 +25,11 @@ export async function useWalletDetailsNFTListener() {
   const { publicKey } = useWallet();
 
   useEffect(() => {
-    Metadata.findDataByOwner(connection, publicKey?.toBase58() as string).then(
-      async (nftsmetadata) => {
+    if (publicKey) {
+      Metadata.findDataByOwner(
+        connection,
+        publicKey?.toBase58() as string
+      ).then(async (nftsmetadata) => {
         const nftsmetadata_ = await Promise.all(
           nftsmetadata.map(async (nft) => ({
             ...nft,
@@ -37,7 +40,7 @@ export async function useWalletDetailsNFTListener() {
         useWalletDetailsNFTs.setState({
           walletDetailsNFTs: nftsmetadata_,
         });
-      }
-    );
+      });
+    }
   }, [connection, publicKey]);
 }

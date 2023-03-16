@@ -15,6 +15,7 @@ import { H2, H6 } from "components/Typography";
 import { useFormik } from "formik";
 import { FC } from "react";
 import * as Yup from "yup";
+import EthereumWalletAdapter from "./ethereum/ethereumWalletAdapter";
 
 // component props interface
 interface ModalProps {
@@ -109,14 +110,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
                 src={`/static/crypto/SOL.png`}
                 sx={{ marginLeft: 2, width: 22, height: 22 }}
               />
-              <SolanaWalletAdapter
-                onClick={onClose}
-                style={{
-                  fontSize: "1rem",
-                  background: "none",
-                  height: "3rem",
-                }}
-              />
+              <EthereumWalletAdapter onClick={onClose} />
             </StyledButtonBase>
           </Grid>
         </Grid>

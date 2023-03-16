@@ -1,10 +1,13 @@
+import useConnection from "common/ethereum/useConnection";
+import { useEffect } from "react";
 import Web3 from "web3";
 
-export const ConnectWallet = async () => {
+export async function ConnectWallet() {
     if ((window as any).ethereum) {
         const web3 = new Web3((window as any).ethereum);
         try {
-            await (window as any).ethereum.enable()
+            const account = await (window as any).ethereum.request({ method: "eth_requestAccounts" })
+            useConnection.setState({ connection: web3 })
             return web3
 
         } catch (error) {
@@ -16,19 +19,4 @@ export const ConnectWallet = async () => {
         console.log('Injected web3 detected.');
         return web3;
     }
-}
-export const checkConnected = async () => {
-    let connected = false;
-    await (window as any).ethereum
-        .request({
-            method: "eth_accounts",
-        })
-        .then((accounts: string[]) => {
-            if (accounts.length !== 0) connected = true
-            else connected = false
-        })
-        .catch((error: any) => {
-            connected = false;
-        });
-    return connected
 }

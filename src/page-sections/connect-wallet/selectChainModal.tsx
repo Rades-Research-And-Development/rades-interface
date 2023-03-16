@@ -6,7 +6,7 @@ import {
 import AccountBalanceWallet from "@mui/icons-material/AccountBalanceWallet";
 import { Badge, Box, Button, ButtonBase, Grid, styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { WalletMultiButton as SolanaWalletAdapter } from "@solana/wallet-adapter-react-ui";
 import AppModal from "components/AppModal";
 import AppAvatar from "components/avatars/AppAvatar";
 import FlexBox from "components/flexbox/FlexBox";
@@ -92,7 +92,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
                 src={`/static/crypto/SOL.png`}
                 sx={{ marginLeft: 2, width: 22, height: 22 }}
               />
-              <WalletMultiButton
+              <SolanaWalletAdapter
                 onClick={onClose}
                 style={{
                   fontSize: "1rem",
@@ -109,7 +109,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
                 src={`/static/crypto/SOL.png`}
                 sx={{ marginLeft: 2, width: 22, height: 22 }}
               />
-              <WalletMultiButton
+              <SolanaWalletAdapter
                 onClick={onClose}
                 style={{
                   fontSize: "1rem",
@@ -122,7 +122,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
         </Grid>
       </Box>
 
-      {/* <WalletMultiButton
+      {/* <SolanaWalletAdapter
           onClick={onClose}
           style={{ fontSize: "12px", background: "none", height: "2rem" }}
           startIcon={<AccountBalanceOutlined />}

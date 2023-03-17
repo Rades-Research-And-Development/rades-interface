@@ -1,4 +1,4 @@
-import useConnection from "common/ethereum/useConnection";
+import useConnection from "common/useConnection";
 import { useEffect } from "react";
 import Web3 from "web3";
 

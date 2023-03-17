@@ -34,8 +34,8 @@ import { removeCookie } from "utils/cookies/cookies";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useNavigate } from "react-router-dom";
-import useWalletDetailsNFTs from "common/solana/useWalletDetailsNFT";
-import useWalletDetailsToken from "common/solana/useWalletDetailsToken";
+import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
+import useWalletDetailsToken from "common/useWalletDetailsToken";
 import WalletNFTsTable from "./libs/WalletNFTsTable";
 // import { getNFTs } from "utils/nfts";
 // styled components

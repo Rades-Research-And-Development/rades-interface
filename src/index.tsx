@@ -29,8 +29,6 @@ import {
   Coin98WalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import useEthereumConnection from "common/ethereum/useConnection";
-import useEthereumWallet from "common/ethereum/useWallet";
 const root = createRoot(document.getElementById("root") as HTMLElement);
 function RootApp() {
   const network = WalletAdapterNetwork.Devnet;

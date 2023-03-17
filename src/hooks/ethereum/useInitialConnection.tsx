@@ -1,5 +1,5 @@
-import useEthereumConnection from "common/ethereum/useConnection";
-import useEthereumWallet from "common/ethereum/useWallet";
+import useConnection from "common/useConnection";
+import useEthereumWallet from "common/useWallet";
 import { useEffect } from "react";
 import web3 from "web3";
 export default function useInitialConnection() {
@@ -7,7 +7,7 @@ export default function useInitialConnection() {
     (window as any)?.ethereum
       ?.request?.({ method: "eth_accounts" })
       ?.then((res) => {
-        useEthereumConnection.setState({
+        useConnection.setState({
           connection: new web3((window as any).ethereum),
         });
       })

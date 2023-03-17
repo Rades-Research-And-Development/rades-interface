@@ -17,7 +17,7 @@ const EthereumWalletAdapter: FC<{ onCloseProp: () => void }> = (props) => {
           height: "3rem",
         }}
       >
-        Connect chain adgfasd
+        Connect chain
       </Button>
     </>
   );

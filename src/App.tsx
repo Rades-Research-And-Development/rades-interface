@@ -18,18 +18,14 @@ import {
   useWalletDetailsNFTListener,
 } from "hooks/solana/useWalletDetails";
 import { useEthereumWalletLisntener } from "hooks/ethereum/useWalletDetails";
-import useEthereumWallet from "common/ethereum/useWallet";
-import useEthereumConnection from "common/ethereum/useConnection";
+import useEthereumWallet from "common/useWallet";
 import useInitialConnection from "hooks/ethereum/useInitialConnection";
+import { useInitialWalletListener } from "hooks/useInitialWallet";
 require("@solana/wallet-adapter-react-ui/styles.css");
 const App: FC = () => {
   const content = useRoutes(routes());
   const { settings } = useSettings();
-  const publicKey = useEthereumWallet.getState().publicKey;
-  const connection = useEthereumConnection((s) => s.connection);
-  useEffect(() => {
-    console.log(publicKey);
-  }, [publicKey, connection]);
+  const publicKey = useEthereumWallet((s) => s.publicKey);
   // const { connection } = useConnection();
   // const { publicKey } = useWallet();
   // const [walletInfo_, setWalletInfo_] = useState<
@@ -101,6 +97,7 @@ function ApplicationsInitializations() {
   useWalletDetailsNFTListener();
   useEthereumWalletLisntener();
   useInitialConnection();
+  useInitialWalletListener();
   return null;
 }
 export default App;

@@ -25,10 +25,9 @@ import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 import { useConnection as useSolanaConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import WalletContext from "contexts/walletContext";
-import useSolanaWalletDetailsToken from "common/solana/useWalletDetailsToken";
+import useSolanaWalletDetailsToken from "common/useWalletDetailsToken";
 import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
-import useEthereumWallet from "common/ethereum/useWallet";
-import useEthereumConnection from "common/ethereum/useConnection";
+import useWallet from "common/useWallet";
 
 // styled components
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
@@ -49,13 +48,16 @@ const StyledSmall = styled(Small)(({ theme }) => ({
 const WalletCredential: FC = () => {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
-  const { publicKey } = useSolanaWallet() || useEthereumWallet.getState();
-  const { connection } =
-    useSolanaConnection() || useEthereumConnection.getState();
+  const publicKey = useWallet((s) => s.publicKey);
+
   const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
   const walletDetailsToken = useSolanaWalletDetailsToken(
     (s) => s.walletDetailsToken
   );
+
+  useEffect(() => {
+    console.log(publicKey + " XCX ");
+  }, [publicKey]);
 
   return (
     <Fragment>

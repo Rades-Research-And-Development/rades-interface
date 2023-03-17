@@ -1,15 +1,14 @@
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import useWalletDetailsToken from "common/solana/useWalletDetailsToken";
-import useWalletDetailsNFTs from "common/solana/useWalletDetailsNFT";
+import useWalletDetailsToken from "common/useWalletDetailsToken";
+import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
 import { useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { walletGetInfor } from "utils/contract/solana/useWallet";
-import { useConnection } from "@solana/wallet-adapter-react";
-import useEthereumConnection from "common/ethereum/useConnection";
-import useEthereumWallet from "common/ethereum/useWallet";
+import useConnection from "common/useConnection";
+import useEthereumWallet from "common/useWallet";
 
 export function useEthereumWalletLisntener() {
-  const connection = useEthereumConnection((s) => s.connection);
+  const connection = useConnection((s) => s.connection);
   useEffect(() => {
     connection.eth.getAccounts().then((res) => {
       useEthereumWallet.setState({ publicKey: res[0] });

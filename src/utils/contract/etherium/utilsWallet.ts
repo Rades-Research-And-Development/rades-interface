@@ -20,7 +20,6 @@ export const utilsEthereumWallet = {
   walletGetInfor: async (connection: Web3, publicKey: string) => {
     // BALANCE
     // get eth balance 
-    publicKey = "0x2F62CEACb04eAbF8Fc53C195C5916DDDfa4BED02";
     const ethBalance = await connection.eth.getBalance(publicKey);
     const ethBalanceInEther = connection.utils.fromWei(ethBalance, 'ether');
 

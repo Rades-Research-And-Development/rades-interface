@@ -59,6 +59,7 @@ export const utilsSolanaWallet = {
     /**
     * Return the tokens in wallet
     */
+  //  const temp = Number(u64.fromBuffer(AccountLayout.decode(USDCAccount?.value?.[0]?.account?.data).amount)) / USDCDecimal;
     const walletTokens: {
       address: string;
       value: Number;
@@ -71,7 +72,8 @@ export const utilsSolanaWallet = {
         },
         {
           address: "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
-          value: Number(u64.fromBuffer(AccountLayout.decode(USDCAccount?.value?.[0]?.account?.data).amount)) / USDCDecimal,
+          value: USDCAccount?.value?.[0]?.account?.data ? Number(u64.fromBuffer(AccountLayout.decode(USDCAccount?.value?.[0]?.account?.data).amount)) / USDCDecimal : 0,
+          // value: 0,
           key: "USDC",
         },
       ];

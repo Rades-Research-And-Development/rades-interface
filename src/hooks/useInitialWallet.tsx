@@ -12,12 +12,4 @@ export function useInitialWalletListener() {
     { key: "SOL", publicKey: useSolanaWallet().publicKey?.toBase58() },
     { key: "ETH", publicKey: useEthereumWallet((s) => s.publicKey) },
   ];
-
-  useEffect(() => {
-    useWallet(publicKeys.filter((res) => res.publicKey)[0]);
-
-    // connection.eth.getAccounts().then((res) => {
-    //   useEthereumWallet.setState({ publicKey: res[0] });
-    // });
-  }, [publicKeys]);
 }

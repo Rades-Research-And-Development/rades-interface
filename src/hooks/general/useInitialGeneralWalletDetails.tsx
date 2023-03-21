@@ -28,7 +28,6 @@ export function useInitialGeneralWalletListener() {
         });
     }
     if (chain === "ETH") {
-      useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
       utilsCombineWallet.utilsEthereumWallet
         .walletGetInfor(connection, publicKey)
         .then((res: any) => {

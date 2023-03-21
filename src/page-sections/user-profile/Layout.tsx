@@ -127,10 +127,10 @@ const Layout: FC<LayoutProps> = ({ children, handleTabList }) => {
           onChange={handleTabList}
           style={{ marginBottom: "1rem" }}
         >
-          <Tab disableRipple label="Profile" value="1" />
-          <Tab disableRipple label="Wallet" value="4" />
-          <Tab disableRipple label="Books" value="2" />
-          <Tab disableRipple label="Items" value="5" />
+          <Tab disableRipple label="Profile" value="profile" />
+          <Tab disableRipple label="Wallet" value="wallet" />
+          {/* <Tab disableRipple label="Books" value="2" />
+          <Tab disableRipple label="Items" value="5" /> */}
         </StyledTabList>
       </Card>
 

@@ -11,7 +11,7 @@ export const navigations = [
   //   icon: duotone.AdminEcommerce,
   // },
   {
-    name: "Marketplaces", 
+    name: "Marketplaces",
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
   },
@@ -26,25 +26,15 @@ export const navigations = [
     children: [
       {
         name: "Wallet",
-        path: "/dashboards/user-profile/4",
+        path: "/dashboards/user-profile/wallet",
         icon_: duotone.AccountBalanceWalletIcon,
       },
       {
         name: "Profile",
-        path: "/dashboards/user-profile/1",
+        path: "/dashboards/user-profile/profile",
         icon_: duotone.UserProfile,
       },
 
-      {
-        name: "Books",
-        path: "/dashboards/user-profile/2",
-        icon_: duotone.MenuBookIcon,
-      },
-      {
-        name: "Item",
-        path: "/dashboards/user-profile/5",
-        icon_: duotone.CategoryIcon,
-      }
     ],
   },
 

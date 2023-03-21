@@ -27,7 +27,20 @@ export function useInitialGeneralWalletListener() {
           });
         });
     }
-    // if (chain === "ETH")
-    // useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
+    if (chain === "ETH") {
+      useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
+      utilsCombineWallet.utilsEthereumWallet
+        .walletGetInfor(connection, publicKey)
+        .then((res: any) => {
+          console.log(res);
+          useGeneralWallet.setState({
+            details: {
+              address: publicKey,
+              tokens: res.tokens,
+              nfts: res.nfts,
+            },
+          });
+        });
+    }
   }, [chain, publicKey, connection]);
 }

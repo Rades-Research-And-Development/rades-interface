@@ -101,8 +101,9 @@ const Wallet: FC = () => {
               />
             </Box>
             <H3 mt={2} sx={{ marginBottom: "1rem" }}>
-              {details?.tokens.filter((token) => token.key === "SOL")[0]
-                ?.value + " SOL"}
+              {details?.tokens
+                .filter((token) => token.key === chain)[0]
+                ?.value?.toFixed(2) + ` ${chain}`}
             </H3>
             <Button
               sx={{
@@ -271,7 +272,7 @@ const Wallet: FC = () => {
                           sx={{ borderRadius: "50%" }}
                         />
                         <Box>
-                          <H6>{`${item?.value} ${item.key}`}</H6>
+                          <H6>{`${item?.value?.toFixed(2)} ${item.key}`}</H6>
                         </Box>
                       </Stack>
                     );

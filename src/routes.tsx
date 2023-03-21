@@ -7,6 +7,7 @@ import DashboardLayoutV3 from "layouts/layout-v3/DashboardLayout";
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { getCookie } from "utils/cookies/cookies";
 import { Navigate } from "react-router-dom";
+import { Message } from "@mui/icons-material";
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -16,7 +17,7 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) => {
 };
 
 // dashboards
-const Dashboards = Loadable(lazy(() => import("./pages/dashboards")));
+
 const Marketplaces = Loadable(
   lazy(() => import("./pages/marketplaces/nfts/nfts-marketplace"))
 );
@@ -43,6 +44,8 @@ const PushlishBook = Loadable(lazy(() => import("./pages/pushlish-book")));
 const CommitmentAnalytics = Loadable(
   lazy(() => import("./pages/commision-analytics"))
 );
+const Messages = Loadable(lazy(() => import("./pages/message")));
+const HomePage = Loadable(lazy(() => import("./pages/home-page")));
 const CollectionsMarketplace = Loadable(
   lazy(() => import("./pages/marketplaces/collections/collections-marketplace"))
 );
@@ -99,6 +102,8 @@ const dashboardRoutes = [
     path: "",
     element: <Navigate to="/dashboards/marketplaces" />,
   },
+  { path: "home", element: <HomePage /> },
+  { path: "messages", element: <Messages /> },
 
   { path: "wallet", element: <UserProfile /> },
   { path: "marketplaces", element: <Marketplaces /> },

@@ -11,6 +11,11 @@ export const navigations = [
   //   icon: duotone.AdminEcommerce,
   // },
   {
+    name: "Home",
+    path: "/dashboards/home",
+    icon: duotone.Chat,
+  },
+  {
     name: "Marketplaces",
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
@@ -54,7 +59,12 @@ export const navigations = [
       }
 
     ],
-  }
+  },
+  {
+    name: "Messages",
+    path: "/dashboards/messages",
+    icon: duotone.Chat,
+  },
 
   // { name: "Book Tracking", path: "/dashboards/book-tracking", icon: duotone.PersonChalkboard },
   // { name: "Book Reading", path: "/dashboards/book-reading", icon: duotone.PersonChalkboard },

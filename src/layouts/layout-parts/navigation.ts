@@ -11,7 +11,12 @@ export const navigations = [
   //   icon: duotone.AdminEcommerce,
   // },
   {
-    name: "Marketplaces", 
+    name: "Home",
+    path: "/dashboards/home",
+    icon: duotone.Chat,
+  },
+  {
+    name: "Marketplaces",
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
   },
@@ -26,25 +31,15 @@ export const navigations = [
     children: [
       {
         name: "Wallet",
-        path: "/dashboards/user-profile/4",
+        path: "/dashboards/user-profile/wallet",
         icon_: duotone.AccountBalanceWalletIcon,
       },
       {
         name: "Profile",
-        path: "/dashboards/user-profile/1",
+        path: "/dashboards/user-profile/profile",
         icon_: duotone.UserProfile,
       },
 
-      {
-        name: "Books",
-        path: "/dashboards/user-profile/2",
-        icon_: duotone.MenuBookIcon,
-      },
-      {
-        name: "Item",
-        path: "/dashboards/user-profile/5",
-        icon_: duotone.CategoryIcon,
-      }
     ],
   },
 
@@ -64,7 +59,12 @@ export const navigations = [
       }
 
     ],
-  }
+  },
+  {
+    name: "Messages",
+    path: "/dashboards/messages",
+    icon: duotone.Chat,
+  },
 
   // { name: "Book Tracking", path: "/dashboards/book-tracking", icon: duotone.PersonChalkboard },
   // { name: "Book Reading", path: "/dashboards/book-reading", icon: duotone.PersonChalkboard },

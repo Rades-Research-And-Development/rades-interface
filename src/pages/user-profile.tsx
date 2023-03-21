@@ -19,27 +19,27 @@ const UserProfile = () => {
   }, [service_id]);
   return (
     <Box pt={2} pb={4}>
-      <TabContext value={tabValue ? tabValue : "4"}>
+      <TabContext value={tabValue ? tabValue : "wallet"}>
         <Layout handleTabList={handleTabChange}>
-          <TabPanel value="1">
+          <TabPanel value="profile">
             <Overview />
           </TabPanel>
-
-          <TabPanel value="2">
+          {/* 
+          <TabPanel value="profile">
             <Projects />
-          </TabPanel>
+          </TabPanel> */}
 
           {/* <TabPanel value="3">
             <Campaigns />
           </TabPanel> */}
 
-          <TabPanel value="4">
+          <TabPanel value="wallet">
             <Wallet />
           </TabPanel>
 
-          <TabPanel value="5">
+          {/* <TabPanel value="5">
             <Gems />
-          </TabPanel>
+          </TabPanel> */}
 
           {/* <TabPanel value="6">
             <Activity />

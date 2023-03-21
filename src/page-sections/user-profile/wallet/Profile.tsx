@@ -7,7 +7,7 @@ import FollowerIcon from "icons/FollowerIcon";
 import UserPlusIcon from "icons/UserPlusIcon";
 import { FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PostCard from "./PostCard";
+import PostCard from "./libs/PostCard";
 
 // styled components
 const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({

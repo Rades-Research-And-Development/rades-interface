@@ -26,9 +26,7 @@ const Spending: FC = () => {
   const { toast } = useContext(ToastContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(user);
-  });
+
   const copyWalletAddress = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       toast.success("Copied wallet address");

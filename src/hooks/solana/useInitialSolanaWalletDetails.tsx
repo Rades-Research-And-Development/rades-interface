@@ -1,24 +1,25 @@
-import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import useWalletDetailsToken from "common/useWalletDetailsToken";
-import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
 import { useEffect } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { walletGetInfor } from "utils/contract/solana/useWallet";
-import useConnection from "common/useConnection";
-import useEthereumWallet from "common/useWallet";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import useGeneralWallet from "common/useGeneralWallet";
+import useGeneralConnection from "common/useGeneralConnection";
+// Need to import from connection all
 
-export function useEthereumWalletLisntener() {
-  const connection = useConnection((s) => s.connection);
+export function useInitialSolanaWalletListener() {
+  const { connection } = useConnection();
+  const { publicKey } = useWallet();
+  const generalConnnection = useGeneralConnection((s) => s);
   useEffect(() => {
-    connection.eth.getAccounts().then((res) => {
-      useEthereumWallet.setState({ publicKey: res[0] });
-    });
-  }, [connection]);
+    if (generalConnnection.chain === "SOL") {
+      useGeneralWallet.setState({
+        publicKey: publicKey?.toBase58(),
+        chain: "SOL",
+      });
+    }
+  }, [generalConnnection.chain, publicKey]);
 }
 
 // export function useWalletDetailsTokenListener() {
 //   const { publicKey } = useWallet();
-
 //   const { connection } = useConnection();
 
 //   useEffect(() => {

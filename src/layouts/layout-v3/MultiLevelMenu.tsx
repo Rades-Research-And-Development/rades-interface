@@ -1,5 +1,5 @@
 import { alpha, Box, ButtonBase, styled } from "@mui/material";
-import { useWallet } from "@solana/wallet-adapter-react";
+import useGeneralWallet from "common/useGeneralWallet";
 import { Paragraph, Span } from "components/Typography";
 import { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -101,7 +101,7 @@ const MultiLevelMenu: FC<MultiLevelMenuProps> = (props) => {
   const activeRoute = (path: string) => (pathname === path ? 1 : 0);
   // handle navigate to another route or page
   const handleNavigation = (path: string) => navigate(path);
-  const { publicKey } = useWallet();
+  const { publicKey } = useGeneralWallet((s) => s);
   //   RECURSIVE FUNCTION TO RENDER MULTI LEVEL MENU
   const renderLevels = (data: any) => {
     return data.map((item: any, index: any) => {

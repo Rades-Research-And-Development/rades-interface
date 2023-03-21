@@ -43,9 +43,6 @@ const DateWrapper = styled(FlexBox)(({ theme }) => ({
 
 const Books: FC = () => {
   const { user } = useContext(UserContext);
-  useEffect(() => {
-    console.log(user?.wallet?.nfts[0]?.data);
-  }, [user]);
 
   return (
     <Card sx={{ padding: 3, border: "2px solid black black" }}>
@@ -59,7 +56,6 @@ const Books: FC = () => {
       <Grid container spacing={3}>
         {user?.wallet?.nfts[0]?.data?.map((user_book_data, _: number) => {
           let user_book = getBook(user_book_data?.book_id);
-          console.log(user_book);
           return (
             <Grid item lg={3} md={3} xs={12} key={_}>
               <SinglePortfolio

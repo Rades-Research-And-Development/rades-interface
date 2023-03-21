@@ -14,8 +14,8 @@ import {
 } from "pure-react-carousel";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { transactionToOwner } from "utils/contract/solana/useTransaction";
-import { walletGetSolBalance } from "utils/contract/solana/useWallet";
+// import { transactionToOwner } from "utils/contract/solana/useTransaction";
+// import { walletGetSolBalance } from "utils/contract/solana/useUtilsWallet";
 // component props interface
 interface ModalProps {
   data?: any;
@@ -71,6 +71,7 @@ const StyledCarouselProvider = styled(CarouselProvider)(({ theme }) => ({
     "& .carousel__slider": { marginLeft: 0 },
   },
 }));
+
 const ConfirmModal: FC<ModalProps> = ({
   open,
   onClose,
@@ -79,19 +80,9 @@ const ConfirmModal: FC<ModalProps> = ({
   onDoneConfirm,
   book,
 }) => {
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   console.log(e.target.value);
-  // };
   const { user } = useContext(UserContext);
   const { toast } = useContext(ToastContext);
-  // const { id } = useParams()
-  // const [book, setBook] = useState(getBook(id))
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(book[0]?.volumeInfo?.imageLinks?.thumbnail);
-  }, [book]);
 
   return (
     <StyledAppModal open={open} handleClose={onClose}>
@@ -176,33 +167,33 @@ const ConfirmModal: FC<ModalProps> = ({
           fullWidth
           size="small"
           variant="outlined"
-          onClick={async () => {
-            const cost = (
-              ((book[0]?.volumeInfo?.pageCount / 100) * 5) / 100 +
-              book[0]?.volumeInfo?.pageCount / 100
-            ).toFixed(3);
-            await toast.promise(
-              transactionToOwner(user?.wallet_address, cost).then(
-                async (res_) => {
-                  await walletGetSolBalance(user?.wallet_address).then(
-                    async (res) => {
-                      await toast.success("Transfer successfully! - " + res_);
-                      setCookie("unread", book[0]?.id);
-                      setCookie("transaction_book", res_);
-                    }
-                  );
-                }
-              ),
-              {
-                loading: "Transaction in progress...",
-                error: <b>Could not save.</b>,
-              }
-            );
-            navigate("/dashboards/transaction-complete");
-            // toast.success('Successful transaction')
-            // setCookie('unread', book[0]?.id)
-            // await onDoneConfirm()
-          }}
+          // onClick={async () => {
+          //   const cost = (
+          //     ((book[0]?.volumeInfo?.pageCount / 100) * 5) / 100 +
+          //     book[0]?.volumeInfo?.pageCount / 100
+          //   ).toFixed(3);
+          //   await toast.promise(
+          //     transactionToOwner(user?.wallet_address, cost).then(
+          //       async (res_) => {
+          //         await walletGetSolBalance(user?.wallet_address).then(
+          //           async (res) => {
+          //             await toast.success("Transfer successfully! - " + res_);
+          //             setCookie("unread", book[0]?.id);
+          //             setCookie("transaction_book", res_);
+          //           }
+          //         );
+          //       }
+          //     ),
+          //     {
+          //       loading: "Transaction in progress...",
+          //       error: <b>Could not save.</b>,
+          //     }
+          //   );
+          //   navigate("/dashboards/transaction-complete");
+          //   // toast.success('Successful transaction')
+          //   // setCookie('unread', book[0]?.id)
+          //   // await onDoneConfirm()
+          // }}
           style={{ background: "aqua", color: "black" }}
         >
           CONFIRM

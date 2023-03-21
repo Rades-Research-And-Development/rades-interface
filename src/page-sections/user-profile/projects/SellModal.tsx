@@ -85,7 +85,6 @@ const SellModal: FC<ModalProps> = ({
 }) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(e.target.value);
   };
 
   const { toast } = useContext(ToastContext);
@@ -100,10 +99,6 @@ const SellModal: FC<ModalProps> = ({
   );
   const [passcodeIndex, setPasscodeIndex] = useState<number>(0);
   const [isConfirm, setIsConfirm] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(book[0]?.volumeInfo?.imageLinks?.thumbnail);
-  }, [book]);
 
   return (
     <StyledAppModal open={open} handleClose={onClose}>

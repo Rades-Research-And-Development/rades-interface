@@ -7,7 +7,6 @@ import AccountBalanceWallet from "@mui/icons-material/AccountBalanceWallet";
 import { Badge, Box, Button, ButtonBase, Grid, styled } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { WalletMultiButton as SolanaWalletAdapter } from "@solana/wallet-adapter-react-ui";
-import useConnection from "common/useConnection";
 import AppModal from "components/AppModal";
 import AppAvatar from "components/avatars/AppAvatar";
 import FlexBox from "components/flexbox/FlexBox";
@@ -56,7 +55,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
-  const connection = useConnection.getState().connection;
   // useEffect(() => {
   //   onClose();
   // }, [connection]);
@@ -86,11 +84,11 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
             {" "}
             <StyledButtonBase disableRipple>
               <AppAvatar
-                src={`/static/crypto/SOL.png`}
+                src={`/static/crypto/ETH.png`}
                 sx={{ marginLeft: 2, width: 22, height: 22 }}
               />
 
-              <EthereumWalletAdapter onCloseProp={() => onClose()} />
+              <EthereumWalletAdapter />
             </StyledButtonBase>
           </Grid>
         </Grid>

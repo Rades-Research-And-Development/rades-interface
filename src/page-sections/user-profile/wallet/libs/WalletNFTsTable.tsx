@@ -6,7 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
 import FlexBox from "components/flexbox/FlexBox";
 import FlexRowAlign from "components/flexbox/FlexRowAlign";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
@@ -14,13 +13,16 @@ import { useTheme } from "@mui/material";
 import { H3, H4, Small } from "components/Typography";
 import AppAvatar from "components/avatars/AppAvatar";
 import { Stack } from "@mui/system";
+import useGeneralWallet from "common/useGeneralWallet";
 export default function WalletNFTsTable() {
-  const walletDetailsNFTs = useWalletDetailsNFTs((s) => s.walletDetailsNFTs);
-  console.log(walletDetailsNFTs);
+  const { details, publicKey } = useGeneralWallet((s) => s);
   const theme = useTheme();
+  React.useEffect(() => {
+    console.log(details?.nfts);
+  }, [details]);
   return (
     <>
-      {walletDetailsNFTs.length > 0 ? (
+      {details?.nfts?.[1] ? (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -37,7 +39,7 @@ export default function WalletNFTsTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {walletDetailsNFTs.map((row: any, _: number) => {
+              {details?.nfts?.map((row: any, _: number) => {
                 const randomPer = Number((Math.random() * 130 + 1).toFixed(2));
                 return (
                   <TableRow
@@ -116,7 +118,7 @@ export default function WalletNFTsTable() {
                       <a
                         href={`https://explorer.solana.com/address/${row?.collection?.key}?cluster=devnet`}
                       >
-                        {row?.collection?.key?.slice(0, 20)}...
+                        {row?.collectionId?.slice(0, 20)}...
                       </a>
                     </TableCell>
                     <TableCell align="left">
@@ -124,7 +126,7 @@ export default function WalletNFTsTable() {
                         href={`https://explorer.solana.com/address/${row?.mint}?cluster=devnet`}
                       >
                         {" "}
-                        {row?.mint?.slice(0, 20)}...
+                        {row?.owner?.slice(0, 20)}...
                       </a>
                     </TableCell>
                   </TableRow>

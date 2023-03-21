@@ -102,7 +102,6 @@ const BookSwap: FC = () => {
                   })
                 : user?.wallet?.nfts[0].data.map((data, _: number) => {
                     let book = getBook(data?.book_id);
-                    console.log(book);
                     return (
                       <MenuItem value={book[0]?.id}>
                         <Stack direction="row" alignItems="center">

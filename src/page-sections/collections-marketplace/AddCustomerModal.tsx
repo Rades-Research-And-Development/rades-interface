@@ -67,9 +67,7 @@ const AddCustomerModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
   const { values, errors, handleChange, handleSubmit, touched } = useFormik({
     initialValues,
     validationSchema: fieldValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit: (values) => {},
   });
 
   return (

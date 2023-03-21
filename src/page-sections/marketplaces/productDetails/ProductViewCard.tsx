@@ -105,9 +105,7 @@ type ProductViewCardProps = {
 const ProductViewCard: FC<ProductViewCardProps> = ({ book }) => {
   const [colorSelect, setColorSelect] = useState("red");
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(book[0]?.volumeInfo?.imageLinks?.thumbnail);
-  }, [book]);
+
   // handle change color function
   const handleChangeColor = (event: ChangeEvent<HTMLInputElement>) => {
     setColorSelect(event.target.value);

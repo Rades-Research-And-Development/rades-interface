@@ -1,7 +1,8 @@
 import create from "zustand";
 import web3 from "web3";
+import { Connection } from "@solana/web3.js";
 export type IConnection = {
-  connection: any;
+  connection: web3 | Connection;
 };
 
 const useConnection = create<IConnection>(() => ({

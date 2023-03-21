@@ -1,64 +1,45 @@
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import {
-  Badge,
-  Box,
-  ButtonBase,
-  Divider,
-  Theme,
-  styled,
-  useMediaQuery,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Box, ButtonBase, Divider, styled, Button } from "@mui/material";
 import { H6, Small, Tiny } from "components/Typography";
 import AppAvatar from "components/avatars/AppAvatar";
-import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
-import { FC, Fragment, useContext, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { FC, Fragment, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import { getCookie } from "cookies/cookies";
-import { walletGetInfor } from "utils/contract/solana/useWallet";
-import {
-  WalletDisconnectButton,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
-import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
-import { useConnection as useSolanaConnection } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import WalletContext from "contexts/walletContext";
 import useSolanaWalletDetailsToken from "common/useWalletDetailsToken";
 import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
-import useWallet from "common/useWallet";
-
+import useGeneralWallet from "common/useGeneralWallet";
+import WalletCredentialDetails from "./walletCredentialDetails";
+import FlexBox from "components/flexbox/FlexBox";
+import { copyClipboard } from "utils/copyClipboard";
+import useGeneralConnection from "common/useGeneralConnection";
+import Web3 from "web3";
+import { toast } from "react-hot-toast";
+import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 // styled components
+// const StyledSmall = styled(Small)(({ theme }) => ({
+//   padding: "3px 12px",
+//   borderRadius: "4px",
+//   display: "block",
+//   fontSize: 12,
+//   backgroundColor: (theme as any).palette.action.hover,
+//   color: (theme as any).palette.text.secondary,
+// }));
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
   padding: 5,
-  marginLeft: 4,
+  marginLeft: 6,
   borderRadius: 30,
   border: "1px solid #e93a88",
   "&:hover": { backgroundColor: theme.palette.action.hover },
 }));
 
-const StyledSmall = styled(Small)(({ theme }) => ({
-  display: "block",
-  cursor: "pointer",
-  padding: "5px 1rem",
-  "&:hover": { backgroundColor: theme.palette.action.hover },
-}));
-
 const WalletCredential: FC = () => {
   const anchorRef = useRef(null);
-  const navigate = useNavigate();
-  const publicKey = useWallet((s) => s.publicKey);
-
+  const generalWallet = useGeneralWallet((s) => s);
+  const generalConnection = useGeneralConnection((s) => s);
   const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
-  const walletDetailsToken = useSolanaWalletDetailsToken(
-    (s) => s.walletDetailsToken
-  );
-
-  useEffect(() => {
-    console.log(publicKey + " XCX ");
-  }, [publicKey]);
-
+  const navigate = useNavigate();
+  const [openWalletDetails, setOpenWalletDetails] = useState<boolean>(false);
+  const ultiGeneral = useGeneralUtilsWallet((s) => s);
   return (
     <Fragment>
       <StyledButtonBase
@@ -68,25 +49,35 @@ const WalletCredential: FC = () => {
       >
         {" "}
         <>
-          {publicKey ? (
-            <>
-              {walletDetailsToken.map((res) => {
-                console.log(publicKey);
+          {generalWallet?.publicKey ? (
+            <Button onClick={() => setOpenWalletDetails(true)}>
+              {generalWallet.details?.tokens?.map((res) => {
                 return (
                   <>
-                    <Small mx={1} color="text.errror">
+                    <Small mx={0.2} color="text.errror">
                       <Small fontWeight="600" display="inline">
-                        {Number?.(res?.value)}
+                        {Number?.(res?.value).toFixed(2)}
                       </Small>
                     </Small>
+
                     <AppAvatar
-                      src={`/static/crypto/${res.avatar}.png`}
-                      sx={{ width: 22, height: 22 }}
+                      src={`/static/crypto/${res.key}.png`}
+                      sx={{
+                        width: 22,
+                        height: 22,
+                        marginRight: 1,
+                        marginLeft: 0.5,
+                      }}
                     />
                   </>
                 );
               })}
-            </>
+              {generalWallet?.publicKey.slice(0, 20)}
+              <AppAvatar
+                src={`/static/portfolio/3.png`}
+                sx={{ width: 22, height: 22, marginLeft: 1 }}
+              />
+            </Button>
           ) : (
             <Button
               onClick={() => setOpenChainSelectModal(true)}
@@ -113,76 +104,46 @@ const WalletCredential: FC = () => {
         </>
       </StyledButtonBase>
 
-      {/* <PopoverLayout
+      <WalletCredentialDetails
         hiddenViewButton
-        maxWidth={230}
-        minWidth={200}
-        popoverOpen={open}
+        maxWidth={300}
+        popoverOpen={openWalletDetails}
         anchorRef={anchorRef}
-        popoverClose={() => setOpen(false)}
+        popoverClose={() => setOpenWalletDetails(false)}
         title={
           <FlexBox alignItems="center" gap={1}>
-            <AppAvatar
-              src={user?.avatar || "/static/avatar/001-man.svg"}
-              sx={{ width: 35, height: 35 }}
-            />
-
             <Box>
-              <H6>{user?.name || "User | Publisher"}</H6>
-              <Tiny
-                style={{
-                  border: "1px solid aqua",
-                  color: "white",
-                  cursor: "pointer",
-                  borderRadius: "10px",
-                  padding: "0 0.3rem 0",
-                }}
-                display="block"
-                fontWeight={500}
-                color="text.disabled"
-                onClick={() => {
-                  copyWalletAddress(user?.wallet_address);
-                }}
-              >
-                {user?.wallet_address?.slice(0, 12) + "..." || "---------"}
-              </Tiny>
+              <H6>{"Wallet details"}</H6>
             </Box>
           </FlexBox>
         }
       >
-        <Box pt={1}>
-          <StyledSmall
-            onClick={() => handleMenuItem("/dashboards/user-profile/1")}
-          >
-            Profile & Account
-          </StyledSmall>
-
-          <StyledSmall
-            onClick={() => handleMenuItem("/dashboards/user-profile/4")}
-          >
-            Wallet
-          </StyledSmall>
-
-          <Divider sx={{ my: 1 }} />
-
-          <StyledSmall
-            onClick={async () => {
-              // handleLogout();
-              await phantom?.disconnect();
-              // .then((res) => {
-              //   alert(res);
-              //   toast.success("You Logout Successfully");
-              //   window.location.href = "/dashboards/connect-wallet";
-              // })
-              // .catch((err) => {
-              //   toast.error("Abort: disconnect problem");
-              // });
+        <Box pt={1} sx={{ textAlign: "left" }}>
+          <Button
+            onClick={() => {
+              navigate("/dashboards/user-profile/4");
             }}
+            color="primary"
+            style={{ width: "100%", fontSize: "14px" }}
           >
-            Disconnect
-          </StyledSmall>
+            {" "}
+            Profile
+          </Button>
+          <br />
+          <Button
+            onClick={() => {
+              copyClipboard(generalWallet.publicKey).then((res) => {
+                toast.success("Copy address successfully");
+              });
+            }}
+            color="primary"
+            style={{ width: "100%", fontSize: "14px" }}
+          >
+            {" "}
+            Copy wallet
+          </Button>
         </Box>
-      </PopoverLayout> */}
+      </WalletCredentialDetails>
     </Fragment>
   );
 };

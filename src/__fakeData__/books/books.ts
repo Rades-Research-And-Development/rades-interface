@@ -16,6 +16,7 @@ const LIST_BOOKS = {
         description:
           "Flowers For Algernon made its first appearance as a short story which was rapidly and widely anthologized, and translated internationally. It received further acclaim as a moderated television drama, and as a motional picture production. Now, full bodied and richly-peopled, Flowers For Algernon is the daring novel of a starling human experiment!",
         industryIdentifiers: [
+
           {
             type: "ISBN_13",
             identifier: "9780544181540",

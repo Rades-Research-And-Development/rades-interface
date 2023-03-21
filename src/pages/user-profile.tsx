@@ -5,7 +5,7 @@ import Gems from "page-sections/user-profile/gems";
 import Layout from "page-sections/user-profile/Layout";
 import Overview from "page-sections/user-profile/overview";
 import Projects from "page-sections/user-profile/projects";
-import Wallet from "page-sections/wallet/Wallet";
+import Wallet from "page-sections/user-profile/wallet/Wallet";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -15,7 +15,6 @@ const UserProfile = () => {
   const handleTabChange = (_: SyntheticEvent, value: string) =>
     setTabValue(value);
   useEffect(() => {
-
     setTabValue(service_id);
   }, [service_id]);
   return (

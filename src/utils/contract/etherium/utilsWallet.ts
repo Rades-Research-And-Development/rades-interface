@@ -39,6 +39,7 @@ export const utilsEthereumWallet = {
     //publicKey = "0x2F62CEACb04eAbF8Fc53C195C5916DDDfa4BED02"; // must del, just for test
     const contractAddress = '0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b'; //  NFT contract
     const contract = new connection.eth.Contract(nftABI as any, contractAddress);
+    const numNFTs = await contract.methods.balanceOf(publicKey).call();
     const walletNFTs: {
       tokenId: string;
       collectionId: string;
@@ -46,26 +47,21 @@ export const utilsEthereumWallet = {
       metadata: object;
     }[] = [];
 
-    const events = await contract.getPastEvents('Transfer');
-    console.log(events.length);
-    for (let i = 0; i < events.length; i++) {
-      const { tokenId } = events[i].returnValues;
+    for (let i = 0; i < parseInt(numNFTs); i++) {
+      const tokenId = await contract.methods.tokenOfOwnerByIndex(publicKey, i).call();
       const tokenURI = await contract.methods.tokenURI(tokenId).call();
       const metadataResponse = await fetch(tokenURI);
       const metadataJSON = await metadataResponse.json();
       const collectionId = metadataJSON.collection;
-      //const tokenOwner = await contract.methods.ownerOf(tokenId).call();
-      //console.log(tokenOwner);
-      //if (tokenOwner === publicKey){
-        walletNFTs.push({
-          tokenId,
-          collectionId,
-          owner: publicKey,
-          metadata: metadataJSON,
-        });
-      //}
+      const owner = await contract.methods.ownerOf(tokenId).call();
+    
+      walletNFTs.push({
+        tokenId,
+        collectionId,
+        owner,
+        metadata: metadataJSON
+      });
     }
-
     
     console.log(walletNFTs);
 

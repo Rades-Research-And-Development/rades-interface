@@ -20,8 +20,8 @@ import SearchInput from "components/input-fields/SearchInput";
 import { H2, H6, Small } from "components/Typography";
 import PencilIcon from "icons/PencilIcon";
 
-import CreatePost from "page-sections/home-page/createPost";
-import PostCard from "page-sections/home-page/postCard";
+import CreatePost from "page-sections/home-page/CreatePost";
+import PostsNavigation from "page-sections/home-page/PostsNavigation";
 import RecentlyChat from "page-sections/home-page/recently-chat";
 import RecommendContent from "page-sections/home-page/recommed-content";
 import React, { FC, SyntheticEvent, useEffect, useState } from "react";
@@ -103,11 +103,7 @@ const HomePage: FC = () => {
             <RecommendContent />
           </Grid>
         ) : (
-          <Stack spacing={1}>
-            <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-            <Skeleton variant="circular" width={40} height={40} />
-            <Skeleton variant="rectangular" width={"100%"} height={118} />
-          </Stack>
+          ""
         )}
 
         <Grid
@@ -125,7 +121,7 @@ const HomePage: FC = () => {
           {filterList[0] ? (
             filterList.map((item, index) => (
               <Grid item xs={12} sm={12} md={12} key={index}>
-                <PostCard project={item} />
+                <PostsNavigation project={item} />
               </Grid>
             ))
           ) : (

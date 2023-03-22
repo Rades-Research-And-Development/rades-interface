@@ -44,8 +44,12 @@ const PushlishBook = Loadable(lazy(() => import("./pages/pushlish-book")));
 const CommitmentAnalytics = Loadable(
   lazy(() => import("./pages/commision-analytics"))
 );
+
 const Messages = Loadable(lazy(() => import("./pages/message")));
 const HomePage = Loadable(lazy(() => import("./pages/home-page")));
+const PostDetails = Loadable(
+  lazy(() => import("./pages/contents/post-details"))
+);
 const CollectionsMarketplace = Loadable(
   lazy(() => import("./pages/marketplaces/collections/collections-marketplace"))
 );
@@ -103,6 +107,11 @@ const dashboardRoutes = [
     element: <Navigate to="/dashboards/marketplaces" />,
   },
   { path: "home", element: <HomePage /> },
+  {
+    path: ":author_id/post/:post_id",
+    element: <PostDetails />,
+    params: { id: "123" },
+  },
   { path: "messages", element: <Messages /> },
 
   { path: "wallet", element: <UserProfile /> },

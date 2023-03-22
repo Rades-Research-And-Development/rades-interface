@@ -1,11 +1,11 @@
 import { Add } from "@mui/icons-material";
-import { AvatarGroup, Button, Card } from "@mui/material";
+import { AvatarGroup, Button, Card, Skeleton } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
 import AppAvatar from "components/avatars/AppAvatar";
 import FlexBetween from "components/flexbox/FlexBetween";
 import FlexBox from "components/flexbox/FlexBox";
 import { H3, Small } from "components/Typography";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ interface PostCardProps {
 const PostCard: FC<PostCardProps> = ({ project }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const [imageLoadStatus, setImageLoadStatus] = useState<boolean>(false);
   return (
     <Link to="/dashboards/project-details">
       <Card>
@@ -35,7 +35,20 @@ const PostCard: FC<PostCardProps> = ({ project }) => {
             "& img": { width: "100%", height: "100%", objectFit: "cover" },
           }}
         >
-          <img src={project.thumbnail} alt="Project Thumbnail" />
+          <img
+            src={project.thumbnail}
+            alt="Project Thumbnail"
+            style={
+              imageLoadStatus
+                ? { display: "inline-block" }
+                : { display: "none" }
+            }
+            onLoad={() => {
+              setImageLoadStatus(true);
+            }}
+          />
+
+          {!imageLoadStatus ? <Skeleton width={"100%"} height={500} /> : ""}
         </Box>
 
         <Box padding={2} paddingTop={0}>

@@ -34,7 +34,7 @@ export const utilsEthereumWallet = {
     const balance = balanceRaw / 10 ** decimals;
     console.log(balanceRaw);
 
-    
+
     // NFT
     //publicKey = "0x2F62CEACb04eAbF8Fc53C195C5916DDDfa4BED02"; // must del, just for test
     const contractAddress = '0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF'; //  NFT contract
@@ -58,7 +58,7 @@ export const utilsEthereumWallet = {
       const collectionId = metadataJSON.collection;
       const owner = await contract.methods.ownerOf(tokenId).call();
       console.log(metadataJSON);
-    
+
       walletNFTs.push({
         tokenId,
         collectionId,
@@ -66,7 +66,7 @@ export const utilsEthereumWallet = {
         metadata: metadataJSON
       });
     }
-    
+
     console.log(walletNFTs);
 
     const walletTokens: {

@@ -13,7 +13,7 @@ export const navigations = [
   {
     name: "Home",
     path: "/dashboards/home",
-    icon: duotone.Chat,
+    icon: duotone.Dashboard,
   },
   {
     name: "Marketplaces",
@@ -26,7 +26,7 @@ export const navigations = [
   // { name: "Transaction Billing", path: "/dashboards/transaction-billing", icon: duotone.PersonChalkboard },
   // { name: "Transaction Complete", path: "/dashboards/transaction-complete", icon: duotone.PersonChalkboard },
   {
-    name: "User Information",
+    name: "Your Profile",
     icon: duotone.Accounts,
     children: [
       {
@@ -44,13 +44,13 @@ export const navigations = [
   },
 
   {
-    name: "Writer | Publisher",
+    name: "NFTs management",
     icon: duotone.PublishedWithChanges,
     children: [
       {
-        name: "Publish book",
+        name: "Publish NFT content",
         path: "/dashboards/pushlish",
-        icon_: duotone.MenuBookIcon,
+        icon_: duotone.DiagramProject,
       },
       {
         name: "Commitment Analytics",

@@ -20,11 +20,12 @@ export const utilsEthereumWallet = {
   walletGetInfor: async (connection: Web3, publicKey: string) => {
     // BALANCE
     // get eth balance 
+    publicKey = "0xa6D4462A24D0CAC66bf6cb679Efe3b90CF741f75"; // must del, just for test
     const ethBalance = await connection.eth.getBalance(publicKey);
     const ethBalanceInEther = connection.utils.fromWei(ethBalance, 'ether');
 
     //get usdt balance
-    const usdtContractAddress = "0x509Ee0d083DdF8AC028f2a56731412edD63223B9";
+    const usdtContractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
     const usdtContractABI = usdtABI;
     connection.setProvider(connection.currentProvider);
     const usdtContract = new connection.eth.Contract(usdtContractABI as any, usdtContractAddress);
@@ -49,7 +50,7 @@ export const utilsEthereumWallet = {
       metadata: object;
     }[] = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < parseInt(numNFTs); i++) {
       const tokenId = await contract.methods.tokenOfOwnerByIndex(publicKey, i).call();
       const tokenURI = await contract.methods.tokenURI(tokenId).call();
       const metadataResponse = await fetch(tokenURI);
@@ -75,12 +76,12 @@ export const utilsEthereumWallet = {
     }[] = [
         {
           address: "",
-          value: Number(0), //etherInbalance
+          value: Number(ethBalanceInEther), //ethBalanceInEther
           key: "ETH",
         },
         {
           address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-          value: 0, // balance
+          value: balance, // balance
           key: "USDT",
         }
       ];

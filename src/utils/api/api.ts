@@ -11,15 +11,15 @@ import { string } from "yup";
  * API endpoint
  */
 interface CommonHeaderProperties extends HeadersDefaults {
-  Authorization?: string;
+  authorization?: string;
   "Cache-Control": string;
   Pragma: string;
   headers: object;
   Expires: string;
 }
-
 export const REACT_APP_BASE_API_PATH =
-  process.env.REACT_APP_BASE_API_PATH || "https://apiedcosy.yitec.net/v1";
+  process.env.APP_ENV !== "dev" ? "http://localhost:8080/api" : "https://api.rades.asia/api";
+
 console.log("BASE API PATH:", REACT_APP_BASE_API_PATH);
 // console.log(process.env.REACT_APP_BASE_API_PATH)
 /**
@@ -35,7 +35,7 @@ const API = axios.create({
  */
 // let token =
 API.defaults.headers = {
-  // Authorization: `Bearer ${getCookie('accessToken')}`,
+  authorization: `Bearer ${"???"}`,
   "Cache-Control": "no-cache",
   Pragma: "no-cache",
   headers: { "Access-Control-Allow-Origin": "*" },
@@ -44,7 +44,7 @@ API.defaults.headers = {
 
 export function changeHeader(token: string) {
   API.defaults.headers = {
-    // Authorization: `Bearer ${token}`,
+    authorization: `Bearer ${token}`,
     "Cache-Control": "no-cache",
     Pragma: "no-cache",
     headers: { "Access-Control-Allow-Origin": "*" },

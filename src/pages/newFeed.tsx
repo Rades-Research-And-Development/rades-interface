@@ -14,6 +14,7 @@ import {
   Theme,
   useMediaQuery,
 } from "@mui/material";
+import useGeneralWallet from "common/useGeneralWallet";
 import FlexBetween from "components/flexbox/FlexBetween";
 import FlexBox from "components/flexbox/FlexBox";
 import SearchInput from "components/input-fields/SearchInput";
@@ -25,6 +26,7 @@ import PostsNavigation from "page-sections/home-page/PostsNavigation";
 import RecentlyChat from "page-sections/home-page/recently-chat";
 import RecommendContent from "page-sections/home-page/recommed-content";
 import React, { FC, SyntheticEvent, useEffect, useState } from "react";
+import { userRegister } from "utils/api/users";
 import { searchByName } from "utils/utils";
 
 // styled component
@@ -47,7 +49,7 @@ const StyledInputBase = styled(InputBase)<{ disable_border: any }>(
   })
 );
 
-const HomePage: FC = () => {
+const NewFeed: FC = () => {
   const [value, setValue] = useState("all");
   const [openModal, setOpenModal] = useState(false);
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
@@ -61,11 +63,20 @@ const HomePage: FC = () => {
   const [filteredItem, setFilteredItem] = useState<any[] | never[]>(
     projectList
   );
+  const { publicKey } = useGeneralWallet((s) => s);
 
   useEffect(() => {
     const result = searchByName(projectList, searchValue);
     setFilteredItem(result);
   }, [searchValue]);
+
+  // useEffect(() => {
+  //   userRegister("athevinha", "chunga123", publicKey)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // });
 
   const filterList = filteredItem.filter(
     (item) => value === "all" || item.status === value
@@ -305,4 +316,4 @@ const projectList = [
   },
 ];
 
-export default HomePage;
+export default NewFeed;

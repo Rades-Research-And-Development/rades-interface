@@ -1,7 +1,6 @@
 import Web3 from 'web3';
 import usdtABI from './usdtABI.json'
 import nftABI from './nftABI.json'
-import { delay } from 'lodash';
 
 
 

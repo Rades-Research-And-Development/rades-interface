@@ -46,7 +46,7 @@ const CommitmentAnalytics = Loadable(
 );
 
 const Messages = Loadable(lazy(() => import("./pages/message")));
-const HomePage = Loadable(lazy(() => import("./pages/home-page")));
+const HomePage = Loadable(lazy(() => import("./pages/newFeed")));
 const PostDetails = Loadable(
   lazy(() => import("./pages/contents/post-details"))
 );
@@ -104,7 +104,7 @@ const authRoutes = [
 const dashboardRoutes = [
   {
     path: "",
-    element: <Navigate to="/dashboards/marketplaces" />,
+    element: <Navigate to="/dashboards/home" />,
   },
   { path: "home", element: <HomePage /> },
   {

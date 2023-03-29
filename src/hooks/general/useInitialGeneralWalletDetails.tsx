@@ -7,6 +7,7 @@ import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 export function useInitialGeneralWalletListener() {
   const { chain, connection } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);
+  useEffect(() => {}, [publicKey]);
   useEffect(() => {
     if (chain === "SOL" && publicKey) {
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);

@@ -20,6 +20,11 @@ export const navigations = [
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
   },
+  {
+    name: "Collections Demo [test]",
+    path: "/dashboards/popular-collections",
+    icon: duotone.AdminEcommerce,
+  },
   // { name: "Marketplace Details", path: "/dashboards/marketplace-details", icon: duotone.PersonChalkboard },
   // { name: "Transaction Card", path: "/dashboards/transaction-card", icon: duotone.PersonChalkboard },
   // { name: "Transaction Payment", path: "/dashboards/transaction-payment", icon: duotone.PersonChalkboard },

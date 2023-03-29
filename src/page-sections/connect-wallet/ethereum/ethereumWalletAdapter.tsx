@@ -29,18 +29,20 @@ const EthereumWalletAdapter: FC<{ onCloseProp?: () => void }> = (props) => {
     // await ConnectWallet().then((res) => {});
   };
   return (
-    <>
-      <Button
-        onClick={onConnectWallet}
-        sx={{
-          fontSize: "1rem",
-          background: "none",
-          height: "3rem",
-        }}
-      >
-        Connect Ethereum Wallet
-      </Button>
-    </>
+    <Button
+      onClick={onConnectWallet}
+      sx={{
+        fontSize: "1rem",
+        background: "none",
+        opacity: 0,
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        zIndex: 0,
+      }}
+    >
+      Connect Ethereum Wallet
+    </Button>
   );
 };
 export default EthereumWalletAdapter;

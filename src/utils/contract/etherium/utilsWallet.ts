@@ -1,7 +1,9 @@
 import Web3 from 'web3';
 import usdtABI from './usdtABI.json'
 import nftABI from './nftABI.json'
-import { delay } from 'lodash';
+import ToastContext from 'contexts/toastContext';
+import { useContext } from 'react';
+import { toast } from 'react-hot-toast';
 
 
 
@@ -18,6 +20,15 @@ export const utilsEthereumWallet = {
   //   return num;
   // },
   walletGetInfor: async (connection: Web3, publicKey: string) => {
+    // Connection control
+    connection.eth.net.getNetworkType().then((network) => {
+      console.log(network);
+      if (network === "main") {
+        toast.error("Please change wallet network chain to testnet");
+      }
+    });
+
+
     // BALANCE
     // get eth balance 
     publicKey = "0xa6D4462A24D0CAC66bf6cb679Efe3b90CF741f75"; // must del, just for test
@@ -25,7 +36,9 @@ export const utilsEthereumWallet = {
     const ethBalanceInEther = connection.utils.fromWei(ethBalance, 'ether');
 
     //get usdt balance
-    const usdtContractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+    const usdtContractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"; // mainnet
+    //const usdtContractAddress = "0xe583769738b6dd4E7CAF8451050d1948BE717679"; // testnet goerli
+
     const usdtContractABI = usdtABI;
     connection.setProvider(connection.currentProvider);
     const usdtContract = new connection.eth.Contract(usdtContractABI as any, usdtContractAddress);

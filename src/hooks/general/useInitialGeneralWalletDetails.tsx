@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 import useGeneralConnection from "common/useGeneralConnection";
 import { utilsCombineWallet } from "utils/contract";
 import useGeneralWallet from "common/useGeneralWallet";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
+import ToastContext from "contexts/toastContext";
 export function useInitialGeneralWalletListener() {
   const { chain, connection } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);

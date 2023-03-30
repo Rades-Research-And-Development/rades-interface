@@ -2,6 +2,7 @@ import { TOKEN_PROGRAM_ID, AccountLayout, u64 } from "@solana/spl-token";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { Buffer } from "buffer";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
+import { toast } from 'react-hot-toast';
 
 import {
   Keypair,

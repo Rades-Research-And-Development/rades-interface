@@ -1,5 +1,6 @@
 import useGeneralConnection from "common/useGeneralConnection";
-import { useEffect } from "react";
+import ToastContext from "contexts/toastContext";
+import { useContext, useEffect } from "react";
 import web3 from "web3";
 
 export default function useInitialEthereumConnectionListener() {

@@ -52,7 +52,7 @@ const BookSwap: FC = () => {
     const [age, setAge] = useState(type === "old" ? book_id : "");
 
     const handleChange = (event: any) => {
-      // console.log({
+      // // console.log({
       //   value: event.target.value as string,
       //   type: type,
       // })

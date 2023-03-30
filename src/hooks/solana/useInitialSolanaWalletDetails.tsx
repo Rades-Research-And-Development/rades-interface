@@ -49,7 +49,7 @@ export function useInitialSolanaWalletListener() {
 //             metadata: await fetch(nft.data.uri).then((res) => res.json()),
 //           }))
 //         );
-//         console.log(nftsmetadata_);
+//         // console.log(nftsmetadata_);
 //         useWalletDetailsNFTs.setState({
 //           walletDetailsNFTs: nftsmetadata_,
 //         });

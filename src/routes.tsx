@@ -60,7 +60,7 @@ const Error = Loadable(lazy(() => import("./pages/404")));
 
 const ActiveLayout = () => {
   const { settings } = useSettings();
-  // console.log("settings.activeLayout", settings.activeLayout);
+  // // console.log("settings.activeLayout", settings.activeLayout);
   // switch (settings.activeLayout) {
   //   case "layout1":
   //     return <DashboardLayoutV1 />;

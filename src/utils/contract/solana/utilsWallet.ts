@@ -2,6 +2,7 @@ import { TOKEN_PROGRAM_ID, AccountLayout, u64 } from "@solana/spl-token";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { Buffer } from "buffer";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
+import { toast } from 'react-hot-toast';
 
 import {
   Keypair,
@@ -103,7 +104,7 @@ export const utilsSolanaWallet = {
 
     // tokenAccounts.value.forEach(async (tokenAccount) => {
     //   const accountData = AccountLayout.decode(tokenAccount.account.data);
-    //   console.log(accountData)
+    //   // console.log(accountData)
 
     //   if (new PublicKey(accountData.mint).toString() === USDCmint) {
     //     walletTokens.push({
@@ -144,7 +145,7 @@ export const utilsSolanaWallet = {
             await connection
               .sendRawTransaction(signedTransaction.serialize())
               .then((signature) => {
-                console.log(`Transaction ${signature} sent`);
+                // console.log(`Transaction ${signature} sent`);
                 sign = signature;
               });
           });

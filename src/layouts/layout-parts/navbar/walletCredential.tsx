@@ -16,6 +16,8 @@ import Web3 from "web3";
 import { toast } from "react-hot-toast";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 import ToastContext from "contexts/toastContext";
+import { useWallet } from "@solana/wallet-adapter-react";
+
 // styled components
 // const StyledSmall = styled(Small)(({ theme }) => ({
 //   padding: "3px 12px",
@@ -43,6 +45,7 @@ const WalletCredential: FC = () => {
   const ultiGeneral = useGeneralUtilsWallet((s) => s);
   const { toast } = useContext(ToastContext);
 
+  const { connected, disconnect } = useWallet();
   return (
     <Fragment>
       <StyledButtonBase
@@ -144,6 +147,19 @@ const WalletCredential: FC = () => {
           >
             {" "}
             Copy wallet
+          </Button>
+
+          <Button
+            onClick={() => {
+              if (connected) {
+                disconnect();
+              }
+            }}
+            color="primary"
+            style={{ width: "100%", fontSize: "14px" }}
+          >
+            {" "}
+            Disconnect
           </Button>
         </Box>
       </WalletCredentialDetails>

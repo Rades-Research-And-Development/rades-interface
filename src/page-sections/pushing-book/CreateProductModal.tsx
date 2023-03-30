@@ -89,7 +89,7 @@ const CreateProductModal: FC<ModalProps> = ({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
     },
   });
 

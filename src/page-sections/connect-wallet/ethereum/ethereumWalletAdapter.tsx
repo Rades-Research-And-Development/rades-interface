@@ -23,7 +23,7 @@ const EthereumWalletAdapter: FC<{ onCloseProp?: () => void }> = (props) => {
       }
     } else if ((window as any).web3) {
       const web3 = (window as any).web3;
-      console.log("Injected web3 detected.");
+      // console.log("Injected web3 detected.");
       return web3;
     }
     // await ConnectWallet().then((res) => {});

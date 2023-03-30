@@ -20,8 +20,8 @@ interface CommonHeaderProperties extends HeadersDefaults {
 
 export const REACT_APP_BASE_API_PATH =
   process.env.REACT_APP_BASE_API_PATH || "https://apiedcosy.yitec.net/v1";
-console.log("BASE API PATH:", REACT_APP_BASE_API_PATH);
-// console.log(process.env.REACT_APP_BASE_API_PATH)
+// console.log("BASE API PATH:", REACT_APP_BASE_API_PATH);
+// // console.log(process.env.REACT_APP_BASE_API_PATH)
 /**
  * Axious default object
  */
@@ -63,18 +63,18 @@ API.interceptors.response.use(
   (error) => {
     if (error?.response?.status === 403) {
       window.location.href = "/dashboards/login";
-      console.log("You are not authorized. Please login again");
+      // console.log("You are not authorized. Please login again");
     } else if (error?.response?.status === 401) {
-      console.log("Your session has expired. Please login again");
+      // console.log("Your session has expired. Please login again");
       window.location.href = "/dashboards/login";
     } else if (error?.response?.status === 500) {
-      console.log("Internal server error. Please try again later");
+      // console.log("Internal server error. Please try again later");
     } else if (error?.response?.status === 404) {
-      console.log("Resource not found. Please try again later");
+      // console.log("Resource not found. Please try again later");
     } else if (error?.response?.status === 400) {
-      console.log("Bad request. Please try again later");
+      // console.log("Bad request. Please try again later");
     } else if (error?.response?.status === 405) {
-      console.log("Method not allowed. Please try again later");
+      // console.log("Method not allowed. Please try again later");
     }
     if (error.response && error.response.data) {
       return Promise.reject(error.response.data);

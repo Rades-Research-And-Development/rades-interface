@@ -18,7 +18,7 @@ export function useInitialGeneralWalletListener() {
       utilsCombineWallet.utilsSolanaWallet
         .walletGetInfor(connection, publicKey)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
           useGeneralWallet.setState({
             details: {
               address: publicKey,
@@ -33,7 +33,7 @@ export function useInitialGeneralWalletListener() {
       utilsCombineWallet.utilsEthereumWallet
         .walletGetInfor(connection, publicKey)
         .then((res: any) => {
-          console.log(res);
+          // console.log(res);
           useGeneralWallet.setState({
             details: {
               address: publicKey,

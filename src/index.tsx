@@ -46,21 +46,21 @@ function RootApp() {
   );
 
   return (
-    <React.StrictMode>
-      <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider wallets={wallets} autoConnect>
-          <WalletModalProvider>
-            <SettingsProvider>
-              <JWTAuthProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </JWTAuthProvider>
-            </SettingsProvider>
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <SettingsProvider>
+            <JWTAuthProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </JWTAuthProvider>
+          </SettingsProvider>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+    // </React.StrictMode>  
   );
 }
 root.render(<RootApp />);

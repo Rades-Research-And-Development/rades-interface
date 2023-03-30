@@ -104,7 +104,7 @@ export const utilsSolanaWallet = {
 
     // tokenAccounts.value.forEach(async (tokenAccount) => {
     //   const accountData = AccountLayout.decode(tokenAccount.account.data);
-    //   console.log(accountData)
+    //   // console.log(accountData)
 
     //   if (new PublicKey(accountData.mint).toString() === USDCmint) {
     //     walletTokens.push({
@@ -145,7 +145,7 @@ export const utilsSolanaWallet = {
             await connection
               .sendRawTransaction(signedTransaction.serialize())
               .then((signature) => {
-                console.log(`Transaction ${signature} sent`);
+                // console.log(`Transaction ${signature} sent`);
                 sign = signature;
               });
           });

@@ -14,6 +14,7 @@ export function useInitialEthereumWalletListener() {
     ) {
       generalConnection.connection.eth.getAccounts().then((res) => {
         useGeneralWallet.setState({ publicKey: res[0], chain: "ETH" });
+        console.log("<<<<<0");
       });
     }
   }, [generalConnection]);

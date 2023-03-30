@@ -7,6 +7,6 @@ export default function useInitialGeneralConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
   const generalWallet = useGeneralWallet((s) => s);
   useEffect(() => {
-    console.log(generalWallet, generalConnection);
+    // console.log(generalWallet, generalConnection);
   }, [generalConnection, generalWallet]);
 }

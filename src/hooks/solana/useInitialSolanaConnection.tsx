@@ -8,7 +8,7 @@ export default function useInitialSolanaConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
 
   useEffect(() => {
-    console.log("Solana: " + generalConnection.chain + publicKey?.toBase58());
+    // console.log("Solana: " + generalConnection.chain + publicKey?.toBase58());
     if (generalConnection.chain === "" && publicKey?.toBase58()) {
       useGeneralConnection.setState({
         connection: connection,

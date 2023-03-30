@@ -18,7 +18,7 @@ export default function WalletNFTsTable() {
   const { details, publicKey } = useGeneralWallet((s) => s);
   const theme = useTheme();
   React.useEffect(() => {
-    console.log(details?.nfts);
+    // console.log(details?.nfts);
   }, [details]);
   return (
     <>

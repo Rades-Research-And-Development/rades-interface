@@ -21,7 +21,7 @@ import SearchInput from "components/input-fields/SearchInput";
 import { H2, H6, Small } from "components/Typography";
 import PencilIcon from "icons/PencilIcon";
 
-import CreatePost from "page-sections/home-page/createPost";
+import CreatePost from "page-sections/home-page/CreatePost";
 import PostsNavigation from "page-sections/home-page/PostsNavigation";
 import RecentlyChat from "page-sections/home-page/recently-chat";
 import RecommendContent from "page-sections/home-page/recommed-content";

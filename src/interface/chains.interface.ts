@@ -15,5 +15,6 @@ export default interface IChains {
         rpcUrls?: string[],
         blockExplorerUrls?: string[],
     }[]
+
 };
 

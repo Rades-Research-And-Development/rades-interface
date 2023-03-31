@@ -60,7 +60,7 @@ function RootApp() {
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
-    // </React.StrictMode>  
+    // </React.StrictMode>
   );
 }
 root.render(<RootApp />);

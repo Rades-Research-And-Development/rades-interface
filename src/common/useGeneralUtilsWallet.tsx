@@ -1,6 +1,6 @@
 import create from "zustand";
 import web3 from "web3";
-import IwalletDetails from "interface/walletDetails";
+import IwalletDetails from "interface/walletDetails.interface";
 export type IGeneralUtilsWallet = {
   walletAirDrop?: (...params_) => Promise<{ status: number; text: string }>;
   walletGetNativeTokenBalance?: (...params_) => Promise<number | undefined>;

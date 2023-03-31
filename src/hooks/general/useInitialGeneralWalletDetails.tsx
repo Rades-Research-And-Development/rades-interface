@@ -8,8 +8,8 @@ import ToastContext from "contexts/toastContext";
 export function useInitialGeneralWalletListener() {
   const { chain, connection } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);
-  useEffect(() => {}, [publicKey]);
   useEffect(() => {
+    console.log(chain);
     if (chain === "SOL" && publicKey) {
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);
       // *** dev ***
@@ -28,13 +28,12 @@ export function useInitialGeneralWalletListener() {
             },
           });
         });
-    }
-    if (chain === "ETH" && publicKey) {
+    } else if (chain !== "SOL" && publicKey) {
+      console.log(`Start set Wallet information: ${chain}`);
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
       utilsCombineWallet.utilsEthereumWallet
         .walletGetInfor(connection, publicKey)
         .then((res: any) => {
-          // console.log(res);
           useGeneralWallet.setState({
             details: {
               address: publicKey,

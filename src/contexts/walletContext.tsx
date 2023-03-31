@@ -1,4 +1,4 @@
-import IwalletInfo from "interface/walletDetails";
+import IwalletInfo from "interface/walletDetails.interface";
 import React, { useState, useEffect, createContext } from "react";
 interface IwalletContext {
   walletInfo: IwalletInfo;

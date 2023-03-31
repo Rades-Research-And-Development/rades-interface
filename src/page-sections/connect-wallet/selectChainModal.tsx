@@ -25,7 +25,7 @@ import { useFormik } from "formik";
 import { FC, useContext, useEffect } from "react";
 import AuthenticationLayout from "./AuthenticationLayout";
 import * as Yup from "yup";
-import EthereumWalletAdapter from "./ethereum/ethereumWalletAdapter";
+import EthereumWalletAdapter from "./WalletAdapter";
 import AppCheckBox from "components/AppCheckBox";
 import FlexBetween from "components/flexbox/FlexBetween";
 import { Small } from "components/Typography";
@@ -35,6 +35,8 @@ import Twitter from "icons/Twitter";
 import { userLogin, userRegister } from "utils/api/users";
 import ToastContext from "contexts/toastContext";
 import { use } from "i18next";
+import WalletOauth from "./WalletOauth";
+import SocialOauth from "./SocialOauth";
 // component props interface
 interface ModalProps {
   open: boolean;
@@ -88,66 +90,13 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
         title="Sign in to Rades"
         routeName="Create an account"
       >
-        {" "}
-        <StyledButton>
-          {/* <GoogleIcon sx={{ marginRight: 1, fontSize: "1.2rem" }} /> */}
-          <AppAvatar
-            src={`/static/crypto/SOL.png`}
-            sx={{ marginRight: 1, width: 22, height: 22 }}
-          />
-          Connect with Solana
-          <SolanaWalletAdapter
-            onClick={onClose}
-            style={{
-              fontSize: "1rem",
-              background: "none",
-              opacity: 0,
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              zIndex: 0,
-            }}
-          />
-        </StyledButton>
-        <StyledButton>
-          {/* <GoogleIcon sx={{ marginRight: 1, fontSize: "1.2rem" }} /> */}
-          <AppAvatar
-            src={`/static/crypto/ETH.png`}
-            sx={{ marginRight: 1, width: 22, height: 22 }}
-          />
-          Connect with Ethereum
-          <EthereumWalletAdapter />
-        </StyledButton>
+        <WalletOauth open={open} onClose={onClose} />
         <Divider sx={{ marginTop: 1 }}>
           <Small color="text.disabled" px={1}>
             OR
           </Small>
         </Divider>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          my={3}
-        >
-          <StyledButton onClick={() => SignWithGoogle()}>
-            <GoogleIcon sx={{ marginRight: 1, fontSize: "1.2rem" }} />
-            Signin with Google
-          </StyledButton>
-
-          <StyledButton>
-            <Facebook
-              sx={{ color: "#2475EF", marginRight: 1, fontSize: "1.2rem" }}
-            />
-            Signin with Facebook
-          </StyledButton>
-
-          <StyledButton>
-            <Twitter
-              sx={{ color: "#45ABF7", marginRight: 1, fontSize: "1.2rem" }}
-            />
-            Signin with Twitter
-          </StyledButton>
-        </Stack>
+        <SocialOauth open={open} onClose={onClose} />
         {/* <Divider sx={{ marginTop: 1 }}> */}
         <Small color="text.disabled" px={1}>
           By signing in you agree to our Terms & Conditions

@@ -1,7 +1,8 @@
 import create from "zustand";
 import web3 from "web3";
+import IChainsSymbol from "interface/chainsSymbol.interface";
 export type IGeneralConnection = {
-  chain: "ETH" | "SOL" | "";
+  chain: IChainsSymbol["symbol"];
   connection: any;
 };
 

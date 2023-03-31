@@ -6,7 +6,7 @@ import { FC, Fragment, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { getCookie } from "cookies/cookies";
 import useSolanaWalletDetailsToken from "common/useWalletDetailsToken";
-import SelectChainModal from "page-sections/connect-wallet/SelectChainModal";
+import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
 import useGeneralWallet from "common/useGeneralWallet";
 import WalletCredentialDetails from "./walletCredentialDetails";
 import FlexBox from "components/flexbox/FlexBox";

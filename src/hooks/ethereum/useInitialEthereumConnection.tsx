@@ -17,16 +17,6 @@ export default function useInitialEthereumConnectionListener() {
               connection: new web3((window as any).ethereum),
               chain: "ETH",
             });
-
-            const message = "Authentication";
-            (window as any).ethereum
-              .request({
-                method: "personal_sign",
-                params: [message, publicKeys[0]],
-              })
-              .then((res) => {
-                console.log(res);
-              });
           }
         });
     }

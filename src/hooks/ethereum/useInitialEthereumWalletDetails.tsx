@@ -14,8 +14,13 @@ export function useInitialEthereumWalletListener() {
     ) {
       generalConnection.connection.eth.getAccounts().then((res) => {
         useGeneralWallet.setState({ publicKey: res[0], chain: "ETH" });
-        console.log("<<<<<0");
+        const message = "Authentication";
+        (window as any).ethereum.request({
+          method: "personal_sign",
+          params: [message, res[0]],
+        });
       });
     }
   }, [generalConnection]);
 }
+  

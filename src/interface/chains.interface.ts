@@ -4,7 +4,12 @@ export default interface IChains {
     chainName: string,
     symbol: IChainsSymbol["symbol"],
     chainId: string,
-    RPC: {
+    stableCoin?: {
+        symbol: string,
+        address: string,
+        path: string,
+    }
+    RPC?: {
         chainId: string,
         chainName?: string,
         nativeCurrency?: {

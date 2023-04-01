@@ -1,4 +1,4 @@
 export default interface IChainsSymbol {
-    symbol: "ETH" | "BSC" | "MATIC" | "OP" | "SOL" | "ARB" | ""
+    symbol: "ETH" | "BNB" | "MATIC" | "OP" | "SOL" | "ARB" | ""
 };
 

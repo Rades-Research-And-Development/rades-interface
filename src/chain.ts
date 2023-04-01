@@ -4,12 +4,22 @@ const mainchains: IChains[] = [
     {
         chainName: "Ethereum",
         symbol: "ETH",
+        stableCoin: {
+            symbol: "USDT",
+            address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            path: "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7"
+        },
         chainId: "0x1",
         RPC: [{ chainId: '0x1' }]
     },
     {
         chainName: "Binance Smart Chain",
-        symbol: "BSC",
+        symbol: "BNB",
+        stableCoin: {
+            symbol: "BUSD",
+            address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+            path: "https://api.bscscan.com/api?module=contract&action=getabi&address=0xe9e7cea3dedca5984780bafc599bd69add087d56"
+        },
         chainId: "0x38",
         RPC: [{
             chainId: '0x38',
@@ -27,6 +37,11 @@ const mainchains: IChains[] = [
         chainName: "Polygon",
         symbol: "MATIC",
         chainId: "0x89",
+        stableCoin: {
+            symbol: "USDT",
+            address: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+            path: "https://api.polygonscan.com/api?module=contract&action=getabi&address=0xc2132d05d31c914a87c6611c10748aeb04b58e8f"
+        },
         RPC: [{
             chainId: '0x89',
             chainName: 'Polygon',
@@ -43,6 +58,11 @@ const mainchains: IChains[] = [
         chainName: "Arbtribum",
         symbol: "ARB",
         chainId: "0x89",
+        stableCoin: {
+            symbol: "USDT",
+            address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            path: "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7"
+        },
         RPC: [{
             chainId: '0x89',
             chainName: 'Arbtribum',
@@ -58,17 +78,22 @@ const mainchains: IChains[] = [
     {
         chainName: "Optimism",
         symbol: "OP",
-        chainId: "0x89",
+        chainId: "0xa",
+        stableCoin: {
+            symbol: "USDT",
+            address: "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+            path: "https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=0x94b008aa00579c1307b0ef2c499ad98a8ce58e58&apikey=HB9SHU81DJUD5TG6YS9K5R7HRDVNMJ9ZXJ",
+        },
         RPC: [{
-            chainId: '0x89',
+            chainId: '0xa',
             chainName: 'Optimism',
             nativeCurrency: {
-                name: 'OP',
-                symbol: 'OP',
+                name: 'ETH',
+                symbol: 'ETH',
                 decimals: 18,
             },
-            rpcUrls: ['https://matic-mainnet.chainstacklabs.com'],
-            blockExplorerUrls: ['https://polygonscan.com/'],
+            rpcUrls: ['https://mainnet.optimism.io'],
+            blockExplorerUrls: ['https://optimism.etherscan.io/'],
         }]
     },]
 
@@ -76,12 +101,22 @@ const testchains: IChains[] = [{
     chainName: "Ethereum",
     symbol: "ETH",
     chainId: "0x5",
+    stableCoin: {
+        symbol: "USDT",
+        address: "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
+        path: "https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=0x509ee0d083ddf8ac028f2a56731412edd63223b9",
+    },
     RPC: [{ chainId: '0x5' }]
 },
 {
     chainName: "Binance Smart Chain",
-    symbol: "BSC",
+    symbol: "BNB",
     chainId: "0x61",
+    stableCoin: {
+        symbol: "BUSD",
+        address: "0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee",
+        path: "https://api-testnet.bscscan.com/api?module=contract&action=getabi&address=0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee"
+    },
     RPC: [{
         chainId: '0x61',
         chainName: 'BSC Testnet',
@@ -98,6 +133,11 @@ const testchains: IChains[] = [{
     chainName: "Polygon",
     symbol: "MATIC",
     chainId: "0x13881",
+    stableCoin: {
+        symbol: "USDT",
+        address: "0xA02f6adc7926efeBBd59Fd43A84f4E0c0c91e832",
+        path: "https://api-testnet.polygonscan.com/api?module=contract&action=getabi&address=0xa02f6adc7926efebbd59fd43a84f4e0c0c91e832",
+    },
     RPC: [{
         chainId: '0x13881',
         chainName: 'Polygon Mumbai',
@@ -114,9 +154,14 @@ const testchains: IChains[] = [{
     chainName: "Arbtribum",
     symbol: "ARB",
     chainId: "0x89",
+    stableCoin: {
+        symbol: "USDT",
+        address: "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
+        path: "https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=0x509ee0d083ddf8ac028f2a56731412edd63223b9",
+    },
     RPC: [{
         chainId: '0x89',
-        chainName: 'Arbtribum',
+        chainName: 'Arbtribum Testnet',
         nativeCurrency: {
             name: 'ARB',
             symbol: 'ARB',
@@ -128,18 +173,23 @@ const testchains: IChains[] = [{
 },
 {
     chainName: "Optimism",
-    symbol: "OP",
-    chainId: "0x89",
+    symbol: "ETH",
+    chainId: "0x1a4",
+    stableCoin: {
+        symbol: "USDT",
+        address: "0x466869e807dd3D332D9b034Fa0F0bebE55CFaf82",
+        path: "https://api-optimistic.etherscan.io/api?module=contract&action=getabi&address=0x94b008aa00579c1307b0ef2c499ad98a8ce58e58&apikey=HB9SHU81DJUD5TG6YS9K5R7HRDVNMJ9ZXJ",
+    },
     RPC: [{
-        chainId: '0x89',
-        chainName: 'Optimism',
+        chainId: '0x1a4',
+        chainName: 'Optimism Goerli',
         nativeCurrency: {
-            name: 'OP',
-            symbol: 'OP',
+            name: 'ETH',
+            symbol: 'ETH',
             decimals: 18,
         },
-        rpcUrls: ['https://matic-mainnet.chainstacklabs.com'],
-        blockExplorerUrls: ['https://polygonscan.com/'],
+        rpcUrls: ['https://goerli.optimism.io'],
+        blockExplorerUrls: ['https://goerli-optimism.etherscan.io/'],
     }]
 },
 

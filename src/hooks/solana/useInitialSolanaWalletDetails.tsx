@@ -9,13 +9,13 @@ export function useInitialSolanaWalletListener() {
   const { publicKey } = useWallet();
   const generalConnnection = useGeneralConnection((s) => s);
   useEffect(() => {
-    if (generalConnnection.chain === "SOL") {
+    if (generalConnnection.chainRPC.symbol === "SOL") {
       useGeneralWallet.setState({
         publicKey: publicKey?.toBase58(),
         chain: "SOL",
       });
     }
-  }, [generalConnnection.chain, publicKey]);
+  }, [generalConnnection.chainRPC, publicKey]);
 }
 
 // export function useWalletDetailsTokenListener() {

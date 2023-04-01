@@ -4,6 +4,7 @@ import useGeneralWallet from "common/useGeneralWallet";
 import IChains from "interface/chains.interface";
 import { chain } from "lodash";
 import { FC } from "react";
+import { switchChainRequest } from "utils/contract/etherium/switchChainRequest";
 import Web3 from "web3";
 const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
   props
@@ -17,12 +18,20 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
           .request({
             method: "eth_requestAccounts",
           })
-          .then((res) => {
-            onSwitchChain().then((res) => {
-              console.log(`Login with chain: ${props.chain.symbol}`);
+          .then((pubKeys) => {
+            console.log(pubKeys);
+            switchChainRequest(props.chain).then((res) => {
+              console.log(
+                `Login with chain: ${props.chain.symbol} & ${pubKeys[0]}`
+              );
+              useGeneralWallet.setState({
+                publicKey: pubKeys[0],
+                chain: props.chain.symbol,
+              });
+
               useGeneralConnection.setState({
                 connection: web3,
-                chain: props.chain.symbol,
+                chainRPC: props.chain,
               });
             });
           });
@@ -35,25 +44,7 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
       return web3;
     }
   };
-  const onSwitchChain = async () => {
-    try {
-      await (window as any).ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: props.chain.chainId }],
-      });
-    } catch (switchError) {
-      if ((switchError as any).code === 4902) {
-        try {
-          await (window as any).ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: props.chain.RPC,
-          });
-        } catch (addError) {
-          console.log("Error adding Chain");
-        }
-      }
-    }
-  };
+
   return (
     <Button
       onClick={onConnectWallet}

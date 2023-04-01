@@ -5,17 +5,14 @@ import { utilsCombineWallet } from "utils/contract";
 import useGeneralWallet from "common/useGeneralWallet";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 import ToastContext from "contexts/toastContext";
+import standalChains from "chain";
 export function useInitialGeneralWalletListener() {
-  const { chain, connection } = useGeneralConnection((s) => s);
+  const { connection, chainRPC } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);
   useEffect(() => {
-    console.log(chain);
-    if (chain === "SOL" && publicKey) {
+    console.log(`Start set Wallet information: ${chainRPC.symbol}`);
+    if (chainRPC.symbol === "SOL" && publicKey) {
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);
-      // *** dev ***
-      // Solana get all token in wallet
-      // *** dev ***
-
       utilsCombineWallet.utilsSolanaWallet
         .walletGetInfor(connection, publicKey)
         .then((res: any) => {
@@ -28,12 +25,13 @@ export function useInitialGeneralWalletListener() {
             },
           });
         });
-    } else if (chain !== "SOL" && publicKey) {
-      console.log(`Start set Wallet information: ${chain}`);
+    } else if (chainRPC.symbol !== "SOL" && publicKey) {
+      console.log(`Start set Wallet information: ${chainRPC.symbol}`);
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
       utilsCombineWallet.utilsEthereumWallet
-        .walletGetInfor(connection, publicKey)
+        .walletGetInfor(connection, publicKey, chainRPC)
         .then((res: any) => {
+          console.log(res);
           useGeneralWallet.setState({
             details: {
               address: publicKey,
@@ -41,7 +39,8 @@ export function useInitialGeneralWalletListener() {
               nfts: res.nfts,
             },
           });
-        });
+        })
+        .catch((err) => console.log(err));
     }
-  }, [chain, publicKey, connection]);
+  }, [chainRPC, publicKey, connection]);
 }

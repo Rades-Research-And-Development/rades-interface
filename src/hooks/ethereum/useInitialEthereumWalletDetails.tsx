@@ -9,16 +9,19 @@ export function useInitialEthereumWalletListener() {
   const generalConnection = useGeneralConnection((s) => s);
   useEffect(() => {
     if (
-      generalConnection.chain === "ETH" &&
+      generalConnection.chainRPC.symbol !== "SOL" &&
       generalConnection?.connection?.eth
     ) {
       generalConnection.connection.eth.getAccounts().then((res) => {
-        useGeneralWallet.setState({ publicKey: res[0], chain: "ETH" });
-        const message = "Authentication";
-        (window as any).ethereum.request({
-          method: "personal_sign",
-          params: [message, res[0]],
+        useGeneralWallet.setState({
+          publicKey: res[0],
+          chain: generalConnection.chainRPC.symbol,
         });
+        const message = "Authentication";
+        // (window as any).ethereum.request({
+        //   method: "personal_sign",
+        //   params: [message, res[0]],
+        // });
       });
     }
   }, [generalConnection]);

@@ -10,7 +10,6 @@ export function useInitialGeneralWalletListener() {
   const { connection, chainRPC } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);
   useEffect(() => {
-    console.log(`Start set Wallet information: ${chainRPC.symbol}`);
     if (chainRPC.symbol === "SOL" && publicKey) {
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);
       utilsCombineWallet.utilsSolanaWallet
@@ -26,12 +25,12 @@ export function useInitialGeneralWalletListener() {
           });
         });
     } else if (chainRPC.symbol !== "SOL" && publicKey) {
-      console.log(`Start set Wallet information: ${chainRPC.symbol}`);
+      // console.log(`Start set Wallet information: ${chainRPC.symbol}`);
+      // console.log(connection.currentProvider);
       useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
       utilsCombineWallet.utilsEthereumWallet
         .walletGetInfor(connection, publicKey, chainRPC)
         .then((res: any) => {
-          console.log(res);
           useGeneralWallet.setState({
             details: {
               address: publicKey,

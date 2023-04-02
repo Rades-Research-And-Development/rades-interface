@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import IChains from 'interface/chains.interface';
 import { switchChainRequest } from './switchChainRequest';
 import standalChains from 'chain';
+import { getBalanceByTokenAddress } from './getBalanceByTokenAddress';
 
 
 export const utilsEthereumWallet = {
@@ -21,27 +22,12 @@ export const utilsEthereumWallet = {
   // },
 
   walletGetInfor: async (connection: Web3, publicKey: string, chainRPC: IChains) => {
-    // Connection control
-
-    // connection.eth.net.getNetworkType().then((network) => {
-    //   if (network === "main") {
-    //     toast.error("Please change wallet network chain to testnet");
-    //   }
-    // });
     try {
       const naviteCoinbalanceWei = await connection.eth.getBalance(publicKey);
-      const stableCoinAddress = chainRPC.stableCoin?.address; // testnet goerli
-      const test = await fetch(chainRPC.stableCoin?.path + `&apikey=A42JHVKDUN4G7PKZJVVMW5XIH6XIUAI1IH` || "")
-      const stableCoinABIRaw = await test.json()
-      const stableCoinABI = JSON.parse(stableCoinABIRaw.result);
-      await connection.setProvider(connection.currentProvider);
-      const stableCoinCongtract = await new connection.eth.Contract(stableCoinABI, stableCoinAddress);
-      const stableCoindecimals = await stableCoinCongtract.methods.decimals().call((error, decimals) => decimals);
-      const stableCoinBalanceRaw = await stableCoinCongtract.methods.balanceOf(publicKey).call((error, stableCoinBalance) => stableCoinBalance)
-
       const naviteCoinbalance = Number(connection.utils.fromWei(naviteCoinbalanceWei, 'ether')).toFixed(2);
-      const stableCoinBalance = Number(stableCoinBalanceRaw / 10 ** stableCoindecimals).toFixed(2);
-      console.log(stableCoinBalance, naviteCoinbalance)
+      const stableCoinBalance = await getBalanceByTokenAddress(connection, chainRPC.stableCoin?.address || "", chainRPC.stableCoin?.path + `&apikey=A42JHVKDUN4G7PKZJVVMW5XIH6XIUAI1IH` || "", publicKey)
+
+
       const walletTokens: {
         address: string;
         value: Number;
@@ -50,7 +36,7 @@ export const utilsEthereumWallet = {
           {
             address: chainRPC.symbol,
             value: Number(naviteCoinbalance),
-            key: chainRPC.symbol
+            key: chainRPC.RPC?.[0].nativeCurrency?.symbol || chainRPC.symbol
           },
           {
             address: chainRPC.stableCoin?.address || "",
@@ -64,16 +50,18 @@ export const utilsEthereumWallet = {
         nfts: [],
       };
     } catch (error) {
-      await toast.promise(
-        switchChainRequest(standalChains[0]).then(res => {
-          window.location.reload()
-        }),
-        {
-          loading: "Please change wallet network chain to testnet...",
-          error: "Swith chain Unsuccessfully!",
-          success: "Swith chain Successfully!"
-        }
-      );
+      console.log(error)
+      if (chainRPC.symbol !== "ARB")
+        await toast.promise(
+          switchChainRequest(standalChains[0]).then(res => {
+            window.location.reload()
+          }),
+          {
+            loading: "Please change wallet network chain to testnet...",
+            error: "Swith chain Unsuccessfully!",
+            success: "Swith chain Successfully!"
+          }
+        );
       return {
         tokens: [],
         nfts: [],

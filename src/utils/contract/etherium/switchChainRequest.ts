@@ -11,9 +11,10 @@ export const switchChainRequest = async (chainRPC: IChains) => {
             try {
                 await (window as any).ethereum.request({
                     method: "wallet_addEthereumChain",
-                    params: chainRPC.chainId,
+                    params: chainRPC.RPC,
                 });
             } catch (addError) {
+                console.log(addError)
                 console.log("Error adding Chain");
             }
         }

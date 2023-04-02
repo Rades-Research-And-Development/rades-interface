@@ -96,14 +96,18 @@ const Wallet: FC = () => {
             >
               <img
                 src={`/static/crypto/${chainRPC.symbol}.png`}
-                alt="solona"
+                alt=""
                 width="100%"
               />
             </Box>
             <H3 mt={2} sx={{ marginBottom: "1rem" }}>
               {details?.tokens
-                .filter((token) => token.key === chainRPC.symbol)[0]
-                ?.value?.toFixed(2) + ` ${chainRPC.symbol}`}
+                .filter(
+                  (token) =>
+                    token.key === chainRPC.RPC?.[0].nativeCurrency?.symbol
+                )[0]
+                ?.value?.toFixed(2) +
+                ` ${chainRPC.RPC?.[0].nativeCurrency?.symbol}`}
             </H3>
             <Button
               sx={{

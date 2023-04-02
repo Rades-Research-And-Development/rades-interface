@@ -1,9 +1,13 @@
 /**
  * @file Base API object to use in other api utilities
  */
-
+import { useEffect } from 'react'
 import axios, { HeadersDefaults } from "axios";
+import { getCookie, removeCookie } from "utils/cookies/cookies";
 import { string } from "yup";
+import { userOauthWallet } from './users';
+import useModalPopup from 'common/useModalPopups';
+import { toast } from 'react-hot-toast';
 // import cookie from 'react-cookies'
 // import { getCookie, setCookie, removeCookie } from 'src/cookies/cookies'
 // import { router } from 'react-router-dom'
@@ -11,7 +15,7 @@ import { string } from "yup";
  * API endpoint
  */
 interface CommonHeaderProperties extends HeadersDefaults {
-  authorization?: string;
+  Authorization?: string;
   "Cache-Control": string;
   Pragma: string;
   headers: object;
@@ -35,7 +39,7 @@ const API = axios.create({
  */
 // let token =
 API.defaults.headers = {
-  authorization: `Bearer ${"???"}`,
+  Authorization: `Token ${getCookie("authentication_code")}`,
   "Cache-Control": "no-cache",
   Pragma: "no-cache",
   headers: { "Access-Control-Allow-Origin": "*" },
@@ -44,7 +48,7 @@ API.defaults.headers = {
 
 export function changeHeader(token: string) {
   API.defaults.headers = {
-    authorization: `Bearer ${token}`,
+    Authorization: `Token ${getCookie("authentication_code")}`,
     "Cache-Control": "no-cache",
     Pragma: "no-cache",
     headers: { "Access-Control-Allow-Origin": "*" },
@@ -56,31 +60,74 @@ export function changeHeader(token: string) {
  * The axios interceptor.
  * This will clear the user credential in local storage and redirect to /login page if the credential is not valid or expired
  */
-API.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    if (error?.response?.status === 403) {
-      window.location.href = "/dashboards/login";
-      // console.log("You are not authorized. Please login again");
-    } else if (error?.response?.status === 401) {
-      // console.log("Your session has expired. Please login again");
-      window.location.href = "/dashboards/login";
-    } else if (error?.response?.status === 500) {
-      // console.log("Internal server error. Please try again later");
-    } else if (error?.response?.status === 404) {
-      // console.log("Resource not found. Please try again later");
-    } else if (error?.response?.status === 400) {
-      // console.log("Bad request. Please try again later");
-    } else if (error?.response?.status === 405) {
-      // console.log("Method not allowed. Please try again later");
-    }
-    if (error.response && error.response.data) {
-      return Promise.reject(error.response.data);
-    }
-    return Promise.reject(error.message);
-  }
-);
+// API.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   (error) => {
+//     if (error?.response?.status === 403) {
+//       // window.location.href = "/dashboards/login";
+//       // console.log("You are not authorized. Please login again");
+//     } else if (error?.response?.status === 401) {
+//       // console.log("Your session has expired. Please login again");
+//       // window.location.href = "/dashboards/login";
+//     } else if (error?.response?.status === 500) {
+//       // console.log("Internal server error. Please try again later");
+//     } else if (error?.response?.status === 404) {
+//       // console.log("Resource not found. Please try again later");
+//     } else if (error?.response?.status === 400) {
+//       // console.log("Bad request. Please try again later");
+//     } else if (error?.response?.status === 405) {
+//       // console.log("Method not allowed. Please try again later");
+//     }
+//     if (error.response && error.response.data) {
+//       return Promise.reject(error.response.data);
+//     }
+//     return Promise.reject(error.message);
+//   }
+// );
 
+const AxiosInterceptor = ({ children }) => {
+
+  useEffect(() => {
+
+    const resInterceptor = response => {
+      return response;
+    }
+
+    const errInterceptor = error => {
+      if (error?.response?.status === 403) {
+        toast.error("Your session has expired. Please login again");
+        useModalPopup.setState({ oauthModal: true })
+      } else if (error?.response?.status === 401) {
+        useModalPopup.setState({ oauthModal: true })
+        toast.error("Your session has expired. Please login again");
+      } else if (error?.response?.status === 500) {
+        useModalPopup.setState({ oauthModal: true })
+        toast.error("Internal server error. Please try again later");
+      } else if (error?.response?.status === 404) {
+        useModalPopup.setState({ oauthModal: true })
+        toast.error("Resource not found. Please try again later");
+      } else if (error?.response?.status === 400) {
+        toast.error("Bad request. Please try again later");
+      } else if (error?.response?.status === 405) {
+        toast.error("Method not allowed. Please try again later");
+      }
+      if (error.response && error.response.data) {
+        return Promise.reject(error.response.data);
+      }
+      return Promise.reject(error);
+    }
+
+
+    const interceptor = API.interceptors.response.use(resInterceptor, errInterceptor);
+
+    return () => API.interceptors.response.eject(interceptor);
+
+  }, [])
+  return children;
+}
+
+
+export { AxiosInterceptor }
 export default API;

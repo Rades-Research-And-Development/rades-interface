@@ -22,6 +22,7 @@ import useInitialSolanaConnectionListener from "hooks/solana/useInitialSolanaCon
 import { useInitialSolanaWalletListener } from "hooks/solana/useInitialSolanaWalletDetails";
 import useInitialGeneralConnectionListener from "hooks/general/useInitialGeneralConnection";
 import { useInitialGeneralWalletListener } from "hooks/general/useInitialGeneralWalletDetails";
+import { AxiosInterceptor } from "utils/api/api";
 require("@solana/wallet-adapter-react-ui/styles.css");
 const App: FC = () => {
   const content = useRoutes(routes());
@@ -34,18 +35,20 @@ const App: FC = () => {
   });
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ApplicationsInitializations />
-      <ThemeProvider theme={theme}>
-        <ToastContext.Provider value={{ toast: toast }}>
-          <RTL>
-            <Toaster position="top-right" />
-            <CssBaseline />
-            {content}
-          </RTL>
-        </ToastContext.Provider>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <AxiosInterceptor>
+      <StyledEngineProvider injectFirst>
+        <ApplicationsInitializations />
+        <ThemeProvider theme={theme}>
+          <ToastContext.Provider value={{ toast: toast }}>
+            <RTL>
+              <Toaster position="top-right" />
+              <CssBaseline />
+              {content}
+            </RTL>
+          </ToastContext.Provider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </AxiosInterceptor>
   );
 };
 

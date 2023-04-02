@@ -5,7 +5,6 @@ import AppAvatar from "components/avatars/AppAvatar";
 import { FC, Fragment, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { getCookie } from "cookies/cookies";
-import useSolanaWalletDetailsToken from "common/useWalletDetailsToken";
 import SelectChainModal from "page-sections/connect-wallet/selectChainModal";
 import useGeneralWallet from "common/useGeneralWallet";
 import WalletCredentialDetails from "./walletCredentialDetails";
@@ -17,6 +16,9 @@ import { toast } from "react-hot-toast";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 import ToastContext from "contexts/toastContext";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { removeCookie } from "utils/cookies/cookies";
+import useModalPopup from "common/useModalPopups";
+import IChains from "interface/chains.interface";
 
 // styled components
 // const StyledSmall = styled(Small)(({ theme }) => ({
@@ -39,13 +41,27 @@ const WalletCredential: FC = () => {
   const anchorRef = useRef(null);
   const generalWallet = useGeneralWallet((s) => s);
   const generalConnection = useGeneralConnection((s) => s);
-  const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
+  const { oauthModal } = useModalPopup((s) => s);
+  // const [openChainSelectModal, setOpenChainSelectModal] = useState(false);
+
   const navigate = useNavigate();
   const [openWalletDetails, setOpenWalletDetails] = useState<boolean>(false);
   const ultiGeneral = useGeneralUtilsWallet((s) => s);
   const { toast } = useContext(ToastContext);
+  const { disconnect } = useWallet();
 
-  const { connected, disconnect } = useWallet();
+  const onDisconnect = () => {
+    removeCookie("authentication_code");
+    if (generalConnection.chainRPC.symbol === "SOL") disconnect();
+    else {
+      useGeneralConnection.setState({
+        connection: new Web3(),
+        chainRPC: {} as IChains,
+      });
+      useGeneralWallet.setState({ publicKey: "", chain: "" });
+      useModalPopup.setState({ oauthModal: true });
+    }
+  };
   return (
     <Fragment>
       <StyledButtonBase
@@ -86,7 +102,7 @@ const WalletCredential: FC = () => {
             </Button>
           ) : (
             <Button
-              onClick={() => setOpenChainSelectModal(true)}
+              onClick={() => useModalPopup.setState({ oauthModal: true })}
               sx={{ marginLeft: 1, marginRight: 1, fontSize: "14px" }}
             >
               Connect Wallet
@@ -98,8 +114,8 @@ const WalletCredential: FC = () => {
           /> */}
 
           <SelectChainModal
-            open={openChainSelectModal}
-            onClose={() => setOpenChainSelectModal(false)}
+            open={oauthModal}
+            onClose={() => useModalPopup.setState({ oauthModal: false })}
           />
           {/* <AppAvatar
             src={"/static/portfolio/3.png"}
@@ -138,7 +154,7 @@ const WalletCredential: FC = () => {
           <br />
           <Button
             onClick={() => {
-              copyClipboard(generalWallet.publicKey).then((res) => {
+              copyClipboard(generalWallet?.publicKey || "").then((res) => {
                 toast.success("Copy address successfully");
               });
             }}
@@ -151,8 +167,9 @@ const WalletCredential: FC = () => {
 
           <Button
             onClick={() => {
-              if (connected) {
-                disconnect();
+              setOpenWalletDetails(false);
+              if (generalConnection.chainRPC.symbol) {
+                onDisconnect();
               }
             }}
             color="primary"

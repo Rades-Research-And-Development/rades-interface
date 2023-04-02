@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import useGeneralWallet from "common/useGeneralWallet";
 import useGeneralConnection from "common/useGeneralConnection";
+import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
+import { utilsCombineWallet } from "utils/contract";
 // Need to import from connection all
 
 export function useInitialSolanaWalletListener() {
@@ -10,12 +12,21 @@ export function useInitialSolanaWalletListener() {
   const generalConnnection = useGeneralConnection((s) => s);
   useEffect(() => {
     if (generalConnnection.chainRPC.symbol === "SOL") {
-      useGeneralWallet.setState({
-        publicKey: publicKey?.toBase58(),
-        chain: "SOL",
-      });
+      useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);
+      utilsCombineWallet.utilsSolanaWallet
+        .walletGetInfor(connection, publicKey?.toBase58() || "")
+        .then((res: any) => {
+          useGeneralWallet.setState({
+            publicKey: publicKey?.toBase58(),
+            chain: "SOL",
+            details: {
+              tokens: res.tokens,
+              nfts: res.nfts,
+            },
+          });
+        });
     }
-  }, [generalConnnection.chainRPC, publicKey]);
+  }, [generalConnnection.chainRPC, publicKey, connection]);
 }
 
 // export function useWalletDetailsTokenListener() {

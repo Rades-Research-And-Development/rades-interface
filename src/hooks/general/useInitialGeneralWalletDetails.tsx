@@ -6,40 +6,10 @@ import useGeneralWallet from "common/useGeneralWallet";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 import ToastContext from "contexts/toastContext";
 import standalChains from "chain";
+import { getCookie } from "utils/cookies/cookies";
+import { getUser } from "utils/api/users";
 export function useInitialGeneralWalletListener() {
   const { connection, chainRPC } = useGeneralConnection((s) => s);
   const { publicKey } = useGeneralWallet((s) => s);
-  useEffect(() => {
-    if (chainRPC.symbol === "SOL" && publicKey) {
-      useGeneralUtilsWallet.setState(utilsCombineWallet.utilsSolanaWallet);
-      utilsCombineWallet.utilsSolanaWallet
-        .walletGetInfor(connection, publicKey)
-        .then((res: any) => {
-          // console.log(res);
-          useGeneralWallet.setState({
-            details: {
-              address: publicKey,
-              tokens: res.tokens,
-              nfts: res.nfts,
-            },
-          });
-        });
-    } else if (chainRPC.symbol !== "SOL" && publicKey) {
-      // console.log(`Start set Wallet information: ${chainRPC.symbol}`);
-      // console.log(connection.currentProvider);
-      useGeneralUtilsWallet.setState(utilsCombineWallet.utilsEthereumWallet);
-      utilsCombineWallet.utilsEthereumWallet
-        .walletGetInfor(connection, publicKey, chainRPC)
-        .then((res: any) => {
-          useGeneralWallet.setState({
-            details: {
-              address: publicKey,
-              tokens: res.tokens,
-              nfts: res.nfts,
-            },
-          });
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [chainRPC, publicKey, connection]);
+  useEffect(() => {}, [chainRPC]);
 }

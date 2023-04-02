@@ -1,12 +1,16 @@
 import standalChains from "chain";
 import useGeneralConnection from "common/useGeneralConnection";
+import useGeneralWallet from "common/useGeneralWallet";
+import useModalPopup from "common/useModalPopups";
 import ToastContext from "contexts/toastContext";
 import IChains from "interface/chains.interface";
 import IChainsSymbol from "interface/chainsSymbol.interface";
 import { useContext, useEffect, useMemo } from "react";
+import Web3 from "web3";
 import web3 from "web3";
 export default function useInitialEthereumConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
+
   useEffect(() => {
     if (!generalConnection.chainRPC.symbol) {
       (window as any)?.ethereum

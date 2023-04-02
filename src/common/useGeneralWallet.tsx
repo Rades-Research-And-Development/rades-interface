@@ -3,7 +3,11 @@ import web3 from "web3";
 import IwalletDetails from "interface/walletDetails.interface";
 import IChainsSymbol from "interface/chainsSymbol.interface";
 export type IGeneralWallet = {
-  publicKey: string;
+  publicKey?: string;
+  bio?: string;
+  email?: string;
+  image?: string;
+  username?: string;
   details?: IwalletDetails;
   chain: IChainsSymbol["symbol"];
 };

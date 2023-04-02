@@ -1,4 +1,5 @@
 import API from "./api";
+import { authentication_option } from "./authentication";
 
 export async function userRegister(email, password, username) {
     const response = await API.post('/users', {
@@ -16,6 +17,22 @@ export async function userLogin(email, password) {
         user: {
             password,
             email
+        }
+    })
+    return response?.data
+}
+
+export async function getUser() {
+    const response = await API.get('/user', authentication_option())
+    return response?.data
+}
+
+export async function userOauthWallet(publicKey, signature, nonce) {
+    const response = await API.post('/users/oauth/wallet', {
+        user: {
+            publicKey,
+            signature,
+            nonce,
         }
     })
     return response?.data

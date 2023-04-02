@@ -1,12 +1,41 @@
 import useGeneralConnection from "common/useGeneralConnection";
 import useGeneralWallet from "common/useGeneralWallet";
-import { useEffect } from "react";
 import web3 from "web3";
-
+import { useContext, useEffect, useMemo } from "react";
+import { toast } from "react-hot-toast";
+import { userOauthWallet } from "utils/api/users";
+import { signatureAuthenticationRequest } from "utils/contract/etherium/signatureRequest";
+import { removeCookie } from "utils/cookies/cookies";
+import useModalPopup from "common/useModalPopups";
+import Web3 from "web3";
+import IChains from "interface/chains.interface";
 export default function useInitialGeneralConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
   const generalWallet = useGeneralWallet((s) => s);
   useEffect(() => {
-    // console.log(generalWallet, generalConnection);
-  }, [generalConnection, generalWallet]);
+    (window as any).ethereum.on("accountsChanged", (accounts) => {
+      removeCookie("authentication_code");
+      if (!accounts.length) {
+        useGeneralConnection.setState({
+          connection: new Web3(),
+          chainRPC: {} as IChains,
+        });
+        useGeneralWallet.setState({ publicKey: "", chain: "" });
+        useModalPopup.setState({ oauthModal: true });
+        toast.error("Abort: Your session has disconnect");
+      } else {
+        console.log(accounts);
+        useGeneralWallet.setState({
+          publicKey: accounts[0],
+        });
+        signatureAuthenticationRequest(accounts[0]).then((sign) => {
+          const { signature, message, nonce } = sign;
+          userOauthWallet(accounts[0], signature, nonce).then((res) => {});
+          useGeneralWallet.setState({
+            publicKey: accounts[0],
+          });
+        });
+      }
+    });
+  }, []);
 }

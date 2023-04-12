@@ -51,7 +51,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
   },
 }));
-const StyledCarouselProvider = styled(CarouselProvider)(({ theme }) => ({
+export const StyledCarouselProvider = styled(CarouselProvider)(({ theme }) => ({
   display: "flex",
   position: "relative",
   "& .carousel__slider": { flexGrow: 1, marginLeft: 10 },
@@ -76,7 +76,7 @@ const StyledCarouselProvider = styled(CarouselProvider)(({ theme }) => ({
   },
 }));
 
-const StyledStack = styled(Stack)(({ theme }) => ({
+export const StyledStack = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     marginTop: 10,
     flexDirection: "row",
@@ -164,10 +164,6 @@ const ProductViewCard: FC<ProductViewCardProps> = ({ book }) => {
                 </Slide>
               ))}
             </Slider>
-
-            {/* <StyledIconButton>
-              <Heart />
-            </StyledIconButton> */}
           </StyledCarouselProvider>
         </Grid>
 

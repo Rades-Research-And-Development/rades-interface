@@ -8,6 +8,7 @@ import { string } from "yup";
 import { userOauthWallet } from './users';
 import useModalPopup from 'common/useModalPopups';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 // import cookie from 'react-cookies'
 // import { getCookie, setCookie, removeCookie } from 'src/cookies/cookies'
 // import { router } from 'react-router-dom'
@@ -39,7 +40,7 @@ const API = axios.create({
  */
 // let token =
 API.defaults.headers = {
-  Authorization: `Token ${getCookie("authentication_code")}`,
+  Authorization: `Token ${getCookie("authentication_code") || ""}`,
   "Cache-Control": "no-cache",
   Pragma: "no-cache",
   headers: { "Access-Control-Allow-Origin": "*" },
@@ -48,7 +49,7 @@ API.defaults.headers = {
 
 export function changeHeader(token: string) {
   API.defaults.headers = {
-    Authorization: `Token ${getCookie("authentication_code")}`,
+    Authorization: `Token ${getCookie("authentication_code") === "undefined" ? "" : getCookie("authentication_code")}`,
     "Cache-Control": "no-cache",
     Pragma: "no-cache",
     headers: { "Access-Control-Allow-Origin": "*" },
@@ -88,7 +89,7 @@ export function changeHeader(token: string) {
 // );
 
 const AxiosInterceptor = ({ children }) => {
-
+  const navigate = useNavigate()
   useEffect(() => {
 
     const resInterceptor = response => {
@@ -97,16 +98,16 @@ const AxiosInterceptor = ({ children }) => {
 
     const errInterceptor = error => {
       if (error?.response?.status === 403) {
-        toast.error("Your session has expired. Please login again");
+        toast.error("Your session has expired. Please login");
         useModalPopup.setState({ oauthModal: true })
       } else if (error?.response?.status === 401) {
         useModalPopup.setState({ oauthModal: true })
-        toast.error("Your session has expired. Please login again");
+        toast.error("Your session has expired. Please login");
       } else if (error?.response?.status === 500) {
         useModalPopup.setState({ oauthModal: true })
         toast.error("Internal server error. Please try again later");
       } else if (error?.response?.status === 404) {
-        useModalPopup.setState({ oauthModal: true })
+        navigate("/dashboards/404")
         toast.error("Resource not found. Please try again later");
       } else if (error?.response?.status === 400) {
         toast.error("Bad request. Please try again later");

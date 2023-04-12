@@ -9,7 +9,14 @@ const mainchains: IChains[] = [
             path: "https://api.etherscan.io/api?module=contract&action=getabi&address=0xdac17f958d2ee523a2206206994597c13d831ec7"
         },
         chainId: "0x1",
-        RPC: [{ chainId: '0x1' }]
+        RPC: [{
+            chainId: '0x1',
+            nativeCurrency: {
+                name: 'ETH',
+                symbol: 'ETH',
+                decimals: 18,
+            },
+        }]
     },
     {
         chainName: "Binance Smart Chain",
@@ -105,7 +112,13 @@ const testchains: IChains[] = [{
         address: "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
         path: "https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=0x509ee0d083ddf8ac028f2a56731412edd63223b9",
     },
-    RPC: [{ chainId: '0x5' }]
+    RPC: [{
+        chainId: '0x5', nativeCurrency: {
+            name: 'ETH',
+            symbol: 'ETH',
+            decimals: 18,
+        },
+    }]
 },
 {
     chainName: "Binance Smart Chain",

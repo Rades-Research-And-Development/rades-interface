@@ -46,9 +46,9 @@ const CommitmentAnalytics = Loadable(
 );
 
 const Messages = Loadable(lazy(() => import("./pages/message")));
-const HomePage = Loadable(lazy(() => import("./pages/newFeed")));
-const PostDetails = Loadable(
-  lazy(() => import("./pages/contents/post-details"))
+const HomePage = Loadable(lazy(() => import("./pages/contents/new-feed")));
+const ArticleDetails = Loadable(
+  lazy(() => import("./pages/contents/article-details"))
 );
 const CollectionsMarketplace = Loadable(
   lazy(() => import("./pages/marketplaces/collections/collections-marketplace"))
@@ -108,9 +108,9 @@ const dashboardRoutes = [
   },
   { path: "home", element: <HomePage /> },
   {
-    path: ":author_id/post/:post_id",
-    element: <PostDetails />,
-    params: { id: "123" },
+    path: "/dashboards/:author_id/article/:article_slug/medias/:media_id",
+    element: <ArticleDetails />,
+    params: { author_id: "123", post_id: "123", media_id: "123" },
   },
   { path: "messages", element: <Messages /> },
 

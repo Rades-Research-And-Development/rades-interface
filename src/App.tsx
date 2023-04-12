@@ -41,7 +41,7 @@ const App: FC = () => {
         <ThemeProvider theme={theme}>
           <ToastContext.Provider value={{ toast: toast }}>
             <RTL>
-              <Toaster position="top-right" />
+              <Toaster position="top-center" />
               <CssBaseline />
               {content}
             </RTL>

@@ -1,17 +1,31 @@
+import { limitArticlesLoaded } from "../../constants";
 import API from "./api";
 
-export async function getArticles(page = 1, size = 10) {
-    // const response = await API.post('/users', {
-    //     user: {
-    //         email: "ngu@gmail.com",
-    //         password: "cc",
-    //         username: "athevinhaa"
-    //     }
-    // })
-    // return response?.data
+export async function getArticles({ limit = limitArticlesLoaded, offset = 0 }) {
+    const response = await API.get(`/articles?limit=${limit}&offset=${offset}`)
+    return response?.data
+}
+export async function getArticleBySlug(article_slug: string) {
+    const response = await API.get(`/articles/${article_slug}`)
+    return response?.data
 }
 
-// export async function getBooks(maxReturn = 20) {
-//     const response = await API.get('https://www.googleapis.com/books/v1/volumes?q=novel:keyes&maxResults=40&key=AIzaSyAax4NBWIHH0UeRAl16hex7Mi4tDQbKjAA')
-//     return response?.data
-// }
+export async function createArticles(formData: FormData) {
+    const response = await API.post('/articles', formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    })
+    return response?.data
+}
+
+export async function reactArticle(slug: string, isFavourite: boolean) {
+    if (isFavourite) {
+        const response = await API.delete(`/articles/${slug}/favorite`)
+        return response?.data
+    }
+    const response = await API.post(`/articles/${slug}/favorite`)
+    return response?.data
+}
+
+

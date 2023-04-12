@@ -4,7 +4,6 @@ import API from "utils/api/api";
 
 export function useInterceptor() {
   useEffect(() => {
-    console.log("????");
     API.interceptors.response.use(
       (response) => {
         return response;

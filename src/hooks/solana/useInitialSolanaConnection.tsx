@@ -8,7 +8,6 @@ export default function useInitialSolanaConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
 
   useEffect(() => {
-    // console.log("Solana: " + generalConnection.chainRPC.symbol + publicKey?.toBase58());
     if (!generalConnection.chainRPC.symbol && publicKey?.toBase58()) {
       useGeneralConnection.setState({
         connection: connection,

@@ -12,7 +12,7 @@ interface TrendingNFTsProps {
     date: string;
     status: string;
   };
-  handleTodoMore: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleTodoMore?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TrendingNFTs: FC<TrendingNFTsProps> = ({ item, handleTodoMore }) => {

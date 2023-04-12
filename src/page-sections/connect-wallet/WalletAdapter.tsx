@@ -9,6 +9,7 @@ import { userOauthWallet } from "utils/api/users";
 import { signatureAuthenticationRequest } from "utils/contract/etherium/signatureRequest";
 import { switchChainRequest } from "utils/contract/etherium/switchChainRequest";
 import { getCookie, setCookie } from "utils/cookies/cookies";
+
 import { generateNonce } from "utils/utils";
 import Web3 from "web3";
 const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
@@ -53,7 +54,7 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
       } catch (error) {
         if ((error as any).code === 4001)
           toast.error("Abort: User reject signature");
-        toast.error((error?.errors as any).message || "");
+        else toast.error(JSON.stringify(error));
         console.error(error);
       }
     } else if ((window as any).web3) {

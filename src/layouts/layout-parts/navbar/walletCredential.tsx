@@ -19,6 +19,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { removeCookie } from "utils/cookies/cookies";
 import useModalPopup from "common/useModalPopups";
 import IChains from "interface/chains.interface";
+import { usernameOptimize } from "utils/usernameOptimize";
 
 // styled components
 // const StyledSmall = styled(Small)(({ theme }) => ({
@@ -33,7 +34,7 @@ const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
   padding: 5,
   marginLeft: 6,
   borderRadius: 30,
-  border: "1px solid #e93a88",
+  border: "1px solid #27CE88",
   "&:hover": { backgroundColor: theme.palette.action.hover },
 }));
 
@@ -94,7 +95,7 @@ const WalletCredential: FC = () => {
                   </>
                 );
               })}
-              {generalWallet?.publicKey.slice(0, 20)}
+              {usernameOptimize(generalWallet?.publicKey)}
               <AppAvatar
                 src={`/static/portfolio/3.png`}
                 sx={{ width: 22, height: 22, marginLeft: 1 }}
@@ -103,15 +104,12 @@ const WalletCredential: FC = () => {
           ) : (
             <Button
               onClick={() => useModalPopup.setState({ oauthModal: true })}
+              startIcon={<AccountBalanceWalletOutlinedIcon />}
               sx={{ marginLeft: 1, marginRight: 1, fontSize: "14px" }}
             >
               Connect Wallet
             </Button>
           )}
-          {/* <WalletMultiButton
-            style={{ fontSize: "12px", background: "none", height: "2rem" }}
-            startIcon={<AccountBalanceWalletOutlinedIcon />}
-          /> */}
 
           <SelectChainModal
             open={oauthModal}

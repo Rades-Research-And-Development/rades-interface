@@ -47,15 +47,6 @@ API.defaults.headers = {
   Expires: "0",
 } as CommonHeaderProperties;
 
-export function changeHeader(token: string) {
-  API.defaults.headers = {
-    Authorization: `Token ${getCookie("authentication_code") === "undefined" ? "" : getCookie("authentication_code")}`,
-    "Cache-Control": "no-cache",
-    Pragma: "no-cache",
-    headers: { "Access-Control-Allow-Origin": "*" },
-    Expires: "0",
-  } as CommonHeaderProperties;
-}
 
 /**
  * The axios interceptor.
@@ -125,7 +116,7 @@ const AxiosInterceptor = ({ children }) => {
 
     return () => API.interceptors.response.eject(interceptor);
 
-  }, [])
+  }, [navigate])
   return children;
 }
 

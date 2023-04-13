@@ -5,6 +5,7 @@ import IChains from "interface/chains.interface";
 import { chain } from "lodash";
 import { FC } from "react";
 import { toast } from "react-hot-toast";
+import API from "utils/api/api";
 import { userOauthWallet } from "utils/api/users";
 import { signatureAuthenticationRequest } from "utils/contract/etherium/signatureRequest";
 import { switchChainRequest } from "utils/contract/etherium/switchChainRequest";
@@ -48,6 +49,9 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
             chainRPC: props.chain,
           });
           setCookie("authentication_code", user.token);
+          (
+            API.defaults.headers as any
+          ).Authorization = `Token ${user.token} || ""}`;
         }
 
         return web3;

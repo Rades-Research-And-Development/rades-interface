@@ -9,6 +9,9 @@ import UserContext from "contexts/userContext";
 import { useContext } from "react";
 import React, { FC } from "react";
 import AppAvatar from "components/avatars/AppAvatar";
+import { userOauthWallet } from "utils/api/users";
+import useGeneralWallet from "common/useGeneralWallet";
+import { usernameOptimize } from "utils/usernameOptimize";
 // -----------------------------------------------------
 type BillingAddressCardProps = {
   selected?: boolean;
@@ -16,7 +19,7 @@ type BillingAddressCardProps = {
 // -----------------------------------------------------
 
 const BillingAddressCard: FC<BillingAddressCardProps> = ({ selected }) => {
-  const { user } = useContext(UserContext);
+  const user = useGeneralWallet((s) => s);
   return (
     <Card
       sx={{
@@ -42,11 +45,12 @@ const BillingAddressCard: FC<BillingAddressCardProps> = ({ selected }) => {
             spacing={2}
             style={{ width: "100%" }}
           >
-            <AppAvatar src={user?.avatar} sx={{ borderRadius: "50%" }} />
+            <AppAvatar
+              src={user?.image || "/static/porfolio/3.png"}
+              sx={{ borderRadius: "50%" }}
+            />
             <Box>
-              <H6>
-                Wallet address: {user?.wallet_address.slice(0, 20) + "..."}
-              </H6>
+              <H6>Wallet address: {usernameOptimize(user.publicKey || "")}</H6>
             </Box>
           </Stack>
         </Paragraph>

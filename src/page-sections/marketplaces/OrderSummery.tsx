@@ -16,6 +16,7 @@ import ShoppingCart from "icons/ShoppingCart";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ConfirmModal from "./transactionBilling/ConfirmModal";
+import useGeneralConnection from "common/useGeneralConnection";
 // ---------------------------------------------------------------------
 type OrderSummeryProps = {
   buttonText: string;
@@ -99,7 +100,6 @@ const OrderSummery: FC<OrderSummeryProps> = ({
       )}
 
       <Button
-        variant="contained"
         startIcon={<ShoppingCart />}
         fullWidth
         onClick={() => {
@@ -107,9 +107,9 @@ const OrderSummery: FC<OrderSummeryProps> = ({
         }}
         sx={{
           padding: 1,
-          color: "black",
-          background: "aqua",
-          border: "2px solid black",
+          background: "black",
+          border: "2px solid #27CE88",
+          borderRadius: "20px",
         }}
       >
         {buttonText}
@@ -132,6 +132,7 @@ type ListItemProps = { title: string; value: number; valueColor?: string };
 // -----------------------------------------------------------------------------
 
 function ListItem({ title, value, valueColor }: ListItemProps) {
+  const { chainRPC } = useGeneralConnection((s) => s);
   return (
     <FlexBetween>
       <H6 fontWeight={500}>{title}</H6>
@@ -141,7 +142,7 @@ function ListItem({ title, value, valueColor }: ListItemProps) {
             <Avatar
               sx={{ width: "10px", height: "10px" }}
               alt="Natacha"
-              src="/static/crypto/solona_logo.png"
+              src={`/static/crypto/${chainRPC.symbol}.png`}
             />
           }
           label={value}

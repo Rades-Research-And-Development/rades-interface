@@ -148,7 +148,7 @@ const ConfirmModal: FC<ModalProps> = ({
               <Avatar
                 sx={{ width: "40px", height: "40px" }}
                 alt="Natacha"
-                src="/static/crypto/solona_logo.png"
+                src="/static/crypto/ETH.png"
               />
             }
             label={(
@@ -194,7 +194,12 @@ const ConfirmModal: FC<ModalProps> = ({
           //   // setCookie('unread', book[0]?.id)
           //   // await onDoneConfirm()
           // }}
-          style={{ background: "aqua", color: "black" }}
+          style={{
+            padding: 1,
+            background: "black",
+            border: "2px solid #27CE88",
+            borderRadius: "20px",
+          }}
         >
           CONFIRM
         </Button>

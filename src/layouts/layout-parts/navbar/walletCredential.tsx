@@ -20,6 +20,7 @@ import { removeCookie } from "utils/cookies/cookies";
 import useModalPopup from "common/useModalPopups";
 import IChains from "interface/chains.interface";
 import { usernameOptimize } from "utils/usernameOptimize";
+import API from "utils/api/api";
 
 // styled components
 // const StyledSmall = styled(Small)(({ theme }) => ({
@@ -53,6 +54,7 @@ const WalletCredential: FC = () => {
 
   const onDisconnect = () => {
     removeCookie("authentication_code");
+    (API.defaults.headers as any).Authorization = `Token`;
     if (generalConnection.chainRPC.symbol === "SOL") disconnect();
     else {
       useGeneralConnection.setState({

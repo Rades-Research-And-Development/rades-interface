@@ -10,6 +10,7 @@ import useModalPopup from "common/useModalPopups";
 import Web3 from "web3";
 import IChains from "interface/chains.interface";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
+import API from "utils/api/api";
 export default function useInitialGeneralConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
   const generalWallet = useGeneralWallet((s) => s);
@@ -17,6 +18,7 @@ export default function useInitialGeneralConnectionListener() {
   useEffect(() => {
     (window as any).ethereum?.on?.("accountsChanged", (accounts) => {
       removeCookie("authentication_code");
+      (API.defaults.headers as any).Authorization = `Token`;
       if (!accounts.length) {
         useGeneralConnection.setState({
           connection: new Web3(),

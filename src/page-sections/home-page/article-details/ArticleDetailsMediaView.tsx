@@ -38,17 +38,28 @@ function Image(props) {
 
   // Conditionally render the img element based on the dimensions
   const { width, height } = dimensions;
-  const renderWidth = width > height ? "100%" : "auto";
-  const renderHeight = height > width ? "100vh" : "auto";
+  const innerHeight = document?.getElementById("box_slide")?.offsetHeight || 1;
+  const innerWidth = document?.getElementById("box_slide")?.offsetWidth || 1;
+  let renderWidth;
+  // = width > height ? "100%" : "auto";
+  let renderHeight;
+  //  = height > width ? "100%" : "auto";
+  if (width * (innerHeight / height) <= innerWidth) {
+    renderWidth = "auto";
+    renderHeight = "100%";
+  } else {
+    renderWidth = "100%";
+    renderHeight = "auto";
+  }
   const imgStyle = {
-    width: width === height ? "100%" : renderWidth,
-    height: width === height ? "100vh" : renderHeight,
+    width: renderWidth,
+    height: renderHeight,
     verticalAlign: "middle",
   };
   let imgElement = (
     <img src={src} alt={alt} onLoad={handleImageLoad} style={imgStyle} />
   );
-
+  console.log(src, width * (innerHeight / height), innerWidth);
   // set margintop
 
   return imgElement;
@@ -62,6 +73,7 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
   // });
   return (
     <Box
+      id="box_slide"
       sx={{
         height: "90vh",
         width: "100%",
@@ -93,7 +105,7 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
               index={_}
               key={_}
               id={`slide_${_}`}
-              style={{ innerHeight: "90vh" }}
+              style={{ height: "90vh" }}
             >
               <div
                 style={{
@@ -106,7 +118,7 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
               <Box
                 sx={{
                   width: "100%",
-                  height: "90vh",
+                  height: "100%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -131,7 +143,8 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
                     src={`${item}#zoom=FitH&view=fit&toolbar=0&bgcolor=000000`}
                     style={{
                       height: `90vh`,
-                      border: "1px solid #27CE88",
+                      border: "2px solid #27CE88",
+                      borderRadius: "20px",
                       width: "80%",
                       zIndex: 3,
                     }}

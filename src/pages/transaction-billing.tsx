@@ -1,4 +1,12 @@
-import { Button, Grid, RadioGroup, Stack, styled } from "@mui/material";
+import {
+  Button,
+  Card,
+  Divider,
+  Grid,
+  RadioGroup,
+  Stack,
+  styled,
+} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Box } from "@mui/system";
 import AppCheckBox from "components/AppCheckBox";
@@ -7,7 +15,7 @@ import AppRadio from "components/AppRadio";
 import FlexBetween from "components/flexbox/FlexBetween";
 import FlexBox from "components/flexbox/FlexBox";
 import AppTextField from "components/input-fields/AppTextField";
-import { H5, Small } from "components/Typography";
+import { H5, H6, Small } from "components/Typography";
 import Add from "icons/Add";
 import ChevronLeft from "icons/ChevronLeft";
 import Shopping from "icons/Shopping";
@@ -41,25 +49,100 @@ const TransactionBilling: FC = () => {
   return (
     <Box pt={2} pb={4}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid item md={6} xs={12}>
           <Heading title="Checkout" Icon={Shopping} />
           <Box mt={3} maxWidth={700}>
             <Stepper stepNo={1} />
           </Box>
+          <Grid item md={12} xs={12}>
+            <Card sx={{ padding: 3 }}>
+              <H5 mb={3}>Payment Method</H5>
+
+              <FlexBox alignItems="center">
+                <AppRadio
+                  value="paypal"
+                  // onChange={handleChangePaymentMethod}
+                  // checked={selectPaymentMethod === "paypal"}
+                  sx={{ paddingLeft: 0 }}
+                />
+                <img src="/static/payment/paypal-text.svg" alt="Paypal" />
+              </FlexBox>
+
+              <Divider sx={{ my: 2 }} />
+
+              <FlexBox alignItems="center">
+                <AppRadio
+                  value="card"
+                  sx={{ paddingLeft: 0 }}
+                  // onChange={handleChangePaymentMethod}
+                  // checked={selectPaymentMethod === "card"}
+                />
+
+                <FlexBetween flexGrow={1}>
+                  <H6 fontSize={12}>Credit or debit card</H6>
+                  <FlexBox gap={1}>
+                    <img src="/static/payment/Visa.svg" alt="Paypal" />
+                    <img src="/static/payment/MasterCard.svg" alt="Paypal" />
+                    <img
+                      src="/static/payment/AmericanExpress.svg"
+                      alt="Paypal"
+                    />
+                  </FlexBox>
+                </FlexBetween>
+              </FlexBox>
+
+              <Box mt={2} mb={3}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <AppTextField label="Card Number" fullWidth />
+                  </Grid>
+
+                  <Grid item md={6} xs={12}>
+                    <AppTextField label="Exp Date" fullWidth />
+                  </Grid>
+
+                  <Grid item md={6} xs={12}>
+                    <AppTextField label="CVC" fullWidth />
+                  </Grid>
+                </Grid>
+              </Box>
+
+              <Divider sx={{ my: 2 }} />
+
+              <FlexBox alignItems="center">
+                <AppRadio
+                  value="cash"
+                  sx={{ paddingLeft: 0 }}
+                  // onChange={handleChangePaymentMethod}
+                  // checked={selectPaymentMethod === "cash"}
+                />
+                <H6 fontSize={12}>Cash on Delivery</H6>
+              </FlexBox>
+            </Card>
+
+            <Box mt={2}>
+              <Button
+                disableRipple
+                startIcon={<ChevronLeft />}
+                onClick={() => navigate("/dashboards/billing-address")}
+              >
+                Back
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
 
-        <Grid item md={8} xs={12}>
+        <Grid item md={6} xs={12}>
           <FlexBetween flexWrap="wrap" gap={1.5} mb={3}>
             <H5>Billing & address</H5>
             <Button
-              variant="contained"
               startIcon={<Add />}
               onClick={() => setOpenModal(true)}
               sx={{
                 padding: 1,
-                color: "black",
-                background: "aqua",
-                border: "2px solid black",
+                background: "black",
+                border: "2px solid #27CE88",
+                borderRadius: "20px",
               }}
             >
               Add New Wallet
@@ -139,9 +222,6 @@ const TransactionBilling: FC = () => {
               Back
             </Button>
           </Box>
-        </Grid>
-
-        <Grid item md={4} xs={12}>
           <OrderSummery
             buttonText="Payment"
             book={book}

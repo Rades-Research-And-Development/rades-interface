@@ -1,8 +1,4 @@
 export default interface IwalletDetails {
-    address: string;
-    gmail?: string;
-    name?: string;
-    phone?: string;
     nfts: {
         tokenId: string;
         collectionId: string | undefined;

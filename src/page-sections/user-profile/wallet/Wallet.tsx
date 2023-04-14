@@ -37,7 +37,7 @@ const Wallet: FC = () => {
   const { toast } = useContext(ToastContext);
   const { user } = useContext(UserContext);
   const { publicKey, details } = useGeneralWallet((s) => s);
-  const { connection, chain } = useGeneralConnection((s) => s);
+  const { connection, chainRPC } = useGeneralConnection((s) => s);
 
   const navigate = useNavigate();
   const { walletAirDrop } = useGeneralUtilsWallet((s) => s);
@@ -95,15 +95,19 @@ const Wallet: FC = () => {
               }}
             >
               <img
-                src={`/static/crypto/${chain}.png`}
-                alt="solona"
+                src={`/static/crypto/${chainRPC.symbol}.png`}
+                alt=""
                 width="100%"
               />
             </Box>
             <H3 mt={2} sx={{ marginBottom: "1rem" }}>
               {details?.tokens
-                .filter((token) => token.key === chain)[0]
-                ?.value?.toFixed(2) + ` ${chain}`}
+                .filter(
+                  (token) =>
+                    token.key === chainRPC.RPC?.[0].nativeCurrency?.symbol
+                )[0]
+                ?.value?.toFixed(2) +
+                ` ${chainRPC.RPC?.[0].nativeCurrency?.symbol}`}
             </H3>
             <Button
               sx={{

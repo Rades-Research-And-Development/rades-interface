@@ -90,6 +90,7 @@ const iconStyle = (active: any) => ({
 interface MultiLevelMenuProps {
   sidebarCompact: boolean;
 }
+const showAsGlobal = ["Marketplaces", "Collections", "Home"];
 
 const MultiLevelMenu: FC<MultiLevelMenuProps> = (props) => {
   const { sidebarCompact } = props;
@@ -105,7 +106,12 @@ const MultiLevelMenu: FC<MultiLevelMenuProps> = (props) => {
   //   RECURSIVE FUNCTION TO RENDER MULTI LEVEL MENU
   const renderLevels = (data: any) => {
     return data.map((item: any, index: any) => {
-      if (!publicKey && item.name !== "Marketplaces") {
+      if (
+        !publicKey &&
+        item.name !== "Marketplaces" &&
+        item.name !== "Collections" &&
+        item.name !== "Home"
+      ) {
         return <></>;
       }
       if (item.name === "none") {

@@ -68,7 +68,7 @@ const AddCustomerModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
     initialValues,
     validationSchema: fieldValidationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
     },
   });
 

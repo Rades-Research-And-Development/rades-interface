@@ -13,12 +13,17 @@ export const navigations = [
   {
     name: "Home",
     path: "/dashboards/home",
-    icon: duotone.Chat,
+    icon: duotone.Dashboard,
   },
   {
     name: "Marketplaces",
     path: "/dashboards/marketplaces",
     icon: duotone.AdminEcommerce,
+  },
+  {
+    name: "Collections",
+    path: "/dashboards/popular-collections",
+    icon: duotone.Ecommerce,
   },
   // { name: "Marketplace Details", path: "/dashboards/marketplace-details", icon: duotone.PersonChalkboard },
   // { name: "Transaction Card", path: "/dashboards/transaction-card", icon: duotone.PersonChalkboard },
@@ -26,7 +31,7 @@ export const navigations = [
   // { name: "Transaction Billing", path: "/dashboards/transaction-billing", icon: duotone.PersonChalkboard },
   // { name: "Transaction Complete", path: "/dashboards/transaction-complete", icon: duotone.PersonChalkboard },
   {
-    name: "User Information",
+    name: "Your Profile",
     icon: duotone.Accounts,
     children: [
       {
@@ -44,13 +49,13 @@ export const navigations = [
   },
 
   {
-    name: "Writer | Publisher",
+    name: "NFTs management",
     icon: duotone.PublishedWithChanges,
     children: [
       {
-        name: "Publish book",
+        name: "Publish NFT content",
         path: "/dashboards/pushlish",
-        icon_: duotone.MenuBookIcon,
+        icon_: duotone.DiagramProject,
       },
       {
         name: "Commitment Analytics",

@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material";
-import merge from "lodash/merge";
+// import merge from "lodash/merge";
 import { THEMES } from "../constants";
 import components from "./components";
 import { shadows } from "./shadows";
@@ -37,9 +37,11 @@ export const createCustomTheme = (settings: themeSettingsTypes) => {
     themeOptions = themesOptions[THEMES.LIGHT];
   }
 
-  const mergedThemeOptions = merge({}, baseOptions, themeOptions, {
+  const mergedThemeOptions = {
+    ...baseOptions,
+    ...themeOptions,
     direction: settings.direction,
-  });
+  };
 
   let theme = createTheme(mergedThemeOptions);
 

@@ -1,7 +1,5 @@
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import useWalletDetailsToken from "common/useWalletDetailsToken";
-import useWalletDetailsNFTs from "common/useWalletDetailsNFT";
 import { useEffect } from "react";
 
 // import { walletGetInfor } from "utils/contract/solana/useUtilsWallet";
@@ -36,7 +34,7 @@ export async function useWalletDetailsNFTListener() {
     //         metadata: await fetch(nft.data.uri).then((res) => res.json()),
     //       }))
     //     );
-    //     console.log(nftsmetadata_);
+    //     // console.log(nftsmetadata_);
     //     useWalletDetailsNFTs.setState({
     //       walletDetailsNFTs: nftsmetadata_,
     //     });

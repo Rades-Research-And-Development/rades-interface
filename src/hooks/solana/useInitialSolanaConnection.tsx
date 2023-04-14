@@ -8,12 +8,20 @@ export default function useInitialSolanaConnectionListener() {
   const generalConnection = useGeneralConnection((s) => s);
 
   useEffect(() => {
-    console.log("Solana: " + generalConnection.chain + publicKey?.toBase58());
-    if (generalConnection.chain === "" && publicKey?.toBase58()) {
+    if (!generalConnection.chainRPC.symbol && publicKey?.toBase58()) {
       useGeneralConnection.setState({
         connection: connection,
-        chain: "SOL",
+        chainRPC: {
+          symbol: "SOL",
+          chainName: "Solana",
+          chainId: "SOLx1",
+          stableCoin: {
+            symbol: "USDC",
+            address: "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+            path: "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          },
+        },
       });
     }
-  }, [connection, generalConnection.chain, publicKey]);
+  }, [connection, generalConnection.chainRPC.symbol, publicKey]);
 }

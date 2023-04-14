@@ -140,5 +140,5 @@ export const darkPalette = {
   mode: "dark",
   grey: greyDark,
   text: textDark,
-  background: { default: "#08051D", paper: "#1c1326" },
+  background: { default: "#090909", paper: "black" },
 };

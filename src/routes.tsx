@@ -44,8 +44,12 @@ const PushlishBook = Loadable(lazy(() => import("./pages/pushlish-book")));
 const CommitmentAnalytics = Loadable(
   lazy(() => import("./pages/commision-analytics"))
 );
+
 const Messages = Loadable(lazy(() => import("./pages/message")));
-const HomePage = Loadable(lazy(() => import("./pages/home-page")));
+const HomePage = Loadable(lazy(() => import("./pages/contents/new-feed")));
+const ArticleDetails = Loadable(
+  lazy(() => import("./pages/contents/article-details"))
+);
 const CollectionsMarketplace = Loadable(
   lazy(() => import("./pages/marketplaces/collections/collections-marketplace"))
 );
@@ -56,7 +60,7 @@ const Error = Loadable(lazy(() => import("./pages/404")));
 
 const ActiveLayout = () => {
   const { settings } = useSettings();
-  // console.log("settings.activeLayout", settings.activeLayout);
+  // // console.log("settings.activeLayout", settings.activeLayout);
   // switch (settings.activeLayout) {
   //   case "layout1":
   //     return <DashboardLayoutV1 />;
@@ -100,9 +104,14 @@ const authRoutes = [
 const dashboardRoutes = [
   {
     path: "",
-    element: <Navigate to="/dashboards/marketplaces" />,
+    element: <Navigate to="/dashboards/home" />,
   },
   { path: "home", element: <HomePage /> },
+  {
+    path: "/dashboards/:author_id/article/:article_slug/medias/:media_id",
+    element: <ArticleDetails />,
+    params: { author_id: "123", post_id: "123", media_id: "123" },
+  },
   { path: "messages", element: <Messages /> },
 
   { path: "wallet", element: <UserProfile /> },

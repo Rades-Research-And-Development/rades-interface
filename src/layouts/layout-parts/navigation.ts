@@ -21,9 +21,9 @@ export const navigations = [
     icon: duotone.AdminEcommerce,
   },
   {
-    name: "Collections Demo [test]",
+    name: "Collections",
     path: "/dashboards/popular-collections",
-    icon: duotone.AdminEcommerce,
+    icon: duotone.Ecommerce,
   },
   // { name: "Marketplace Details", path: "/dashboards/marketplace-details", icon: duotone.PersonChalkboard },
   // { name: "Transaction Card", path: "/dashboards/transaction-card", icon: duotone.PersonChalkboard },

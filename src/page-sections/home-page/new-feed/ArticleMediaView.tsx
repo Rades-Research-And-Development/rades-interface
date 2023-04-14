@@ -100,8 +100,8 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
     <Box
       sx={{
         height: 500,
-        marginTop: "1rem",
-        marginBottom: "1rem",
+        marginTop: "0.2rem",
+        marginBottom: "0.2rem",
         // borderRadius: "8px",
         overflow: "hidden",
         // "& img": { width: "100%", height: "100%" },

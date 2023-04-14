@@ -143,7 +143,7 @@ const WalletCredential: FC = () => {
         <Box pt={1} sx={{ textAlign: "left" }}>
           <Button
             onClick={() => {
-              navigate("/dashboards/user-profile/4");
+              navigate("/dashboards/user-profile/profile");
             }}
             color="primary"
             style={{ width: "100%", fontSize: "14px" }}

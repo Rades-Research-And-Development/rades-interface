@@ -75,6 +75,7 @@ const NewFeed: FC = () => {
               sx={{
                 maxWidth: downSM ? "100%" : "100%",
                 marginBottom: downSM ? 1 : 0,
+                border: "0.5px solid #27CE88",
               }}
               onClick={() => setOpenModal(true)}
               startAdornment={

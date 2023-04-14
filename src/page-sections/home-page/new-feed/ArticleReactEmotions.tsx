@@ -19,8 +19,9 @@ interface ArticleReactEmotionsProps {
   article: IArticle;
   setArticle: (article: any) => void;
   commentCount: Number;
-  setOpenCommentsModal: (status: boolean) => void;
-  openCommentsModal: boolean;
+  setOpenCommentsModal?: (status: boolean) => void;
+  openCommentsModal?: boolean;
+  hideDescription?: boolean;
 }
 const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
   padding: 5,
@@ -36,6 +37,7 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
   setOpenCommentsModal,
   commentCount,
   openCommentsModal,
+  hideDescription,
 }) => {
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   const onFavouriteArticles = () => {
@@ -51,7 +53,7 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
   };
 
   return (
-    <FlexBetween flexWrap="wrap" gap={0.1}>
+    <FlexBetween flexWrap="wrap" gap={0.1} pt={1}>
       {/* <FlexBox alignItems="center" sx={{ textAlign: "center" }} gap={1}> */}
       <StyledButtonBase
         sx={{ color: "#FF316F" }}
@@ -70,13 +72,13 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
             sx={{ color: "#FF316F", marginRight: 0.2 }}
           />
         )}
-        {article?.favoritesCount} {!downSM ? "Loves" : ""}
+        {article?.favoritesCount} {!downSM && !hideDescription ? "Loves" : ""}
       </StyledButtonBase>
 
       <StyledButtonBase
         sx={{ color: "#2499EF" }}
         onClick={() => {
-          setOpenCommentsModal(true);
+          setOpenCommentsModal?.(true);
         }}
       >
         {" "}
@@ -84,7 +86,8 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
           fontSize="small"
           sx={{ color: "#2499EF", marginRight: 0.2 }}
         />
-        {commentCount.toString() || 0} {!downSM ? "Comments" : ""}
+        {commentCount.toString() || 0}{" "}
+        {!downSM && !hideDescription ? "Comments" : ""}
       </StyledButtonBase>
       <StyledButtonBase sx={{ color: "#27CE88" }}>
         {" "}
@@ -92,7 +95,7 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
           fontSize="small"
           sx={{ color: "#27CE88", marginRight: 0.2 }}
         />
-        0 {!downSM ? "Shares" : ""}
+        0 {!downSM && !hideDescription ? "Shares" : ""}
       </StyledButtonBase>
       <StyledButtonBase sx={{ color: "#FEC575" }}>
         {" "}
@@ -100,7 +103,7 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
           fontSize="small"
           sx={{ color: "#FEC575", marginRight: 0.2 }}
         />
-        0 {!downSM ? "Re-post" : ""}
+        0 {!downSM && !hideDescription ? "Re-post" : ""}
       </StyledButtonBase>
       <StyledButtonBase sx={{ color: "#8C8DFF" }}>
         {" "}
@@ -108,7 +111,7 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
           fontSize="small"
           sx={{ color: "#8C8DFF", marginRight: 0.2 }}
         />
-        0 {!downSM ? "Views" : ""}
+        0 {!downSM && !hideDescription ? "Views" : ""}
       </StyledButtonBase>
       {/* </FlexBox> */}
     </FlexBetween>

@@ -24,10 +24,10 @@ const UserProfile = () => {
           <TabPanel value="profile">
             <Overview />
           </TabPanel>
-          {/* 
-          <TabPanel value="profile">
+
+          <TabPanel value="2">
             <Projects />
-          </TabPanel> */}
+          </TabPanel>
 
           {/* <TabPanel value="3">
             <Campaigns />
@@ -37,9 +37,9 @@ const UserProfile = () => {
             <Wallet />
           </TabPanel>
 
-          {/* <TabPanel value="5">
+          <TabPanel value="5">
             <Gems />
-          </TabPanel> */}
+          </TabPanel>
 
           {/* <TabPanel value="6">
             <Activity />

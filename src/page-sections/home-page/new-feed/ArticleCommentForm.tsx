@@ -35,7 +35,8 @@ const ArticleCommentForm: FC<ArticleCommentFormProps> = ({
   const user = useGeneralWallet((s) => s);
   const [onSubmitComment, setOnSubmitComment] = useState<boolean>(false);
   const onComment = (e?: any) => {
-    if (comment !== "") {
+    if (comment !== "" && !onSubmitComment) {
+      console.log("????");
       e?.preventDefault();
       setOnSubmitComment(true);
       setComment("");

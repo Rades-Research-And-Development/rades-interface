@@ -1,5 +1,5 @@
 import useModalPopup from "common/useModalPopups";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import API from "utils/api/api";
 
 export function useInterceptor() {

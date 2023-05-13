@@ -1,5 +1,5 @@
-import { IUser } from './user.interface';
 import { IComment } from './comment.interface';
+import { IUser } from './user.interface';
 
 
 export interface IArticle {

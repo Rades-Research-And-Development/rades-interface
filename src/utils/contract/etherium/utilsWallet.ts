@@ -10,17 +10,7 @@ import useGeneralConnection from 'common/useGeneralConnection';
 
 
 export const utilsEthereumWallet = {
-  // walletAirDrop: async (connection: Web3, publicKey: string) => {
 
-  //   return {
-  //     status: 69, 
-  //     text: "dm",
-  //   };
-  // },
-  // walletGetNativeTokenBalance: async (connection: Web3, publicKey: string) => { 
-  //   const num = 69;
-  //   return num;
-  // },
 
   walletGetInfor: async (connection: Web3, publicKey: string, chainRPC: IChains) => {
     try {
@@ -63,38 +53,6 @@ export const utilsEthereumWallet = {
       };
     }
 
-    // publicKey = "0x2F62CEACb04eAbF8Fc53C195C5916DDDfa4BED02"; // must del, just for test
-    // const contractAddress = '0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b'; //  NFT contract
-    // const contract = new connection.eth.Contract(nftABI as any, contractAddress);
-    // const numNFTs = await contract.methods.balanceOf(publicKey).call();
-    // console.log(numNFTs);
-    // // TODO
-
-    // const walletNFTs: {
-    //   tokenId: string;
-    //   collectionId: string;
-    //   owner: string;
-    //   metadata: object;
-    // }[] = [];
-
-    // for (let i = 0; i < parseInt(numNFTs); i++) {
-    //   const tokenId = await contract.methods.tokenOfOwnerByIndex(publicKey, i).call();
-    //   const tokenURI = await contract.methods.tokenURI(tokenId).call();
-    //   const metadataResponse = await fetch(tokenURI);
-    //   const metadataJSON = await metadataResponse.json();
-    //   const collectionId = metadataJSON.collection;
-    //   const owner = await contract.methods.ownerOf(tokenId).call();
-    //   // console.log(metadataJSON);
-
-    //   walletNFTs.push({
-    //     tokenId,
-    //     collectionId,
-    //     owner,
-    //     metadata: metadataJSON
-    //   });
-    // }
-
-    // // console.log(walletNFTs);
   },
   // walletTransaction: async (connection: Web3, publicKey: string, _amount, _to) => { 
   //   return "as";

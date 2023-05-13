@@ -23,22 +23,3 @@ export const checkFileType = (url) => {
         }
     }
 }
-// interface ArticleImageViewProps {
-//     video_link: string;
-//     rows: number;
-// }
-// const ArticleImageView: FC<ArticleVideoViewProps> = ({ media_link, rows }) => {
-//     return (
-//         <img
-//         style= {{
-//         height: `${rows * 250}px`,
-//             cursor: "pointer",
-//         }
-// }
-// src = {`${media_link}`}
-// srcSet = {`${media_link}`}
-// alt = { media_link }
-// loading = "lazy"
-//     />
-//     );
-//   };

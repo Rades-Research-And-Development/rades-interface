@@ -45,16 +45,6 @@ interface ModalProps {
   data?: any;
 }
 
-// styled components
-const StyledButton = styled(ButtonBase)(({ theme }) => ({
-  width: "100%",
-  padding: 12,
-  marginBottom: 16,
-  borderRadius: "8px",
-  fontWeight: "500",
-  border: `1px solid ${theme.palette.divider}`,
-  [theme.breakpoints.down(454)]: { width: "100%", marginBottom: 8 },
-}));
 
 const StyledAppModal = styled(AppModal)(({ theme }) => ({
   maxWidth: 700,
@@ -97,11 +87,11 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
           </Small>
         </Divider>
         <SocialOauth open={open} onClose={onClose} />
-        {/* <Divider sx={{ marginTop: 1 }}> */}
+
         <Small color="text.disabled" px={1}>
           By signing in you agree to our Terms & Conditions
         </Small>
-        {/* </Divider> */}
+
       </AuthenticationLayout>
     </StyledAppModal>
   );

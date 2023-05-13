@@ -1,16 +1,13 @@
-import { TOKEN_PROGRAM_ID, AccountLayout, u64 } from "@solana/spl-token";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
-import { Buffer } from "buffer";
 import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
-import { toast } from 'react-hot-toast';
+import { AccountLayout, u64 } from "@solana/spl-token";
 
 import {
+  Connection,
   Keypair,
-  Transaction,
   LAMPORTS_PER_SOL,
   PublicKey,
   SystemProgram,
-  Connection,
+  Transaction,
 } from "@solana/web3.js";
 
 export const utilsSolanaWallet = {

@@ -1,7 +1,6 @@
-import create from "zustand";
-import web3 from "web3";
-import IChainsSymbol from "interface/chainsSymbol.interface";
 import IChains from "interface/chains.interface";
+import web3 from "web3";
+import create from "zustand";
 export type IGeneralConnection = {
   chainRPC: IChains;
   connection: any;

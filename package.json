@@ -15,6 +15,7 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
+    "@eueno/lib-browser": "^0.0.8",
     "@metaplex/js": "^4.12.0",
     "@mui/core": "^5.0.0-alpha.54",
     "@mui/icons-material": "^5.0.5",
@@ -33,6 +34,7 @@
     "axios": "^0.24.0",
     "axios-mock-adapter": "^1.20.0",
     "bn.js": "^5.2.1",
+    "browser-image-compression": "^2.0.2",
     "crypto-browserify": "^3.12.0",
     "date-fns": "^2.26.0",
     "formik": "^2.2.9",

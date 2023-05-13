@@ -14,10 +14,12 @@ import { FC } from "react";
 import { useNavigate } from "react-router";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { getCookie } from "utils/cookies/cookies";
+import useGeneralWallet from "common/useGeneralWallet";
+import { usernameOptimize } from "utils/usernameOptimize";
 const TransactionComplete: FC = () => {
   const down500 = useMediaQuery((theme: Theme) => theme.breakpoints.down(512));
   const navigate = useNavigate();
-
+  const user = useGeneralWallet((s) => s);
   return (
     <Card
       sx={{
@@ -41,16 +43,20 @@ const TransactionComplete: FC = () => {
           Transaction:{" "}
           <a
             target="_blank"
-            href={`https://solscan.io/tx/${getCookie(
-              "transaction_book"
-            )}?cluster=devnet`}
+            href={`https://solscan.io/tx/${
+              getCookie("transaction_book") ||
+              "0x5b950af4a0754dcd054da3ae0bc09ec54dbb98201cbfe98ae9325084d90139ea"
+            }?cluster=devnet`}
             rel="noreferrer"
           >
-            {getCookie("transaction_book").slice(0, 15) + "..."}
+            {getCookie("transaction_book")?.slice(0, 15) ||
+              usernameOptimize(
+                "0x5b950af4a0754dcd054da3ae0bc09ec54dbb98201cbfe98ae9325084d90139ea"
+              )}
           </a>
         </H5>
         <Paragraph>
-          Your book will in your wallet <br /> let read your book now
+          Your NFT content will in your wallet <br /> let view your NFT now
         </Paragraph>
         <Divider />
         <FlexBox gap={2} flexWrap="wrap">
@@ -72,10 +78,10 @@ const TransactionComplete: FC = () => {
             style={{ color: "black !important" }}
             startIcon={<LibraryBooksIcon />}
             onClick={() => {
-              navigate("/dashboards/user-profile/2");
+              navigate("/dashboards/user-profile/wallet");
             }}
           >
-            Read your book
+            Enjoy the moment with us
           </Button>
         </FlexBox>
       </Stack>

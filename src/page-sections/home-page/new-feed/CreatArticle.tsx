@@ -27,6 +27,7 @@ import { createArticles } from "utils/api/articles";
 import * as Yup from "yup";
 import { Theme } from "@mui/material";
 import { checkFileType } from "utils/fileTypeDetect";
+import { compressImage } from "utils/mediasCompress";
 // component props interface
 interface ModalProps {
   open: boolean;
@@ -34,7 +35,7 @@ interface ModalProps {
   articles: IArticle[];
   setArticles: (articles: any) => void;
   setArticlesCount: (a: any) => void;
-  edit?: boolean;
+  edit?: string;
   data?: any;
 }
 
@@ -43,6 +44,7 @@ const CreateArticle: FC<ModalProps> = ({
   onClose,
   edit,
   data,
+  articles,
   setArticles,
   setArticlesCount,
 }) => {
@@ -74,19 +76,18 @@ const CreateArticle: FC<ModalProps> = ({
     ) => {
       onClose();
       resetForm({ values: initialValues });
-
       const formData = new FormData();
       if (mediasFile[0])
         mediasFile?.map((media) => {
-          console.log(media);
           formData.append("files", media.file);
-          return "hi";
+          return "";
         });
       formData.append("article", JSON.stringify({ ...values }));
 
       toast.promise(
         createArticles(formData).then((res) => {
-          setArticles((article) => [res.article as IArticle, ...article]);
+          console.log([res.article as IArticle, ...articles]);
+          setArticles([res.article as IArticle, ...articles]);
           setArticlesCount((count) => count + 1);
           mediasFile?.map((media) => URL.revokeObjectURL(media.blob));
           setMediasFile([]);
@@ -110,13 +111,14 @@ const CreateArticle: FC<ModalProps> = ({
     console.log(a);
     setNumPages(a.numPages);
   }
-  const onUploadMedia = (e) => {
+  const onUploadMedia = async (e) => {
     const medias = e?.target?.files as any[];
     // const mediasBlob: any[] = [];
     const _mediasFile: { file: File; blob: string }[] = [];
     for (let i = 0; i < medias.length; i++) {
+      const file = await compressImage(medias[i]);
       _mediasFile.push({
-        file: medias[i] as File,
+        file: file as any,
         blob: URL.createObjectURL(medias[i]),
       });
     }
@@ -126,7 +128,7 @@ const CreateArticle: FC<ModalProps> = ({
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (
     <StyledAppModal open={open} handleClose={onClose}>
-      <H2>{edit ? "Edit Product" : "What do you feel?"}</H2>
+      <H2>{edit ? edit : "What do you feel?"}</H2>
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} className="main-form">
@@ -179,7 +181,9 @@ const CreateArticle: FC<ModalProps> = ({
                     accept="image/*,.mp4,.pdf"
                     id="image-upload"
                     multiple
-                    onChange={onUploadMedia}
+                    onChange={async (e) => {
+                      onUploadMedia(e);
+                    }}
                     style={{ display: "none" }}
                   />
                   <ImageUploadWrapper textAlign="center">
@@ -281,7 +285,12 @@ const CreateArticle: FC<ModalProps> = ({
           <Button fullWidth variant="outlined" onClick={onClose}>
             Cancel
           </Button>
-          <Button fullWidth type="submit" variant="contained">
+          <Button
+            fullWidth
+            type="submit"
+            variant="outlined"
+            sx={{ border: "1px solid #27CE88" }}
+          >
             Save
           </Button>
         </FlexBox>

@@ -167,6 +167,9 @@ const ConfirmModal: FC<ModalProps> = ({
           fullWidth
           size="small"
           variant="outlined"
+          onClick={() => {
+            navigate("/dashboards/transaction-complete");
+          }}
           // onClick={async () => {
           //   const cost = (
           //     ((book[0]?.volumeInfo?.pageCount / 100) * 5) / 100 +

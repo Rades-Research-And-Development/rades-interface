@@ -79,7 +79,7 @@ export default function WalletNFTsTable() {
                         <Small
                           sx={{ cursor: "pointer" }}
                           onClick={() => {
-                            navigate("/dashboards/marketplaces");
+                            navigate("/dashboards/book-reading/123");
                           }}
                         >
                           {" "}

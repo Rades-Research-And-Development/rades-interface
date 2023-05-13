@@ -23,7 +23,8 @@ interface CommonHeaderProperties extends HeadersDefaults {
   Expires: string;
 }
 export const REACT_APP_BASE_API_PATH =
-  process.env.APP_ENV !== "dev" ? "http://localhost:8080/api" : "https://api.rades.asia/api";
+  // process.env.APP_ENV !== "dev" ? "https://api.rades.asia/api" : "http://localhost:8080/api";
+  process.env.APP_ENV !== "dev" ? "http://localhost:8080/api" : "https://api.rades.asia/api"
 
 console.log("BASE API PATH:", REACT_APP_BASE_API_PATH);
 // console.log(process.env.REACT_APP_BASE_API_PATH)

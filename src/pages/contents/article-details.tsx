@@ -75,17 +75,26 @@ const ArticleDetails: FC = () => {
   return (
     <Box>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={9}>
-          <Card>
-            {article ? (
-              <ArticleMediaView article={article as IArticle} />
-            ) : (
-              <Skeleton width={"100%"} height={"80vh"} />
-            )}
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={3} sx={{ paddingLeft: 2 }}>
+        {article?.medias?.[0] ? (
+          <Grid item xs={12} md={9}>
+            <Card>
+              {article ? (
+                <ArticleMediaView article={article as IArticle} />
+              ) : (
+                <Skeleton width={"100%"} height={"80vh"} />
+              )}
+            </Card>
+          </Grid>
+        ) : (
+          ""
+        )}
+        {article?.medias?.[0] ? "" : <Grid item md={3}></Grid>}
+        <Grid
+          item
+          xs={12}
+          md={article?.medias?.[0] ? 3 : 6}
+          sx={{ paddingLeft: 2 }}
+        >
           <Card>
             {article ? (
               <ArticleHeader article={article} />
@@ -142,7 +151,7 @@ const ArticleDetails: FC = () => {
             sx={{ maxHeight: "70vh", overflow: "auto" }}
           >
             <InfiniteScroll
-              dataLength={comments.length} //This is important field to render the next data
+              dataLength={comments.length - 4} //This is important field to render the next data
               next={() => {
                 setOffSet((offset) => offset + limitCommentsLoaded);
               }}
@@ -188,6 +197,7 @@ const ArticleDetails: FC = () => {
             ""
           )}
         </Grid>
+        {article?.medias?.[0] ? "" : <Grid item md={3}></Grid>}
       </Grid>
     </Box>
   );

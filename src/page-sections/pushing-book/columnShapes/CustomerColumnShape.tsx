@@ -35,10 +35,35 @@ const CustomerColumnShape = [
     minWidth: 150,
   },
   {
+    Header: "Date",
+    accessor: "date",
+    minWidth: 150,
+  },
+  {
     Header: "Phone",
     accessor: "phone",
     minWidth: 150,
   },
+  // {
+  //   Header: "Volume 24h %",
+  //   accessor: "volume24hpercent",
+  //   minWidth: 130,
+  //   maxWidth: 130,
+  //   Cell: ({ value }: any) => (
+  //     <Small
+  //       sx={{
+  //         backgroundColor:
+  //           (Math.random() * 10) % 2 === 0 ? "success.main" : "error.main",
+  //         color: "background.paper",
+  //         borderRadius: 10,
+  //         padding: ".2rem 1rem",
+  //         textAlign: "center",
+  //       }}
+  //     >
+  //       {value}
+  //     </Small>
+  //   ),
+  // },
   {
     Header: "Status",
     accessor: "status",
@@ -48,7 +73,7 @@ const CustomerColumnShape = [
       <Small
         sx={{
           backgroundColor:
-            value.toLowerCase() === "active" ? "success.main" : "error.main",
+            value?.toLowerCase() === "active" ? "success.main" : "error.main",
           color: "background.paper",
           borderRadius: 10,
           padding: ".2rem 1rem",

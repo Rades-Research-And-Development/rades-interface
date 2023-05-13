@@ -15,8 +15,8 @@ import { IArticle } from "interface/article.interface";
 
 import Article from "page-sections/home-page/new-feed/Article";
 import CreatArticle from "page-sections/home-page/new-feed/CreatArticle";
-import RecentlyChat from "page-sections/home-page/recently-chat";
-import RecommendContent from "page-sections/home-page/recommed-content";
+import SideRightBar from "page-sections/home-page/recently-chat";
+import SideLeftBar from "page-sections/home-page/recommed-content";
 import { FC, memo, SyntheticEvent, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getArticles } from "utils/api/articles";
@@ -67,40 +67,11 @@ const NewFeed: FC = () => {
   return (
     <Box pt={2} pb={4}>
       <Grid container spacing={1} paddingTop={3}>
-        <Grid item xs={12}>
-          <FlexBox justifyContent="space-between" flexWrap="wrap">
-            <StyledInputBase
-              placeholder="What do you think?"
-              disable_border={false}
-              sx={{
-                maxWidth: downSM ? "100%" : "100%",
-                marginBottom: downSM ? 1 : 0,
-                border: "0.5px solid #27CE88",
-              }}
-              onClick={() => setOpenModal(true)}
-              startAdornment={
-                <PencilIcon
-                  sx={{
-                    fontSize: 18,
-                    marginRight: 1,
-                    color: "text.disabled",
-                  }}
-                />
-              }
-            />
-            <CreatArticle
-              setArticles={(a: any) => setArticles(a)}
-              articles={articles}
-              setArticlesCount={setArticlesCount}
-              open={openModal}
-              onClose={() => setOpenModal(false)}
-            />
-          </FlexBox>
-        </Grid>
+        {/* <Grid item xs={12}></Grid> */}
         {!downSM ? (
           <Grid item xs={12} sm={4} md={4} sx={{ maxHeight: "100vh" }}>
             {" "}
-            <RecommendContent />
+            <SideLeftBar />
           </Grid>
         ) : (
           ""
@@ -119,8 +90,38 @@ const NewFeed: FC = () => {
           }}
           id="articles"
         >
+          {/* <FlexBox justifyContent="space-between" flexWrap="wrap"> */}
+          <StyledInputBase
+            placeholder="What do you think?"
+            disable_border={false}
+            sx={{
+              maxWidth: downSM ? "100%" : "100%",
+              marginBottom: downSM ? 1 : 2,
+              marginTop: 3,
+              height: "70px",
+              border: "0.5px solid #27CE88",
+            }}
+            onClick={() => setOpenModal(true)}
+            startAdornment={
+              <PencilIcon
+                sx={{
+                  fontSize: 18,
+                  marginRight: 1,
+                  color: "text.disabled",
+                }}
+              />
+            }
+          />
+          <CreatArticle
+            setArticles={(a: any) => setArticles(a)}
+            articles={articles}
+            setArticlesCount={setArticlesCount}
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+          />
+          {/* </FlexBox> */}
           <InfiniteScroll
-            dataLength={articles.length} //This is important field to render the next data
+            dataLength={articles.length - 4} //This is important field to render the next data
             next={() => {
               setOffSet(offset + limitArticlesLoaded);
             }}
@@ -160,7 +161,7 @@ const NewFeed: FC = () => {
         {!downSM ? (
           <Grid item xs={12} sm={3} md={3} sx={{ maxHeight: "100vh" }}>
             {" "}
-            <RecentlyChat />
+            <SideRightBar />
           </Grid>
         ) : (
           ""

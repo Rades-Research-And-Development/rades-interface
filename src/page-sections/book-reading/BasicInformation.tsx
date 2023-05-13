@@ -22,14 +22,17 @@ export function BasicSelect() {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl style={{ width: "100%", marginTop: "1rem" }}>
+    <Box sx={{ marginRight: "2px", minWidth: 120 }}>
+      <FormControl
+        style={{ width: "100%", marginTop: "1rem", marginRight: "2rem" }}
+      >
         <InputLabel id="demo-simple-select-label">Font</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
           label="Font"
+          sx={{ marginRight: "2rem" }}
           onChange={handleChange}
         >
           <MenuItem value={10}>Arial</MenuItem>
@@ -79,17 +82,19 @@ const BasicInformation: FC = () => {
   let y = 0;
   return (
     <>
-      <Card sx={{ border: "2px solid" }}>
+      <Card sx={{ height: "80vh" }}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <H6 padding={3}>
-              {getBook(id)[0]?.volumeInfo?.title.slice(0, 25) + "..."}
+              {getBook(id)[0]?.volumeInfo?.title.slice(0, 25) ||
+                "Your NFT content"}
             </H6>
           </Grid>
+
+          <Grid item xs={2}></Grid>
           <Grid item xs={4}>
             <BasicSelect />
           </Grid>
-          <Grid item xs={2}></Grid>
         </Grid>
 
         <Divider />
@@ -100,10 +105,10 @@ const BasicInformation: FC = () => {
                 style={{ overflow: "scroll", height: "55vh" }}
                 onScroll={(e) => {
                   // setY(y + 1)
-                  y += 1;
-                  if (y % 70 === 0) {
-                    navigate(`/dashboards/book-tracking/${id}`);
-                  }
+                  // y += 1;
+                  // if (y % 70 === 0) {
+                  //   navigate(`/dashboards/book-tracking/${id}`);
+                  // }
                 }}
               >
                 <Typography
@@ -111,7 +116,7 @@ const BasicInformation: FC = () => {
                   style={{ textAlign: "justify" }}
                   gutterBottom
                 >
-                  <Grid item md={7} xs={12} style={{ fontFamily: "Mixed" }}>
+                  <Grid item md={12} xs={12} style={{ fontFamily: "Mixed" }}>
                     {/* <StyledCarouselProvider
                       totalSlides={100}
                       dragEnabled={false}
@@ -138,6 +143,10 @@ const BasicInformation: FC = () => {
                             item.split(" ")[1].replace(",", "")}
                         </Typography>
                         {item}
+                        {/* <img
+                          src="https://rades-s3.s3.ap-southeast-1.amazonaws.com/articles/c8da6e356b154bda-data-0.6032831920422945.jpg"
+                          style={{ borderRadius: "15px", textAlign: "center" }}
+                        ></img> */}
                       </>
                     ))}
                     {/* </Slider> */}
@@ -152,12 +161,13 @@ const BasicInformation: FC = () => {
             </Grid>
 
             <Grid item xs={12}>
-              {["Time reading", "Coin mint", "Reading progress"].map(
+              {["Time reading", "Reading progress", "Reading performance"].map(
                 (data, _: number) => {
                   let icon_: any;
                   if (data === "Time reading") icon_ = <AccessTimeIcon />;
-                  else if (data === "Coin mint") icon_ = <CasinoOutlinedIcon />;
                   else if (data === "Reading progress")
+                    icon_ = <CasinoOutlinedIcon />;
+                  else if (data === "Reading performance")
                     icon_ = <AutoStoriesOutlinedIcon />;
                   let arr = [
                     Math.floor(Math.random() * 70) + 30,

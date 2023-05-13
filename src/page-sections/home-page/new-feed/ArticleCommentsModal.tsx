@@ -78,7 +78,7 @@ const ArticleCommentsModal: FC<ModalProps> = ({
             sx={{ maxHeight: "70vh", overflow: "auto" }}
           >
             <InfiniteScroll
-              dataLength={comments.length} //This is important field to render the next data
+              dataLength={comments.length - 4} //This is important field to render the next data
               next={() => {
                 setOffSet((offset) => offset + limitCommentsLoaded);
               }}

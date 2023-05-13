@@ -11,6 +11,7 @@ import { FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import FollowerAccounts from "./FollowerAccounts";
 import Skeleton from "@mui/material/Skeleton";
+import HotNFTs from "./HotNFTs";
 
 const RecommendContent: FC = () => {
   const { t } = useTranslation();
@@ -24,10 +25,11 @@ const RecommendContent: FC = () => {
     <Box pb={4}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-          <Card sx={{ padding: 3 }}>
-            <H5 mb={2}>Trending NFTs</H5>
+          <Box mt={1} />
+          {/* <Card sx={{ padding: 3 }}>
+            <H5 mb={2}>Trending Content NFTs</H5>
             {TrendingNFTsList[0] ? (
-              TrendingNFTsList.map((item, _) => (
+              TrendingNFTsList?.slice(0, 3).map((item, _) => (
                 <Box mb={3} key={_} sx={{ "&:last-child": { mb: 0 } }}>
                   <TrendingNFTs
                     item={item}
@@ -48,38 +50,36 @@ const RecommendContent: FC = () => {
               anchorEl={todoEl}
               handleMoreClose={handleTodoMoreClose}
             />
-          </Card>
-          <Box mt={3} />
-          <Card sx={{ padding: 3, "& .MuiBox-root": { paddingX: 0 } }}>
-            <H5 mb={2}>Follower Accounts</H5>
-            {conversationList[0] ? (
-              conversationList.map((item, index) => (
-                <FollowerAccounts key={index} conversation={item} />
+          </Card> */}
+          <HotNFTs handleTodoMore={handleTodoMoreOpen} />
+          <Box mt={1} />
+          {/* <Card sx={{ padding: 3 }}>
+            <H5 mb={2}>Hot Content NFTs</H5>
+            {TrendingNFTsList[0] ? (
+              TrendingNFTsList?.map((item, _) => (
+                <Box mb={3} key={_} sx={{ "&:last-child": { mb: 0 } }}>
+                  <TrendingNFTs
+                    item={item}
+                    handleTodoMore={handleTodoMoreOpen}
+                  />
+                </Box>
               ))
             ) : (
               <Stack spacing={1}>
                 <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                 <Skeleton variant="circular" width={40} height={40} />
-                <Skeleton variant="rectangular" width={"100%"} height={118} />
-              </Stack>
-            )}
-          </Card>
-          <Box mt={3} />
-          <Card sx={{ padding: 3, "& .MuiBox-root": { paddingX: 0 } }}>
-            <H5 mb={2}>Recommed Accounts</H5>
-            {conversationList[0] ? (
-              conversationList.map((item, index) => (
-                <FollowerAccounts key={index} conversation={item} />
-              ))
-            ) : (
-              <Stack spacing={1}>
                 <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
                 <Skeleton variant="circular" width={40} height={40} />
-                <Skeleton variant="rectangular" width={"100%"} height={118} />
               </Stack>
             )}
-          </Card>
-          <Box mt={3} />
+
+            <MoreOptions
+              anchorEl={todoEl}
+              handleMoreClose={handleTodoMoreClose}
+            />
+          </Card> */}
+          <TrendingNFTs handleTodoMore={handleTodoMoreOpen} />
+          <Box mt={1} />
         </Grid>
       </Grid>
     </Box>

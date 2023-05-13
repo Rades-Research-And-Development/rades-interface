@@ -37,6 +37,7 @@ import FlexBetween from "components/flexbox/FlexBetween";
 // styled components
 import { linearProgressClasses } from "@mui/material/LinearProgress";
 import { useNavigate } from "react-router-dom";
+import useGeneralConnection from "common/useGeneralConnection";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -105,7 +106,7 @@ type ProductViewCardProps = {
 const ProductViewCard: FC<ProductViewCardProps> = ({ book }) => {
   const [colorSelect, setColorSelect] = useState("red");
   const navigate = useNavigate();
-
+  const { chainRPC } = useGeneralConnection((s) => s);
   // handle change color function
   const handleChangeColor = (event: ChangeEvent<HTMLInputElement>) => {
     setColorSelect(event.target.value);
@@ -288,7 +289,7 @@ const ProductViewCard: FC<ProductViewCardProps> = ({ book }) => {
                   <Avatar
                     sx={{ width: "40px", height: "40px" }}
                     alt="Natacha"
-                    src="/static/crypto/SOL.png"
+                    src={`/static/crypto/${chainRPC.symbol}.png`}
                   />
                 }
                 label={(book[0]?.volumeInfo?.pageCount / 100)?.toFixed(2)}

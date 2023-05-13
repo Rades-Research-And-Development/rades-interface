@@ -18,9 +18,9 @@ interface TrendingNFTsProps {
   handleTodoMore?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const TrendingNFTs: FC<TrendingNFTsProps> = ({ handleTodoMore }) => {
+const HotNFTs: FC<TrendingNFTsProps> = ({ handleTodoMore }) => {
   const theme = useTheme();
-
+  const randomPer = Number((Math.random() * 130 + 1).toFixed(2));
   const [todoEl, setTodoEl] = useState<null | HTMLElement>(null);
   const handleTodoMoreOpen = (event: MouseEvent<HTMLButtonElement>) => {
     setTodoEl(event.currentTarget);
@@ -29,9 +29,9 @@ const TrendingNFTs: FC<TrendingNFTsProps> = ({ handleTodoMore }) => {
 
   return (
     <Card sx={{ padding: 3 }}>
-      <H5 mb={2}>Trending Content NFTs</H5>
+      <H5 mb={2}>Hot Content NFTs</H5>
       {TrendingNFTsList[0] ? (
-        TrendingNFTsList.map((item, _) => {
+        TrendingNFTsList?.slice(0, 4).map((item, _) => {
           const randomPer = Number((Math.random() * 130 + 1).toFixed(2));
           return (
             <Box mb={3} key={_} sx={{ "&:last-child": { mb: 0 } }}>
@@ -137,7 +137,7 @@ const TrendingNFTs: FC<TrendingNFTsProps> = ({ handleTodoMore }) => {
   );
 };
 
-export default TrendingNFTs;
+export default HotNFTs;
 
 const TrendingNFTsList = [
   {
@@ -166,12 +166,6 @@ const TrendingNFTsList = [
   },
   {
     id: 5,
-    title: "Stock Market Exchange",
-    date: "Due In 3 Days",
-    status: "Processing",
-  },
-  {
-    id: 6,
     title: "Stock Market Exchange",
     date: "Due In 3 Days",
     status: "Processing",

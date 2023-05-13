@@ -140,6 +140,8 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
                   </video>
                 ) : checkFileType(item) === "pdf" ? (
                   <iframe
+                    key={_}
+                    title={item}
                     src={`${item}#zoom=FitH&view=fit&toolbar=0&bgcolor=000000`}
                     style={{
                       height: `90vh`,

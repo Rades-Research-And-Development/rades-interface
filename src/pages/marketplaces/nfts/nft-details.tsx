@@ -11,6 +11,7 @@ import { lightTheme } from "../../../constants";
 import TrendingNFTs from "page-sections/home-page/recommed-content/TrendingNFTs";
 import RecommendContent from "page-sections/home-page/recommed-content";
 import RecentlyChat from "page-sections/home-page/recently-chat";
+import useGeneralConnection from "common/useGeneralConnection";
 
 const MarketplaceDetails: FC = () => {
   const [tab, setTab] = useState("2");

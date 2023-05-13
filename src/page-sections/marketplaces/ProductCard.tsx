@@ -8,6 +8,7 @@ import {
   alpha,
   useTheme,
 } from "@mui/material";
+import useGeneralConnection from "common/useGeneralConnection";
 import { H6, Tiny } from "components/Typography";
 import FlexBox from "components/flexbox/FlexBox";
 import { FC, useState } from "react";
@@ -42,6 +43,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, handleClick, _ }) => {
     else if (pageCount > 450) return { key: "LEGENDARY", color: "error" };
     else return { key: "none", color: "primary" };
   };
+  const { chainRPC } = useGeneralConnection((s) => s);
   return (
     <Card sx={{ border: `0.5px solid #8e8e8e` }}>
       {/* <FlexRowAlign
@@ -121,7 +123,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, handleClick, _ }) => {
                   <Avatar
                     sx={{ width: "10px", height: "10px" }}
                     alt="Natacha"
-                    src="/static/crypto/SOL.png"
+                    src={`/static/crypto/${chainRPC.symbol}.png`}
                   />
                 }
                 label={(product?.volumeInfo?.pageCount / 100)?.toFixed(2)}

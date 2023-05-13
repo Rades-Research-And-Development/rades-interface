@@ -1,10 +1,11 @@
 import { limitArticlesLoaded } from "../../constants";
 import API from "./api";
 
-export async function getArticles({ limit = limitArticlesLoaded, offset = 0 }) {
-    const response = await API.get(`/articles?limit=${limit}&offset=${offset}`)
+export async function getArticles({ limit = limitArticlesLoaded, offset = 0, author = "" }) {
+    const response = await API.get(`/articles?limit=${limit}&offset=${offset}${author ? `&author=${author}` : ""} `)
     return response?.data
 }
+
 export async function getArticleBySlug(article_slug: string) {
     const response = await API.get(`/articles/${article_slug}`)
     return response?.data

@@ -1,4 +1,3 @@
-import { login } from "@eueno/lib-browser";
 import { Button } from "@mui/material";
 import useGeneralConnection from "common/useGeneralConnection";
 import useGeneralWallet from "common/useGeneralWallet";
@@ -67,18 +66,10 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
       return web3;
     }
   };
-  const onConnectOWallet = async () => {
-    try {
-      const account = "0xf069fF728e9fc85D81163269F3b04Ef5CF387f15";
-      const response = await login(account);
-      console.log("LOGIN", response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <Button
-      onClick={onConnectOWallet}
+      onClick={onConnectWallet}
       sx={{
         fontSize: "1rem",
         background: "none",

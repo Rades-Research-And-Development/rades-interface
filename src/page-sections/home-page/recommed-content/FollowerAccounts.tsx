@@ -8,7 +8,7 @@ import { FC } from "react";
 // component props interface
 interface FollowerAccountsProps {}
 
-const FollowerAccounts: FC<FollowerAccountsProps> = ({}) => {
+const FollowerAccounts: FC<FollowerAccountsProps> = () => {
   return (
     <Card sx={{ padding: 3, "& .MuiBox-root": { paddingX: 0 } }}>
       <H5 mb={2}>Recommed Users</H5>

@@ -15,7 +15,6 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
-    "@eueno/lib-browser": "^0.0.8",
     "@metaplex/js": "^4.12.0",
     "@mui/core": "^5.0.0-alpha.54",
     "@mui/icons-material": "^5.0.5",

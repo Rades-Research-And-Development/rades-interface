@@ -28,6 +28,8 @@ import * as Yup from "yup";
 import { Theme } from "@mui/material";
 import { checkFileType } from "utils/fileTypeDetect";
 import { compressImage } from "utils/mediasCompress";
+import { getReportInfo, getReportInfos } from "utils/api/airight_api";
+
 // component props interface
 interface ModalProps {
   open: boolean;
@@ -114,16 +116,24 @@ const CreateArticle: FC<ModalProps> = ({
   const onUploadMedia = async (e) => {
     const medias = e?.target?.files as any[];
     // const mediasBlob: any[] = [];
-    const _mediasFile: { file: File; blob: string }[] = [];
-    for (let i = 0; i < medias.length; i++) {
-      const file = await compressImage(medias[i]);
-      _mediasFile.push({
-        file: file as any,
-        blob: URL.createObjectURL(medias[i]),
+    getReportInfo(medias[0])
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    }
-    console.log(_mediasFile);
-    setMediasFile([...mediasFile, ..._mediasFile]);
+    // const _mediasFile: { file: File; blob: string }[] = [];
+    // for (let i = 0; i < medias.length; i++) {
+    //   const file = await compressImage(medias[i]);
+    //   _mediasFile.push({
+    //     file: file as any,
+    //     blob: URL.createObjectURL(medias[i]),
+    //   });
+    // }
+    // const reportInfo = await getReportInfos(_mediasFile.map((m) => m.file));
+    // console.log(_mediasFile);
+    // setMediasFile([...mediasFile, ..._mediasFile]);
   };
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (

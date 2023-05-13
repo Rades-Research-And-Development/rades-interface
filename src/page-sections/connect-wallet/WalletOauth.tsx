@@ -12,7 +12,6 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 // component props interface
-import { login } from "@eueno/lib-browser";
 interface ModalProps {
   open: boolean;
   onClose: () => void;

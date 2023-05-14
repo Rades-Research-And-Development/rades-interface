@@ -25,7 +25,7 @@ import { searchByName } from "utils/utils";
 import { styled } from "@mui/material";
 import { getBooks } from "__fakeData__/books/books";
 import { IArticle } from "interface/article.interface";
-import CreateArticle from "page-sections/home-page/new-feed/CreatArticle";
+import CreateArticle from "page-sections/home-page/new-feed/CreateArticle";
 import { useNavigate } from "react-router-dom";
 import { getArticles } from "utils/api/articles";
 import { usernameOptimize } from "utils/usernameOptimize";

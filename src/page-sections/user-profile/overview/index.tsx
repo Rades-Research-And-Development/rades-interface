@@ -25,7 +25,7 @@ import RecentlyChat from "page-sections/home-page/recently-chat/RecentlyChat";
 import RecommendContent from "page-sections/home-page/recommed-content";
 import ArticleMediaView from "page-sections/home-page/new-feed/ArticleMediaView";
 import { H4, Small } from "components/Typography";
-import CreateArticle from "page-sections/home-page/new-feed/CreatArticle";
+import CreateArticle from "page-sections/home-page/new-feed/CreateArticle";
 import FlexBox from "components/flexbox/FlexBox";
 import PencilIcon from "icons/PencilIcon";
 import useGeneralWallet from "common/useGeneralWallet";

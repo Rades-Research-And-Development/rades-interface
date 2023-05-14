@@ -9,7 +9,7 @@ const AIRIGHT_ENDPOINT =
 
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 
-export async function getReportInfo(file: File) {
+export async function createReportInfo(file: File) {
   const formData = new FormData();
   formData.append("image", file);
   const config = {
@@ -19,24 +19,18 @@ export async function getReportInfo(file: File) {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  try {
-    const response = await axios.post(
-      CORS_PROXY + AIRIGHT_ENDPOINT,
-      formData,
-      config
-    );
-    console.log("RP Info: ", response);
-  } catch (error) {
-    console.log("RP Info got Error: ");
-    console.log(error);
-  }
-  return 0;
+  const response = await axios.post(
+    CORS_PROXY + AIRIGHT_ENDPOINT,
+    formData,
+    config
+  );
+  return response?.data
 }
 
-export async function getReportInfos(files: any[]) {
-  for (let i = 0; i < files.length; i++) {
-    const rpInfo = await getReportInfo(files[i]);
-    console.log(rpInfo);
-  }
-  return 0;
-}
+// export async function createReportInfos(files: any[]) {
+//   for (let i = 0; i < files.length; i++) {
+//     const rpInfo = await getReportInfo(files[i]);
+//     console.log(rpInfo);
+//   }
+//   return 0;
+// }

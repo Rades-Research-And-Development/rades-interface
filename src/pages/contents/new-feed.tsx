@@ -14,7 +14,7 @@ import PencilIcon from "icons/PencilIcon";
 import { IArticle } from "interface/article.interface";
 
 import Article from "page-sections/home-page/new-feed/Article";
-import CreatArticle from "page-sections/home-page/new-feed/CreatArticle";
+import CreateArticle from "page-sections/home-page/new-feed/CreateArticle";
 import SideRightBar from "page-sections/home-page/recently-chat";
 import SideLeftBar from "page-sections/home-page/recommed-content";
 import { FC, memo, SyntheticEvent, useEffect, useState } from "react";
@@ -112,7 +112,7 @@ const NewFeed: FC = () => {
               />
             }
           />
-          <CreatArticle
+          <CreateArticle
             setArticles={(a: any) => setArticles(a)}
             articles={articles}
             setArticlesCount={setArticlesCount}

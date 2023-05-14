@@ -8,7 +8,15 @@ import {
   PlayArrow,
   VideoFile,
 } from "@mui/icons-material";
-import { Box, Button, Grid, styled, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  LinearProgress,
+  Skeleton,
+  styled,
+  useMediaQuery,
+} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -21,14 +29,16 @@ import AppTextField from "components/input-fields/AppTextField";
 import { useFormik } from "formik";
 import DeleteIcon from "icons/DeleteIcon";
 import { IArticle } from "interface/article.interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { createArticles } from "utils/api/articles";
 import * as Yup from "yup";
 import { Theme } from "@mui/material";
 import { checkFileType } from "utils/fileTypeDetect";
 import { compressImage } from "utils/mediasCompress";
-import { getReportInfo, getReportInfos } from "utils/api/airight_api";
+import { createReportInfo } from "utils/api/airight_api";
+import CopyrightModal from "./CopyrightModal";
+import React from "react";
 
 // component props interface
 interface ModalProps {
@@ -40,7 +50,91 @@ interface ModalProps {
   edit?: string;
   data?: any;
 }
+function ImageWithText({ imageUrl, imageFile, text }) {
+  const [showText, setShowText] = useState(false);
+  const [report, setReport] = useState<any>();
+  const [copyRightModal, setCopyRightModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    toast.promise(
+      createReportInfo(imageFile).then((res) => {
+        setReport(res);
+        setLoading(false);
+        setShowText(false);
+      }),
+      {
+        loading: "Fetch report of copyright (powered by aiRight)",
+        error: "Something went wrong!",
+        success: "Copyright check done, hover image to check!",
+      }
+    );
+  }, [imageUrl, imageFile]);
 
+  return (
+    <div
+      onMouseEnter={() => setShowText(true)}
+      onMouseLeave={() => setShowText(false)}
+      style={{ position: "relative", transition: "0.4s" }}
+    >
+      <img src={imageUrl} alt="Image" style={{ maxWidth: "100%" }} />
+      <CopyrightModal
+        reports={report?.semantic || []}
+        open={copyRightModal}
+        onClose={() => {
+          setCopyRightModal(false);
+        }}
+      />
+      {showText && !loading && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            width: "100%",
+            background: "black",
+            opacity: 0.9,
+            height: "100%",
+            color: "#fff",
+            padding: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          Exact{" "}
+          <LinearProgress
+            value={report?.exact_match?.length || 0}
+            variant="determinate"
+            sx={{
+              border: "1px solid",
+            }}
+          />
+          Near Exact{" "}
+          <LinearProgress
+            value={report?.near_exact?.length || 0}
+            variant="determinate"
+            sx={{
+              border: "1px solid",
+            }}
+          />
+          Sematic{" "}
+          <LinearProgress
+            value={report?.semantic?.length || 0}
+            variant="determinate"
+            sx={{
+              border: "1px solid",
+            }}
+          />
+          <Button
+            onClick={() => {
+              setCopyRightModal(true);
+            }}
+          >
+            More details
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
 const CreateArticle: FC<ModalProps> = ({
   open,
   onClose,
@@ -116,24 +210,18 @@ const CreateArticle: FC<ModalProps> = ({
   const onUploadMedia = async (e) => {
     const medias = e?.target?.files as any[];
     // const mediasBlob: any[] = [];
-    getReportInfo(medias[0])
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+
+    const _mediasFile: { file: File; blob: string }[] = [];
+    for (let i = 0; i < medias.length; i++) {
+      const file = await compressImage(medias[i]);
+      _mediasFile.push({
+        file: file as any,
+        blob: URL.createObjectURL(medias[i]),
       });
-    // const _mediasFile: { file: File; blob: string }[] = [];
-    // for (let i = 0; i < medias.length; i++) {
-    //   const file = await compressImage(medias[i]);
-    //   _mediasFile.push({
-    //     file: file as any,
-    //     blob: URL.createObjectURL(medias[i]),
-    //   });
-    // }
-    // const reportInfo = await getReportInfos(_mediasFile.map((m) => m.file));
-    // console.log(_mediasFile);
-    // setMediasFile([...mediasFile, ..._mediasFile]);
+    }
+
+    console.log(_mediasFile);
+    setMediasFile([...mediasFile, ..._mediasFile]);
   };
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (
@@ -260,14 +348,21 @@ const CreateArticle: FC<ModalProps> = ({
                           {checkFileType(item.file.name) === "pdf" ? (
                             <embed src={item.blob} />
                           ) : (
-                            <img
-                              src={item.blob}
-                              style={{ borderRadius: "8px" }}
-                              width="auto"
-                              height="100%"
-                              alt=""
-                              loading="lazy"
-                            />
+                            <>
+                              <ImageWithText
+                                imageUrl={item.blob}
+                                imageFile={item.file}
+                                text={"quang oclz"}
+                              />
+                              {/* <img
+                                src={item.blob}
+                                style={{ borderRadius: "8px" }}
+                                width="auto"
+                                height="100%"
+                                alt=""
+                                loading="lazy"
+                              /> */}
+                            </>
                           )}
                         </>
                       )}

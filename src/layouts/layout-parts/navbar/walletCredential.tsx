@@ -15,7 +15,6 @@ import Web3 from "web3";
 import { toast } from "react-hot-toast";
 import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
 import ToastContext from "contexts/toastContext";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { removeCookie } from "utils/cookies/cookies";
 import useModalPopup from "common/useModalPopups";
 import IChains from "interface/chains.interface";
@@ -50,13 +49,12 @@ const WalletCredential: FC = () => {
   const [openWalletDetails, setOpenWalletDetails] = useState<boolean>(false);
   const ultiGeneral = useGeneralUtilsWallet((s) => s);
   const { toast } = useContext(ToastContext);
-  const { disconnect } = useWallet();
 
   const onDisconnect = () => {
     removeCookie("authentication_code");
     (API.defaults.headers as any).Authorization = `Token`;
-    if (generalConnection.chainRPC.symbol === "SOL") disconnect();
-    else {
+    if (generalConnection.chainRPC.symbol === "SOL") {
+    } else {
       useGeneralConnection.setState({
         connection: new Web3(),
         chainRPC: {} as IChains,

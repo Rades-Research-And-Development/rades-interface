@@ -95,7 +95,6 @@ const CreateExclusiveArticle: FC<ModalProps> = ({
 
       toast.promise(
         createArticles(formData).then((res) => {
-          console.log([res.article as IArticle, ...articles]);
           setArticles([res.article as IArticle, ...articles]);
           setArticlesCount((count) => count + 1);
           mediasFile?.map((media) => URL.revokeObjectURL(media.blob));
@@ -116,10 +115,6 @@ const CreateExclusiveArticle: FC<ModalProps> = ({
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  function onDocumentLoadSuccess(a) {
-    console.log(a);
-    setNumPages(a.numPages);
-  }
   const onUploadMedia = async (e) => {
     const medias = e?.target?.files as any[];
     // const mediasBlob: any[] = [];

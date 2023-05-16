@@ -272,23 +272,9 @@ const CollectionsMarketplace: FC = () => {
                         </TableCell>
 
                         <TableCell align="left">
-                          {/* <a
-                            href={`https://explorer.solana.com/address/${row?.mint}?cluster=devnet`}
-                          >
-                            {" "}
-                            {row?.owner?.slice(0, 15)}...
-                          </a> */}
                           {usernameOptimize(wallet.publicKey || "")}
                         </TableCell>
-                        <TableCell align="left">
-                          {/* <a
-                            href={`https://explorer.solana.com/address/${row?.mint}?cluster=devnet`}
-                          >
-                            {" "}
-                            {row?.owner?.slice(0, 15)}...
-                          </a> */}
-                          14N
-                        </TableCell>
+                        <TableCell align="left">14N</TableCell>
                       </TableRow>
                     );
                   })}

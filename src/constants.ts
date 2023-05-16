@@ -10,7 +10,7 @@ export const lightTheme = (theme: Theme) => theme.palette.mode === "light";
 export const secondarySideBarWidth = 215;
 export const secondarySideBarGap = 80;
 
-export const limitArticlesLoaded = 5;
+export const limitArticlesLoaded = 10;
 export const limitCommentsLoaded = 15;
 export const allowFileUploaed = ['image', 'gif', 'video', 'pdf']
 

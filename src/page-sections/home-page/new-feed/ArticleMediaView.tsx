@@ -119,7 +119,6 @@ const ArticleMediaView: FC<ArticleMediaViewProps> = ({ article }) => {
                   imageLayout[
                     Math.min(article.medias?.length as number, 5) - 1
                   ][_];
-                console.log(_imageLayout);
                 return (
                   <ImageListItem
                     key={item}

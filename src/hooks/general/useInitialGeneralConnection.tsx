@@ -4,7 +4,7 @@ import web3 from "web3";
 import { useContext, useEffect, useMemo } from "react";
 import { toast } from "react-hot-toast";
 import { userOauthWallet } from "utils/api/users";
-import { signatureAuthenticationRequest } from "utils/contract/etherium/signatureRequest";
+import { signatureAuthenticationRequest } from "utils/contract/ethereum/signatureRequest";
 import { removeCookie, setCookie } from "utils/cookies/cookies";
 import useModalPopup from "common/useModalPopups";
 import Web3 from "web3";

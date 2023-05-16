@@ -121,7 +121,7 @@ const NewFeed: FC = () => {
           />
           {/* </FlexBox> */}
           <InfiniteScroll
-            dataLength={articles.length - 4} //This is important field to render the next data
+            dataLength={articles.length - 7} //This is important field to render the next data
             next={() => {
               setOffSet(offset + limitArticlesLoaded);
             }}

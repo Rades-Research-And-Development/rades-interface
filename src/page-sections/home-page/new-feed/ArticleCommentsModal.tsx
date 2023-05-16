@@ -63,9 +63,6 @@ const ArticleCommentsModal: FC<ModalProps> = ({
   setComments,
   articleSlug,
 }) => {
-  useEffect(() => {
-    console.log(comments.length % limitCommentsLoaded === 0);
-  }, [comments]);
   return (
     <StyledAppModal open={open} handleClose={onClose}>
       <H2 sx={{ color: "#27CE88" }}>{edit ? "Edit Product" : "Comments"}</H2>

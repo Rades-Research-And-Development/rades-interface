@@ -104,34 +104,18 @@ const mainchains: IChains[] = [
     },]
 
 const testchains: IChains[] = [
-    {
-        chainName: "Oraichain",
-        symbol: "ORAI",
-        chainId: "0x5",
-        stableCoin: {
-            symbol: "USDT",
-            address: "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
-            path: "https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=0x509ee0d083ddf8ac028f2a56731412edd63223b9",
-        },
-        RPC: [{
-            chainId: '0x5', nativeCurrency: {
-                name: 'ORAI',
-                symbol: 'ORAI',
-                decimals: 18,
-            },
-        }]
-    },
+
     {
         chainName: "Ethereum",
         symbol: "ETH",
-        chainId: "0x5",
+        chainId: "0xaa36a7",
         stableCoin: {
             symbol: "USDT",
             address: "0x509Ee0d083DdF8AC028f2a56731412edD63223B9",
             path: "https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=0x509ee0d083ddf8ac028f2a56731412edd63223b9",
         },
         RPC: [{
-            chainId: '0x5', nativeCurrency: {
+            chainId: "0xaa36a7", nativeCurrency: {
                 name: 'ETH',
                 symbol: 'ETH',
                 decimals: 18,

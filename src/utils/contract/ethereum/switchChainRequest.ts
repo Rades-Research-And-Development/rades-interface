@@ -16,7 +16,6 @@ export const switchChainRequest = async (chainRPC: IChains) => {
                     params: chainRPC.RPC,
                 });
             } catch (addError) {
-                console.log(addError)
                 console.log("Error adding Chain");
             }
         }

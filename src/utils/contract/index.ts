@@ -1,7 +1,5 @@
-import { utilsEthereumWallet } from "./etherium/utilsWallet"
-import { utilsSolanaWallet } from "./solana/utilsWallet"
+import { utilsEthereumWallet } from "./ethereum/utilsWallet"
 
 export const utilsCombineWallet = {
   utilsEthereumWallet,
-  utilsSolanaWallet
 }

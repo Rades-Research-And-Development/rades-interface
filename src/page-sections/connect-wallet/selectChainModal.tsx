@@ -15,7 +15,6 @@ import {
   Stack,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { WalletMultiButton as SolanaWalletAdapter } from "@solana/wallet-adapter-react-ui";
 import AppModal from "components/AppModal";
 import AppAvatar from "components/avatars/AppAvatar";
 import FlexBox from "components/flexbox/FlexBox";
@@ -45,7 +44,6 @@ interface ModalProps {
   data?: any;
 }
 
-
 const StyledAppModal = styled(AppModal)(({ theme }) => ({
   maxWidth: 700,
   minWidth: 300,
@@ -61,17 +59,7 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
   //   onClose();
   // }, [connection]);
   const { toast } = useContext(ToastContext);
-  const SignWithGoogle = async () => {
-    userLogin("vinkkkxwh@gmail.com", "hi")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        if (err.errors?.email) toast.error("email: " + err.errors?.email);
-        if (err.errors?.username)
-          toast.error("username: " + err.errors?.username);
-      });
-  };
+
   return (
     <StyledAppModal open={open} handleClose={onClose}>
       <AuthenticationLayout
@@ -91,7 +79,6 @@ const SelectChainModal: FC<ModalProps> = ({ open, onClose, edit, data }) => {
         <Small color="text.disabled" px={1}>
           By signing in you agree to our Terms & Conditions
         </Small>
-
       </AuthenticationLayout>
     </StyledAppModal>
   );

@@ -49,7 +49,9 @@ const ArticleReactEmotions: FC<ArticleReactEmotionsProps> = ({
           : article.favoritesCount + 1,
         favorited: !article.favorited,
       });
-    reactArticle(article.slug, article.favorited).then((res) => {});
+    reactArticle(article.slug, article.favorited)
+      .then((res) => {})
+      .catch((err) => console.log(err));
   };
 
   return (

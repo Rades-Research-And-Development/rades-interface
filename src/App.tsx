@@ -10,22 +10,14 @@ import routes from "routes";
 import { createCustomTheme } from "theme";
 import "./i18n";
 
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 // import WalletContext from "contexts/walletContext";
-import {
-  useWalletDetailsTokenListener,
-  useWalletDetailsNFTListener,
-} from "hooks/solana/useWalletDetails";
+
 import { useInitialEthereumWalletListener } from "hooks/ethereum/useInitialEthereumWalletDetails";
 import useInitialEthereumConnectionListener from "hooks/ethereum/useInitialEthereumConnection";
-import useInitialSolanaConnectionListener from "hooks/solana/useInitialSolanaConnection";
-import { useInitialSolanaWalletListener } from "hooks/solana/useInitialSolanaWalletDetails";
-
 
 import useInitialGeneralConnectionListener from "hooks/general/useInitialGeneralConnection";
 import { useInitialGeneralWalletListener } from "hooks/general/useInitialGeneralWalletDetails";
 import { AxiosInterceptor } from "utils/api/api";
-require("@solana/wallet-adapter-react-ui/styles.css");
 const App: FC = () => {
   const content = useRoutes(routes());
   const { settings } = useSettings();
@@ -57,9 +49,6 @@ const App: FC = () => {
 function ApplicationsInitializations() {
   useInitialEthereumWalletListener();
   useInitialEthereumConnectionListener();
-
-  useInitialSolanaConnectionListener();
-  useInitialSolanaWalletListener();
 
   useInitialGeneralConnectionListener();
   useInitialGeneralWalletListener();

@@ -36,7 +36,6 @@ const ArticleCommentForm: FC<ArticleCommentFormProps> = ({
   const [onSubmitComment, setOnSubmitComment] = useState<boolean>(false);
   const onComment = (e?: any) => {
     if (comment !== "" && !onSubmitComment) {
-      console.log("????");
       e?.preventDefault();
       setOnSubmitComment(true);
       setComment("");
@@ -51,7 +50,6 @@ const ArticleCommentForm: FC<ArticleCommentFormProps> = ({
   };
   function handleKeyDown(event) {
     if (event.altKey || event.ctrlKey) {
-      console.log("Down break");
       event.preventDefault();
       const { selectionStart, selectionEnd } = event.target;
       const newValue = `${comment.substring(

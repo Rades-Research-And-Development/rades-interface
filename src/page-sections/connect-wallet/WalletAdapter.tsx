@@ -7,8 +7,8 @@ import { FC } from "react";
 import { toast } from "react-hot-toast";
 import API from "utils/api/api";
 import { userOauthWallet } from "utils/api/users";
-import { signatureAuthenticationRequest } from "utils/contract/etherium/signatureRequest";
-import { switchChainRequest } from "utils/contract/etherium/switchChainRequest";
+import { signatureAuthenticationRequest } from "utils/contract/ethereum/signatureRequest";
+import { switchChainRequest } from "utils/contract/ethereum/switchChainRequest";
 import { getCookie, setCookie } from "utils/cookies/cookies";
 
 import { generateNonce } from "utils/utils";
@@ -37,7 +37,6 @@ const WalletAdapter: FC<{ onCloseProp?: () => void; chain: IChains }> = (
 
           const { signature, message, nonce } =
             await signatureAuthenticationRequest(pubKeys[0]);
-          console.log(pubKeys[0], signature, nonce);
           const user = await userOauthWallet(pubKeys[0], signature, nonce);
           useGeneralWallet.setState({
             publicKey: pubKeys[0],

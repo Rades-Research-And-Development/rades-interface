@@ -14,9 +14,7 @@ import {
 } from "pure-react-carousel";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { transactionToOwner } from "utils/contract/solana/useTransaction";
-// import { walletGetSolBalance } from "utils/contract/solana/useUtilsWallet";
-// component props interface
+
 interface ModalProps {
   data?: any;
   open: boolean;

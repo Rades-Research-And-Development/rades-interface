@@ -21,7 +21,7 @@ import { memo } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { getArticles } from "utils/api/articles";
-import RecentlyChat from "page-sections/home-page/recently-chat/RecentlyChat";
+// import RecentlyChat from "page-sections/home-page/recently-chat/RecentlyChat";
 import RecommendContent from "page-sections/home-page/recommed-content";
 import ArticleMediaView from "page-sections/home-page/new-feed/ArticleMediaView";
 import { H4, Small } from "components/Typography";
@@ -71,7 +71,6 @@ const Overview: FC = () => {
             ...(res.articles as IArticle[]),
           ]);
           setArticlesCount(res.articlesCount);
-          console.log(res.articlesCount);
           if (res.articlesCount === 0) {
             setIsHavePosted(false);
           }
@@ -211,7 +210,6 @@ const Overview: FC = () => {
               {articles?.[0] && articles ? (
                 <Grid item xs={12} sm={12} md={12}>
                   {articles?.map((item: IArticle, index) => {
-                    console.log(articles);
                     return <MemoArticle article={item} key={item.slug} />;
                   })}
                 </Grid>

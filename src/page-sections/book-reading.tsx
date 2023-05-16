@@ -21,7 +21,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   position: "relative",
   padding: "0.6rem 1.5rem",
   justifyContent: "flex-start",
-  
+
   fontWeight: 500,
   color: theme.palette.text.primary,
 }));

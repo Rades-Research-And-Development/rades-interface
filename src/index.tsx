@@ -11,55 +11,22 @@ import "simplebar/dist/simplebar.min.css";
 import App from "./App";
 import SettingsProvider from "./contexts/settingsContext";
 import reportWebVitals from "./reportWebVitals";
-import { clusterApiUrl } from "@solana/web3.js";
 import "./__fakeData__";
 import { createRoot } from "react-dom/client";
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+
 import web3 from "web3";
-import {
-  GlowWalletAdapter,
-  PhantomWalletAdapter,
-  SlopeWalletAdapter,
-  SolflareWalletAdapter,
-  TorusWalletAdapter,
-  Coin98WalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+
 const root = createRoot(document.getElementById("root") as HTMLElement);
 function RootApp() {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new Coin98WalletAdapter(),
-      new GlowWalletAdapter(),
-      new SlopeWalletAdapter(),
-      new SolflareWalletAdapter({ network }),
-      new TorusWalletAdapter(),
-    ],
-    [network]
-  );
-
   return (
     // <React.StrictMode>
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <SettingsProvider>
-            <JWTAuthProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </JWTAuthProvider>
-          </SettingsProvider>
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <SettingsProvider>
+      <JWTAuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </JWTAuthProvider>
+    </SettingsProvider>
     // </React.StrictMode>
   );
 }

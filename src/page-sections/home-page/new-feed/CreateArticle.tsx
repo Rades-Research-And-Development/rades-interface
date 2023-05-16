@@ -14,6 +14,7 @@ import {
   Grid,
   LinearProgress,
   Skeleton,
+  Stack,
   styled,
   useMediaQuery,
 } from "@mui/material";
@@ -56,18 +57,11 @@ function ImageWithText({ imageUrl, imageFile, text }) {
   const [copyRightModal, setCopyRightModal] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    toast.promise(
-      createReportInfo(imageFile).then((res) => {
-        setReport(res);
-        setLoading(false);
-        setShowText(false);
-      }),
-      {
-        loading: "Fetch report of copyright (powered by aiRight)",
-        error: "Something went wrong!",
-        success: "Copyright check done, hover image to check!",
-      }
-    );
+    createReportInfo(imageFile).then((res) => {
+      setReport(res);
+      setLoading(false);
+      setShowText(false);
+    });
   }, [imageUrl, imageFile]);
 
   return (
@@ -76,7 +70,7 @@ function ImageWithText({ imageUrl, imageFile, text }) {
       onMouseLeave={() => setShowText(false)}
       style={{ position: "relative", transition: "0.4s" }}
     >
-      <img src={imageUrl} alt="Image" style={{ maxWidth: "100%" }} />
+      <img src={imageUrl} alt="Post" style={{ maxWidth: "100%" }} />
       <CopyrightModal
         reports={report?.semantic || []}
         open={copyRightModal}
@@ -84,6 +78,28 @@ function ImageWithText({ imageUrl, imageFile, text }) {
           setCopyRightModal(false);
         }}
       />
+      {loading ? (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            width: "100%",
+            background: "black",
+            opacity: 0.9,
+            height: "100%",
+            color: "#fff",
+            padding: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+          <Skeleton variant="circular" width={24} height={24} />
+          <Skeleton variant="rectangular" width={"100%"} height={70} />
+        </div>
+      ) : (
+        ""
+      )}
       {showText && !loading && (
         <div
           style={{
@@ -182,7 +198,6 @@ const CreateArticle: FC<ModalProps> = ({
 
       toast.promise(
         createArticles(formData).then((res) => {
-          console.log([res.article as IArticle, ...articles]);
           setArticles([res.article as IArticle, ...articles]);
           setArticlesCount((count) => count + 1);
           mediasFile?.map((media) => URL.revokeObjectURL(media.blob));
@@ -203,10 +218,6 @@ const CreateArticle: FC<ModalProps> = ({
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
-  function onDocumentLoadSuccess(a) {
-    console.log(a);
-    setNumPages(a.numPages);
-  }
   const onUploadMedia = async (e) => {
     const medias = e?.target?.files as any[];
     // const mediasBlob: any[] = [];
@@ -220,7 +231,6 @@ const CreateArticle: FC<ModalProps> = ({
       });
     }
 
-    console.log(_mediasFile);
     setMediasFile([...mediasFile, ..._mediasFile]);
   };
   const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));

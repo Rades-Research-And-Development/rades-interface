@@ -99,7 +99,7 @@ const CreateProductModal: FC<ModalProps> = ({
                             <Small> {_ + 1}</Small>
                             <AppAvatar
                               // src={`${row.metadata.image}`}
-                              src={`/static/nfts/books/book-${_ + 1}.png`}
+                              src={row?.image}
                               sx={{
                                 borderRadius: "50%",
                                 width: 110,

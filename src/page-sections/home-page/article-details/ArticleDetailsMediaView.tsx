@@ -59,7 +59,6 @@ function Image(props) {
   let imgElement = (
     <img src={src} alt={alt} onLoad={handleImageLoad} style={imgStyle} />
   );
-  console.log(src, width * (innerHeight / height), innerWidth);
   // set margintop
 
   return imgElement;

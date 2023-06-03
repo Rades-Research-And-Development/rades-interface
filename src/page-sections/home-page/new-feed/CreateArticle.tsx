@@ -51,19 +51,8 @@ interface ModalProps {
   edit?: string;
   data?: any;
 }
-function ImageWithText({ imageUrl, imageFile, text }) {
+export function ImageWithText({ imageUrl, imageFile, text }) {
   const [showText, setShowText] = useState(false);
-  const [report, setReport] = useState<any>();
-  const [copyRightModal, setCopyRightModal] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    createReportInfo(imageFile).then((res) => {
-      setReport(res);
-      setLoading(false);
-      setShowText(false);
-    });
-  }, [imageUrl, imageFile]);
-
   return (
     <div
       onMouseEnter={() => setShowText(true)}
@@ -71,82 +60,23 @@ function ImageWithText({ imageUrl, imageFile, text }) {
       style={{ position: "relative", transition: "0.4s" }}
     >
       <img src={imageUrl} alt="Post" style={{ maxWidth: "100%" }} />
-      <CopyrightModal
-        reports={report?.semantic || []}
-        open={copyRightModal}
-        onClose={() => {
-          setCopyRightModal(false);
-        }}
-      />
-      {loading ? (
+
+      {showText && (
         <div
           style={{
             position: "absolute",
+            cursor: "pointer",
             bottom: "0",
             left: "0",
             width: "100%",
-            background: "black",
-            opacity: 0.9,
+            background: "skyblue",
+            opacity: 0.3,
             height: "100%",
             color: "#fff",
             padding: "10px",
             boxSizing: "border-box",
           }}
-        >
-          <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-          <Skeleton variant="circular" width={24} height={24} />
-          <Skeleton variant="rectangular" width={"100%"} height={70} />
-        </div>
-      ) : (
-        ""
-      )}
-      {showText && !loading && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-            width: "100%",
-            background: "black",
-            opacity: 0.9,
-            height: "100%",
-            color: "#fff",
-            padding: "10px",
-            boxSizing: "border-box",
-          }}
-        >
-          Exact{" "}
-          <LinearProgress
-            value={report?.exact_match?.length || 0}
-            variant="determinate"
-            sx={{
-              border: "1px solid",
-            }}
-          />
-          Near Exact{" "}
-          <LinearProgress
-            value={report?.near_exact?.length || 0}
-            variant="determinate"
-            sx={{
-              border: "1px solid",
-            }}
-          />
-          Sematic{" "}
-          <LinearProgress
-            value={report?.semantic?.length || 0}
-            variant="determinate"
-            sx={{
-              border: "1px solid",
-            }}
-          />
-          <Button
-            onClick={() => {
-              setCopyRightModal(true);
-            }}
-          >
-            More details
-          </Button>
-        </div>
+        ></div>
       )}
     </div>
   );
@@ -362,7 +292,7 @@ const CreateArticle: FC<ModalProps> = ({
                               <ImageWithText
                                 imageUrl={item.blob}
                                 imageFile={item.file}
-                                text={"quang oclz"}
+                                text={"image"}
                               />
                               {/* <img
                                 src={item.blob}

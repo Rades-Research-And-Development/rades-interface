@@ -1,42 +1,36 @@
-import { Add, ArrowDownward, ArrowUpward } from "@mui/icons-material";
-import { TabContext, TabList } from "@mui/lab";
-import { Box, Button, Tab, useTheme } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Stack } from "@mui/system";
+import { Add } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  Grid,
+  styled,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import useGeneralWallet from "common/useGeneralWallet";
-import { H3, H4, Small } from "components/Typography";
-import AppAvatar from "components/avatars/AppAvatar";
 import FlexBox from "components/flexbox/FlexBox";
-import FlexRowAlign from "components/flexbox/FlexRowAlign";
-import SearchInput from "components/input-fields/SearchInput";
-import TabLabel from "page-sections/collections-marketplace/TabLabel";
+import { H3 } from "components/Typography";
+import { IArticle } from "interface/article.interface";
 import { customersFakeData } from "page-sections/collections-marketplace/fakeData";
 import * as React from "react";
 import { FC, SyntheticEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { searchByName } from "utils/utils";
 
-import { styled } from "@mui/material";
-import { getBooks } from "__fakeData__/books/books";
-import { IArticle } from "interface/article.interface";
-import CreateArticle from "page-sections/home-page/new-feed/CreateArticle";
-import { useNavigate } from "react-router-dom";
+import SideRightBar from "page-sections/home-page/recently-chat";
+import SideLeftBar from "page-sections/home-page/recommed-content";
 import { getArticles } from "utils/api/articles";
-import { usernameOptimize } from "utils/usernameOptimize";
-import CreateExclusiveArticle from "page-sections/home-page/new-feed/CreateExclusiveArticle";
+
+import { getBooks } from "__fakeData__/books/books";
+import CreateExclusiveArticle from "page-sections/pushing-book/CreateExclusiveArticle";
+import { useNavigate } from "react-router-dom";
 
 export const HeadingWrapper = styled(FlexBox)(({ theme }) => ({
-  marginBottom: 15,
   flexWrap: "wrap",
   [theme.breakpoints.down(530)]: {
     "& .MuiButton-root": { width: "100%" },
-    "& .MuiInputBase-root": { maxWidth: "100%", marginBottom: 15 },
+    "& .MuiInputBase-root": { maxWidth: "100%", marginBottom: 5 },
   },
 }));
 const PushlishBook: FC = () => {
@@ -88,246 +82,74 @@ const PushlishBook: FC = () => {
       (item.status === "Blocked" && currentTab === "3") ||
       currentTab === "1"
   );
+  const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   const user = useGeneralWallet((s) => s);
   const navigate = useNavigate();
   return (
     <Box pt={2} pb={4}>
       <HeadingWrapper justifyContent="space-between" alignItems="center">
-        <SearchInput
-          disable_border
-          placeholder="Find Your Collection..."
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-        <H3>Your Exclusive NFT</H3>
-        {/* <SearchInput
-          disable_border
-          placeholder="Find Your Collection..."
-          onChange={(e) => setSearchValue(e.target.value)}
-        /> */}
-
         <Button
           variant="outlined"
-          endIcon={<Add />}
-          sx={{ border: "1px solid #27CE88" }}
+          sx={{
+            border: "1px solid #27CE88",
+            fontWeight: "800",
+            fontSize: "14px",
+            borderRadius: "15px",
+          }}
           onClick={() => setAddCustomer(true)}
         >
           {t("Add Your Exclusive Content")}
         </Button>
-
-        <CreateExclusiveArticle
-          edit="Let make your NFT"
-          setArticles={(a: any) => {
-            setArticles(a);
-            navigate(
-              `/dashboards/${user.publicKey}/article/${a[0]?.slug}/medias/0`
-            ); // http://localhost:3000/dashboards/0x4e1d6a7f1ec3de0a8f88a90cafa78574679ac946/article/exlclusivecontent-15zmbk/medias/0
-          }}
-          articles={articles}
-          setArticlesCount={setArticlesCount}
-          open={addCustomer}
-          onClose={() => setAddCustomer(false)}
-        />
       </HeadingWrapper>
+      <Grid container spacing={3} paddingTop={1}>
+        {/* <Grid item xs={12}></Grid> */}
+        {!downSM ? (
+          <Grid item xs={12} sm={3} md={3} sx={{ maxHeight: "100vh" }}>
+            {" "}
+            <SideLeftBar />
+          </Grid>
+        ) : (
+          ""
+        )}
 
-      <TabContext value={currentTab}>
-        <TabList onChange={handleTabChange} variant="scrollable" sx={{ mb: 1 }}>
-          {tabs.map(({ value, label, count }) => (
-            <Tab
-              key={value}
-              disableRipple
-              value={value}
-              label={<TabLabel title={t(label)} total={count} />}
-            />
-          ))}
-        </TabList>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={6}
+          sx={{
+            maxHeight: "100vh",
+            overflowX: "hidden",
+            overflowY: "scroll",
+            marginTop: 3,
+          }}
+          id="articles"
+        >
+          {" "}
+          <CreateExclusiveArticle
+            edit="Let make your NFT"
+            setArticles={(a: any) => {
+              setArticles(a);
+              navigate(
+                `/dashboards/${user.publicKey}/article/${a[0]?.slug}/medias/0`
+              ); // http://localhost:3000/dashboards/0x4e1d6a7f1ec3de0a8f88a90cafa78574679ac946/article/exlclusivecontent-15zmbk/medias/0
+            }}
+            articles={articles}
+            setArticlesCount={setArticlesCount}
+            open={addCustomer}
+            onClose={() => setAddCustomer(false)}
+          />
+        </Grid>
 
-        <>
-          {details?.nfts?.[1] || books ? (
-            <TableContainer component={Paper}>
-              <Table
-                size="small"
-                sx={{ minWidth: 650 }}
-                aria-label="simple table"
-              >
-                <TableHead>
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell width={500}>Collection</TableCell>
-                    <TableCell align="left">Volume Total</TableCell>
-                    <TableCell align="left">24h Volume</TableCell>
-                    <TableCell align="left">24% Volume</TableCell>
-                    <TableCell align="left">Sales</TableCell>
-                    <TableCell align="left">Floor Price</TableCell>
-                    <TableCell align="left">Owner</TableCell>
-                    <TableCell align="left">Total Supply</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {[...books].map((row: any, _: number) => {
-                    const randomPer = Number(
-                      (Math.random() * 130 + 1).toFixed(2)
-                    );
-                    return (
-                      <TableRow
-                        key={_}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell align="left">
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            py={2}
-                            spacing={2}
-                            style={{ width: "100%" }}
-                          >
-                            <Small> {_ + 1}</Small>
-                            <AppAvatar
-                              // src={`${row.metadata.image}`}
-                              src={`/static/nfts/books/book-${_ + 1}.png`}
-                              sx={{
-                                borderRadius: "50%",
-                                width: 52,
-                                height: 52,
-                              }}
-                            />{" "}
-                            <Small
-                              sx={{ cursor: "pointer" }}
-                              onClick={() => {
-                                navigate("/dashboards/marketplaces");
-                              }}
-                            >
-                              {" "}
-                              {row?.volumeInfo?.title?.slice(0, 15) +
-                                (row?.volumeInfo?.title.length > 15 ? "" : "")}
-                            </Small>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="left">
-                          <FlexBox alignItems="center">
-                            <Small fontWeight={800} fontSize={13}>
-                              {(Math.random() * 5 + 1).toFixed(2)}
-                            </Small>
-                            <AppAvatar
-                              // src={`${row.metadata.image}`}
-                              src={`/static/crypto/ETH.png`}
-                              sx={{
-                                borderRadius: "50%",
-                                width: 20,
-                                height: 20,
-                              }}
-                            />
-                          </FlexBox>
-                        </TableCell>
-                        <TableCell align="left">
-                          <FlexBox alignItems="center">
-                            <Small fontWeight={800} fontSize={13}>
-                              {(Math.random() * 5 + 1).toFixed(2)}
-                            </Small>
-                            <AppAvatar
-                              // src={`${row.metadata.image}`}
-                              src={`/static/crypto/ETH.png`}
-                              sx={{
-                                borderRadius: "50%",
-                                width: 20,
-                                height: 20,
-                              }}
-                            />
-                          </FlexBox>
-                        </TableCell>
-                        <TableCell align="left">
-                          {/* {row?.metadata?.name} */}
-                          <FlexBox alignItems="center">
-                            <FlexRowAlign
-                              sx={{
-                                width: 20,
-                                height: 20,
-                                borderRadius: "50%",
-                              }}
-                            >
-                              {Math.floor(randomPer) % 2 === 0 && (
-                                <ArrowUpward
-                                  sx={{
-                                    fontSize: 14,
-                                    fontWeight: 600,
-                                    color: theme.palette.success.main,
-                                  }}
-                                />
-                              )}
-                              {Math.floor(randomPer) % 2 === 1 && (
-                                <ArrowDownward
-                                  sx={{
-                                    fontSize: 14,
-                                    fontWeight: 600,
-                                    color: theme.palette.primary.red,
-                                  }}
-                                />
-                              )}
-                            </FlexRowAlign>
-                            <Small
-                              fontWeight={800}
-                              fontSize={15}
-                              color={
-                                Math.floor(randomPer) % 2 === 0
-                                  ? theme?.palette.success.main
-                                  : theme.palette.primary.red
-                              }
-                            >
-                              {Math.floor(randomPer) % 2 === 0}
-                              {randomPer}%
-                            </Small>
-                          </FlexBox>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Small fontWeight={800} fontSize={13}>
-                            {(Math.random() * 5 + 1).toFixed(2)}
-                          </Small>
-                        </TableCell>
-
-                        <TableCell align="left">
-                          <FlexBox alignItems="center">
-                            {" "}
-                            <Small fontWeight={800} fontSize={13}>
-                              {(Math.random() * 5 + 1).toFixed(2)}
-                            </Small>
-                            <AppAvatar
-                              // src={`${row.metadata.image}`}
-                              src={`/static/crypto/ETH.png`}
-                              sx={{
-                                borderRadius: "50%",
-                                width: 20,
-                                height: 20,
-                              }}
-                            />
-                          </FlexBox>
-                        </TableCell>
-
-                        <TableCell align="left">
-                          {usernameOptimize(wallet.publicKey || "")}
-                        </TableCell>
-                        <TableCell align="left">14N</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          ) : (
-            <div style={{ textAlign: "center", width: "100%" }}>
-              <H4
-                style={{
-                  textAlign: "center",
-                  color: theme.palette.primary.red,
-                }}
-              >
-                Abort: Collection don't have any NFTs now
-              </H4>
-            </div>
-          )}
-        </>
-      </TabContext>
+        {!downSM ? (
+          <Grid item xs={12} sm={3} md={3} sx={{ maxHeight: "100vh" }}>
+            {" "}
+            <SideRightBar />
+          </Grid>
+        ) : (
+          ""
+        )}
+      </Grid>
     </Box>
   );
 };

@@ -1,214 +1,187 @@
-import * as React from "react";
+import { useTheme } from "@emotion/react";
+import { Button, Skeleton } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import FlexBox from "components/flexbox/FlexBox";
-import FlexRowAlign from "components/flexbox/FlexRowAlign";
-import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
-import { useTheme } from "@mui/material";
-import { H3, H4, Small } from "components/Typography";
-import AppAvatar from "components/avatars/AppAvatar";
 import { Stack } from "@mui/system";
-import useGeneralWallet from "common/useGeneralWallet";
 import { getBooks } from "__fakeData__/books/books";
+import { CreatureAccessory } from "app/contracts";
+import useGeneralConnection from "common/useGeneralConnection";
+import useGeneralContract from "common/useGeneralContract";
+import useGeneralWallet from "common/useGeneralWallet";
+import { Small } from "components/Typography";
+import AppAvatar from "components/avatars/AppAvatar";
+import { Signer } from "ethers";
+import useCreateSale from "hooks/contracts/useCreateSale";
+import { INFTmetadata } from "interface/nftmetadata.interface";
+import { FC, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { usernameOptimize } from "utils/usernameOptimize";
+import { getNFTMetadata } from "utils/api/nftmetadata";
+import { getNFTsByAddress } from "utils/api/subgraph/creatureAccessorySubgraph";
+import convertTimestamp from "utils/timestampDecode";
 export default function WalletNFTsTable() {
-  const { details, publicKey } = useGeneralWallet((s) => s);
-  const theme = useTheme();
-  const [books, setBooks] = React.useState(getBooks(1));
-  const wallet = useGeneralWallet((s) => s);
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    setBooks(getBooks(20));
-  }, [setBooks]);
-  React.useEffect(() => {
-    // console.log(details?.nfts);
-  }, [details]);
+  const [books, setBooks] = useState(getBooks(1));
+  const { publicKey } = useGeneralWallet((s) => s);
+  const [saleLoading, setSaleLoading] = useState<Boolean>(true);
+
+  useEffect(() => {
+    getNFTsByAddress(publicKey || "").then((nfts) => {
+      console.log(nfts);
+      setBooks(nfts);
+      setSaleLoading(false);
+    });
+  }, [setBooks, publicKey]);
+
   return (
     <>
-      {details?.nfts?.[1] || books ? (
+      {!saleLoading ? (
         <TableContainer component={Paper}>
           <Table size="small" sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell width={500}>Collection</TableCell>
-                <TableCell align="left">Volume Total</TableCell>
-                <TableCell align="left">24h Volume</TableCell>
-                <TableCell align="left">24% Volume</TableCell>
-                <TableCell align="left">Sales</TableCell>
-                <TableCell align="left">Floor Price</TableCell>
-                <TableCell align="left">Owner</TableCell>
-                <TableCell align="left">Total Supply</TableCell>
+                <TableCell width={300}>Sale NFT</TableCell>
+                <TableCell align="left">NFT id</TableCell>
+                <TableCell align="left">Amount</TableCell>
+                <TableCell align="left">Sales time</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {[...books].map((row: any, _: number) => {
-                const randomPer = Number((Math.random() * 130 + 1).toFixed(2));
-                return (
-                  <TableRow
-                    key={_}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                    }}
-                  >
-                    <TableCell align="left">
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        py={2}
-                        spacing={2}
-                        style={{ width: "100%" }}
-                      >
-                        <Small> {_ + 1}</Small>
-                        <AppAvatar
-                          // src={`${row.metadata.image}`}
-                          src={`/static/nfts/books/book-${_ + 1}.png`}
-                          sx={{
-                            borderRadius: "50%",
-                            width: 52,
-                            height: 52,
-                          }}
-                        />{" "}
-                        <Small
-                          sx={{ cursor: "pointer" }}
-                          onClick={() => {
-                            navigate("/dashboards/book-reading/123");
-                          }}
-                        >
-                          {" "}
-                          {row?.volumeInfo?.title?.slice(0, 15) +
-                            (row?.volumeInfo?.title.length > 15 ? "" : "")}
-                        </Small>
-                      </Stack>
-                    </TableCell>
-                    <TableCell align="left">
-                      <FlexBox alignItems="center">
-                        <Small fontWeight={800} fontSize={13}>
-                          {(Math.random() * 5 + 1).toFixed(2)}
-                        </Small>
-                        <AppAvatar
-                          // src={`${row.metadata.image}`}
-                          src={`/static/crypto/ETH.png`}
-                          sx={{
-                            borderRadius: "50%",
-                            width: 20,
-                            height: 20,
-                          }}
-                        />
-                      </FlexBox>
-                    </TableCell>
-                    <TableCell align="left">
-                      <FlexBox alignItems="center">
-                        <Small fontWeight={800} fontSize={13}>
-                          {(Math.random() * 5 + 1).toFixed(2)}
-                        </Small>
-                        <AppAvatar
-                          // src={`${row.metadata.image}`}
-                          src={`/static/crypto/ETH.png`}
-                          sx={{
-                            borderRadius: "50%",
-                            width: 20,
-                            height: 20,
-                          }}
-                        />
-                      </FlexBox>
-                    </TableCell>
-                    <TableCell align="left">
-                      {/* {row?.metadata?.name} */}
-                      <FlexBox alignItems="center">
-                        <FlexRowAlign
-                          sx={{
-                            width: 20,
-                            height: 20,
-                            borderRadius: "50%",
-                          }}
-                        >
-                          {Math.floor(randomPer) % 2 === 0 && (
-                            <ArrowUpward
-                              sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: theme.palette.success.main,
-                              }}
-                            />
-                          )}
-                          {Math.floor(randomPer) % 2 === 1 && (
-                            <ArrowDownward
-                              sx={{
-                                fontSize: 14,
-                                fontWeight: 600,
-                                color: theme.palette.primary.red,
-                              }}
-                            />
-                          )}
-                        </FlexRowAlign>
-                        <Small
-                          fontWeight={800}
-                          fontSize={15}
-                          color={
-                            Math.floor(randomPer) % 2 === 0
-                              ? theme?.palette.success.main
-                              : theme.palette.primary.red
-                          }
-                        >
-                          {Math.floor(randomPer) % 2 === 0}
-                          {randomPer}%
-                        </Small>
-                      </FlexBox>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Small fontWeight={800} fontSize={13}>
-                        {(Math.random() * 5 + 1).toFixed(2)}
-                      </Small>
-                    </TableCell>
-
-                    <TableCell align="left">
-                      <FlexBox alignItems="center">
-                        {" "}
-                        <Small fontWeight={800} fontSize={13}>
-                          {(Math.random() * 5 + 1).toFixed(2)}
-                        </Small>
-                        <AppAvatar
-                          // src={`${row.metadata.image}`}
-                          src={`/static/crypto/ETH.png`}
-                          sx={{
-                            borderRadius: "50%",
-                            width: 20,
-                            height: 20,
-                          }}
-                        />
-                      </FlexBox>
-                    </TableCell>
-
-                    <TableCell align="left">
-                      {usernameOptimize(wallet.publicKey || "")}
-                    </TableCell>
-                    <TableCell align="left">14N</TableCell>
-                  </TableRow>
-                );
+              {books.map((row: any, _: number) => {
+                return <WalletNFTTableRow row={row} key={_} _={_} />;
               })}
             </TableBody>
           </Table>
         </TableContainer>
       ) : (
         <div style={{ textAlign: "center", width: "100%" }}>
-          <H4
-            style={{
-              textAlign: "center",
-              color: theme.palette.primary.red,
-            }}
-          >
-            Abort: Collection don't have any NFTs now
-          </H4>
+          {Array.from(Array(8).keys()).map((res, _) => {
+            return (
+              <Stack spacing={1} key={_}>
+                <Skeleton
+                  variant="text"
+                  sx={{ fontSize: "3rem", borderRadius: "10px" }}
+                />
+              </Stack>
+            );
+          })}
         </div>
       )}
     </>
   );
 }
+
+type WalletNFTTableProps = {
+  row: any;
+  _: number;
+};
+export const WalletNFTTableRow: FC<WalletNFTTableProps> = ({ row, _ }) => {
+  const randomPer = Number((Math.random() * 130 + 1).toFixed(2));
+  const navigate = useNavigate();
+  const wallet = useGeneralWallet((s) => s);
+  const { publicKey } = useGeneralWallet((s) => s);
+  const CreatureAccessory: CreatureAccessory = useGeneralContract(
+    (s) => s.CreatureAccessory
+  );
+  const theme = useTheme();
+  const createSale = useCreateSale();
+  const [onSaling, setOnSaling] = useState<boolean>(false);
+  const [nftmetadata, setNftmetadata] = useState<INFTmetadata>();
+  const [nftBalance, setNfTBalance] = useState<number>();
+  useEffect(() => {
+    Promise.all([
+      getNFTMetadata(row.CreatureAccessory_id),
+      CreatureAccessory.balanceOf(publicKey || "", row.CreatureAccessory_id),
+    ]).then((res) => {
+      setNftmetadata(res[0]);
+      setNfTBalance(Number(res[1]));
+    });
+  }, [row.nftID, publicKey, row.CreatureAccessory_id, CreatureAccessory]);
+  return (
+    <TableRow
+      sx={{
+        "&:last-child td, &:last-child th": { border: 0 },
+      }}
+    >
+      <TableCell align="left">
+        <Stack
+          direction="row"
+          alignItems="center"
+          py={2}
+          spacing={2}
+          // style={{ width: "100%" }}
+        >
+          {nftmetadata?.image ? (
+            <AppAvatar
+              src={nftmetadata?.image}
+              sx={{
+                borderRadius: "50%",
+                width: 70,
+                height: 70,
+              }}
+            />
+          ) : (
+            <Skeleton variant="circular" sx={{ width: 70, height: 70 }} />
+          )}
+          <Small
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate("/dashboards/marketplaces");
+            }}
+          >
+            {" "}
+            {nftmetadata?.name} | {nftmetadata?.description?.slice(0, 30)}
+          </Small>
+        </Stack>
+      </TableCell>
+      <TableCell align="left">
+        <Small fontWeight={800} fontSize={13}>
+          {row?.CreatureAccessory_id}
+        </Small>
+      </TableCell>
+      <TableCell align="left">
+        <Small fontWeight={800} fontSize={13}>
+          {nftBalance}
+        </Small>
+      </TableCell>
+      <TableCell align="left">
+        <Small fontWeight={800} fontSize={13}>
+          {convertTimestamp(row?.blockTimestamp)}
+        </Small>
+      </TableCell>
+      <TableCell align="left">
+        <Small fontWeight={800} fontSize={13}>
+          {row?.CreatureAccessory_id}
+        </Small>
+      </TableCell>
+      <TableCell align="left">
+        <Button
+          size="small"
+          sx={{
+            border: "1px solid",
+            color: "#27CE88",
+            fontWeight: "800",
+            fontSize: "14px",
+          }}
+          disabled={onSaling}
+          onClick={async () => {
+            if (row?.CreatureAccessory_id) {
+              setOnSaling(true);
+              await createSale(row?.CreatureAccessory_id);
+              setOnSaling(false);
+            } else toast.error("NFT don't exist in your wallet");
+          }}
+        >
+          Sale now
+        </Button>
+      </TableCell>
+    </TableRow>
+  );
+};

@@ -9,10 +9,6 @@ import CardItem from "page-sections/commision-analytics/InfoCardV1";
 import { FC } from "react";
 
 const CommisionAnalytics: FC = () => {
-
-
-
-  
   const theme = useTheme();
 
   const cardList = [

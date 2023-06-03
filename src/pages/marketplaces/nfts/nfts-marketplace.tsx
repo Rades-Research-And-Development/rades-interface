@@ -8,6 +8,7 @@ import { FC, useEffect, useState } from "react";
 // import LIST_BOOKS from '__fakeData__/books/books'
 // import { getBooks } from "utils/api/books-api";
 import { getBooks } from "__fakeData__/books/books";
+import { getSales } from "utils/api/subgraph/marketplaceSubgraph";
 
 // styled components
 const Marketplaces: FC = () => {
@@ -31,7 +32,16 @@ const Marketplaces: FC = () => {
       <Box marginTop={3}>
         <Grid container spacing={3}>
           <Grid item lg={12} sm={12} xs={12}>
-            <SearchInput disable_border placeholder="Find Products" />
+            <SearchInput
+              disable_border
+              placeholder="Find Products"
+              style={{
+                border: "1px solid",
+                color: "#27CE88",
+                fontWeight: "800",
+                fontSize: "14px",
+              }}
+            />
           </Grid>
 
           <Grid item lg={2} sm={2} xs={12}>

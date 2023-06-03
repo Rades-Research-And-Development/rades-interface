@@ -1,14 +1,16 @@
+import { Provider, Web3Provider } from "@ethersproject/providers";
+import { Signer, providers } from "ethers";
 import IChains from "interface/chains.interface";
-import Web3 from "web3";
-import web3 from "web3";
 import create from "zustand";
 export type IGeneralConnection = {
   chainRPC: IChains;
-  connection: Web3;
+  signer: Signer | {};
+  connection: Provider;
 };
 
 const useGeneralConnection = create<IGeneralConnection>(() => ({
   chainRPC: {} as IChains,
-  connection: new web3(),
+  connection: new providers.Web3Provider((window as any)?.ethereum),
+  signer: {},
 }));
 export default useGeneralConnection;

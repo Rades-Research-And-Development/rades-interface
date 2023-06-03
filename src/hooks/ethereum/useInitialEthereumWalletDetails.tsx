@@ -2,49 +2,57 @@
 import { useEffect } from "react";
 
 //State use for all wallet
+import { RadesMockCurrency } from "app/contracts";
 import useGeneralConnection from "common/useGeneralConnection";
+import useGeneralContract from "common/useGeneralContract";
 import useGeneralWallet from "common/useGeneralWallet";
-import { getUser, userOauthWallet } from "utils/api/users";
-import { getCookie, setCookie } from "utils/cookies/cookies";
-import useGeneralUtilsWallet from "common/useGeneralUtilsWallet";
-import { utilsCombineWallet } from "utils/contract";
+import { ethers } from "ethers";
+import { getUser } from "utils/api/users";
 // set Public Key When connection change
-import { Provider } from "ethers";
 export function useInitialEthereumWalletListener() {
+  const RadesMockCurrency: RadesMockCurrency = useGeneralContract(
+    (s) => s.RadesMockCurrency
+  );
   const generalConnection = useGeneralConnection((s) => s);
   useEffect(() => {
-    // if (
-    //   generalConnection.chainRPC.symbol !== "SOL" &&
-    //   generalConnection?.connection?.eth &&
-    //   getCookie("authentication_code")
-    // ) {
-    //   generalConnection.connection.eth
-    //     .getAccounts()
-    //     .then(async (res) => {
-    //       useGeneralUtilsWallet.setState(
-    //         utilsCombineWallet.utilsEthereumWallet
-    //       );
-    //       const walletInfor =
-    //         await utilsCombineWallet.utilsEthereumWallet.walletGetInfor(
-    //           generalConnection.connection,
-    //           res[0],
-    //           generalConnection.chainRPC
-    //         );
-    //       const userInfor = await getUser();
-    //       userInfor.token = "";
-    //       useGeneralWallet.setState({
-    //         ...userInfor.user,
-    //         chain: generalConnection.chainRPC.symbol,
-    //         details: {
-    //           tokens: walletInfor.tokens,
-    //           nfts: walletInfor.nfts,
-    //         },
-    //       });
-    //       // useGeneralWallet.setState({});
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
-  }, [generalConnection]);
+    if (generalConnection?.connection && generalConnection?.signer) {
+      const ___ = async () => {
+        const userInfor = await getUser();
+        const ethBalance = ethers.utils.formatEther(
+          await generalConnection.connection.getBalance(
+            userInfor.user.publicKey
+          )
+        );
+        const balance = await RadesMockCurrency.balanceOf(
+          userInfor.user.publicKey
+        );
+        const radesBalance = ethers.utils.formatUnits(balance, 18);
+
+        useGeneralWallet.setState({
+          ...userInfor.user,
+          chain: generalConnection.chainRPC.symbol,
+          details: {
+            tokens: [
+              {
+                address: "0x",
+                value: Number(ethBalance),
+                key:
+                  generalConnection.chainRPC.RPC?.[0].nativeCurrency?.symbol ||
+                  generalConnection.chainRPC.symbol,
+              },
+              {
+                address: RadesMockCurrency.address,
+                value: Number(radesBalance),
+                key: "RAD",
+              },
+            ],
+            nfts: [],
+          },
+        });
+      };
+      ___().catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [generalConnection, RadesMockCurrency]);
 }

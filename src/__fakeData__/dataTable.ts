@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import uniqueId from "utils/generateId";
+import { uniqueId } from "utils/generateId";
 import Mock from "./mock";
 
 export const tableData1 = [

@@ -40,7 +40,7 @@ const Wallet: FC = () => {
   const { connection, chainRPC } = useGeneralConnection((s) => s);
 
   const navigate = useNavigate();
-  const { walletAirDrop } = useGeneralUtilsWallet((s) => s);
+  // const { walletAirDrop } = useGeneralUtilsWallet((s) => s);
   // const walletDetailsNFTs = useWalletDetailsNFTs((s) => s.walletDetailsNFTs);
   // const walletDetailsToken = useWalletDetailsToken((s) => s.walletDetailsToken);
   // const [walletInfo, setWalletInfo] = useState<
@@ -106,7 +106,7 @@ const Wallet: FC = () => {
                   (token) =>
                     token.key === chainRPC.RPC?.[0].nativeCurrency?.symbol
                 )[0]
-                ?.value?.toFixed(2) +
+                ?.value?.toFixed?.(2) +
                 ` ${chainRPC.RPC?.[0].nativeCurrency?.symbol}`}
             </H3>
             <Button
@@ -140,20 +140,7 @@ const Wallet: FC = () => {
                   aria-label="delete"
                   color="inherit"
                   style={{ border: "2px solid black " }}
-                  onClick={async () => {
-                    toast?.promise(
-                      (walletAirDrop?.(connection, publicKey) as any)?.then(
-                        (res) => {
-                          toast.success(`Airdrop successfuly: ${publicKey}`);
-                          navigate(0);
-                        }
-                      ),
-                      {
-                        loading: "Airdrop in progress...",
-                        error: <b>Could not save.</b>,
-                      }
-                    );
-                  }}
+                  onClick={async () => {}}
                 >
                   <Air />
                 </IconButton>{" "}
@@ -165,24 +152,6 @@ const Wallet: FC = () => {
                   aria-label="delete"
                   color="inherit"
                   style={{ border: "2px solid black " }}
-                  // onClick={async () => {
-                  //   toast.promise(
-                  //     walletAirDrop(user?.wallet_address).then((res) => {
-                  //       walletGetSolBalance(user?.wallet_address).then(
-                  //         (res) => {
-                  //           toast.success(
-                  //             "Airdrop successfully to " + user?.wallet_address
-                  //           );
-                  //           navigate(0);
-                  //         }
-                  //       );
-                  //     }),
-                  //     {
-                  //       loading: "Airdrop in progress...",
-                  //       error: <b>Could not save.</b>,
-                  //     }
-                  //   );
-                  // }}
                 >
                   <GetAppOutlinedIcon />
                 </IconButton>{" "}
@@ -194,23 +163,6 @@ const Wallet: FC = () => {
                   aria-label="delete"
                   color="inherit"
                   style={{ border: "2px solid black " }}
-                  // onClick={async () => {
-                  //   toast.promise(
-                  //     await transactionToOwner(user?.wallet_address, 1).then(
-                  //       (res_) => {
-                  //         walletGetSolBalance(user?.wallet_address).then(
-                  //           (res) => {
-                  //             toast.success("Transfer successfully! - " + res_);
-                  //           }
-                  //         );
-                  //       }
-                  //     ),
-                  //     {
-                  //       loading: "Transaction in progress...",
-                  //       error: <b>Could not save.</b>,
-                  //     }
-                  //   );
-                  // }}
                 >
                   <CallMadeOutlinedIcon />
                 </IconButton>
@@ -223,11 +175,6 @@ const Wallet: FC = () => {
                     aria-label="delete"
                     color="inherit"
                     style={{ border: "2px solid black " }}
-                    // onClick={async () => {
-                    //   walletGetSolBalance(user?.wallet_address).then((res) => {
-                    //     toast.success("Balance:" + res + " SOL");
-                    //   });
-                    // }}
                   >
                     <SwapHorizOutlinedIcon />
                   </IconButton>
@@ -276,7 +223,7 @@ const Wallet: FC = () => {
                           sx={{ borderRadius: "50%" }}
                         />
                         <Box>
-                          <H6>{`${item?.value?.toFixed(2)} ${item.key}`}</H6>
+                          <H6>{`${item?.value?.toFixed?.(2)} ${item.key}`}</H6>
                         </Box>
                       </Stack>
                     );

@@ -20,6 +20,7 @@ import useModalPopup from "common/useModalPopups";
 import IChains from "interface/chains.interface";
 import { usernameOptimize } from "utils/usernameOptimize";
 import API from "utils/api/api";
+import { providers } from "ethers";
 
 // styled components
 // const StyledSmall = styled(Small)(({ theme }) => ({
@@ -56,7 +57,7 @@ const WalletCredential: FC = () => {
     if (generalConnection.chainRPC.symbol === "SOL") {
     } else {
       useGeneralConnection.setState({
-        connection: new Web3(),
+        connection: new providers.Web3Provider((window as any)?.ethereum),
         chainRPC: {} as IChains,
       });
       useGeneralWallet.setState({ publicKey: "", chain: "" });

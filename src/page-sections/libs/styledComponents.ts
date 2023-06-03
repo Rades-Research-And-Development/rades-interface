@@ -6,18 +6,18 @@ export const StyledTableBodyRow = styled(TableRow)<{
 }>(({ theme, selected_row }) =>
   selected_row === "select"
     ? {
-        backgroundColor: alpha(theme.palette.primary.light, 0.5),
-        position: "relative",
-        "&::after": {
-          top: 0,
-          left: 0,
-          width: "3px",
-          content: '""',
-          height: "100%",
-          position: "absolute",
-          backgroundColor: theme.palette.primary.main,
-        },
-      }
+      backgroundColor: alpha(theme.palette.primary.light, 0.5),
+      position: "relative",
+      "&::after": {
+        top: 0,
+        left: 0,
+        width: "3px",
+        content: '""',
+        height: "100%",
+        position: "absolute",
+        backgroundColor: theme.palette.primary.main,
+      },
+    }
     : {}
 );
 

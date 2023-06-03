@@ -77,6 +77,10 @@ const Documents: FC = () => {
               <SearchInput
                 placeholder="Search...."
                 sx={{
+                  border: "1px solid",
+                  color: "#27CE88",
+                  fontWeight: "800",
+                  fontSize: "14px",
                   maxWidth: 200,
                   [theme.breakpoints.down(500)]: { maxWidth: "100%" },
                 }}

@@ -9,14 +9,14 @@ import { useRoutes } from "react-router-dom";
 import routes from "routes";
 import { createCustomTheme } from "theme";
 import "./i18n";
-
+import "./editor.css";
 // import WalletContext from "contexts/walletContext";
 
 import { useInitialEthereumWalletListener } from "hooks/ethereum/useInitialEthereumWalletDetails";
 import useInitialEthereumConnectionListener from "hooks/ethereum/useInitialEthereumConnection";
 
-import useInitialGeneralConnectionListener from "hooks/general/useInitialGeneralConnection";
-import { useInitialGeneralWalletListener } from "hooks/general/useInitialGeneralWalletDetails";
+// import useInitialGeneralConnectionListener from "hooks/general/useInitialGeneralConnection";
+// import { useInitialGeneralWalletListener } from "hooks/general/useInitialGeneralWalletDetails";
 import { AxiosInterceptor } from "utils/api/api";
 const App: FC = () => {
   const content = useRoutes(routes());
@@ -47,11 +47,11 @@ const App: FC = () => {
 };
 
 function ApplicationsInitializations() {
-  useInitialEthereumWalletListener();
+  // useInitialEthereumWalletListener();
   useInitialEthereumConnectionListener();
 
-  useInitialGeneralConnectionListener();
-  useInitialGeneralWalletListener();
+  // useInitialGeneralConnectionListener();
+  // useInitialGeneralWalletListener();
 
   return null;
 }
